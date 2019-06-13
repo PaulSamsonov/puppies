@@ -1,0 +1,143 @@
+/**
+Theme Name: Puppies for Sale Today
+Author: Mason Portell
+Author URI: https://massdivision.com
+Description: Custom Wordpress theme built for Puppies for Sale Today by Mass Division LLC.
+Version: 1.0.1
+License: GNU General Public License v2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: puppies-for-sale-today
+Template: astra
+*/
+
+/* Checkout and WooCommerce
+li.payment_method_authorize_net_aim label {font-weight:bold;}*/
+.ast-woo-header-cart-info-wrap {display:none!important;}
+.site-header .ast-site-header-cart-data .button.wc-forward, .site-header .ast-site-header-cart-data .button.wc-forward:hover { color: #000!important;}
+small {display:none!important;}
+.woocommerce-shipping-destination {display:none!important;}
+
+/* Mega Menu Button Fix */
+.btn-padding div div a {padding:12px!important;}
+
+/* Woo Add to Cart Button Fix */
+.woocommerce div.product form.cart .button.single_add_to_cart_button {padding:20px 18px 20px 18px;}
+
+/* Forms CSS */
+.gform_wrapper form.gf_simple_horizontal div.gform_body ul.top_label li.gfield input.medium {width:95%!important;}
+form.gf_simple_horizontal label {display:none!important;}
+.rounded-img img {border-radius:20px;}
+
+
+/* Pet Details */
+
+.puppy-payment-section li {margin:0!important;}
+.puppy-payment-section ul {margin:0 0 0 26px!important;}
+.pd_buy_now_price, .pd_finance_now_price {color:#009ee2; font-weight:bold; font-size:20px;}
+mark.count {display:none!important;}
+.pup-page-related h2, .pup-page-related .ast-woo-product-category, .pup-page-related .woocommerce-loop-product__title, .pup-page-related .woocommerce-Price-amount  {display:none!important;}
+
+.pet-add-to-cart .ast-stock-detail {display:none!important;}
+.puppy-nomargin p {margin-bottom:0!important;}
+.pet-add-to-cart .quantity+.button {margin-left:0px!important;}
+.puppy-name-prehead p {margin-bottom:0!important;}
+
+/* Puppy Category Mobile Menu  */
+.category-mobile-menu .elementor-nav-menu--dropdown {overflow:visible!important;}
+.category-mobile-menu .elementor-menu-toggle.elementor-active+.elementor-nav-menu__container {max-height:100%!important;}
+
+/* Modal pop-up */
+.uael-effect-1 .uael-content {background:transparent!important;}
+.uael-content .uael-modal-content-data {padding:0px 0px 0px 0px!important;}
+
+/* Puppy Thumbnails */
+
+.pd_homepage_recent_holder{width:100%;}
+.pd_zero_down {position: absolute; margin-top: -24px; font-size: 10px;}
+.pd_homepage_recent_flag{
+    position:absolute;
+    right:0;
+    width:250px;
+    top:10px;
+    height: 80px;
+    text-align: left;
+    vertical-align: middle;
+	padding: 12px 0px 0px 100px;
+}
+
+.pd_homepage_recent_flag_Male{
+    background:url(https://puppiesforsaletoday.com/wp-content/uploads/2018/09/blue-ribbon.png) no-repeat right center;
+    color:white;
+    font-weight: bold;
+}
+.pd_homepage_recent_flag_Female{
+     background:url(https://puppiesforsaletoday.com/wp-content/uploads/2018/09/pink-ribbon.png) no-repeat right center;
+    color:white;
+    font-weight: bold;
+}
+
+.pd_price_header_dollar {font-family: "Lemon", Sans-serif;font-size:20px;letter-spacing:1px;}
+.pd_price_header_text {font-size:12px;}
+.pd_price_subheader {position: absolute; margin-top:-10px;font-size:12px;}
+
+.pd_homepage_recent_name{
+	font-family: "Lemon", Sans-serif;
+    /* position:absolute;
+    bottom:30px;
+    width:60%;
+    left:20%; */
+    height: 56px;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 1.8em;
+}
+
+.pd_homepage_recent_name_Male{
+    background-color: #4ab5e7 ;
+    color:white;
+    font-weight: bold;
+}
+.pd_homepage_recent_name_Female{
+    background-color: #f16f95 ;
+    color:white;
+    font-weight: bold;
+}
+
+.pd_homepage_recent_bottom{text-align: center;font-size:14px;}
+.woocommerce ul.products li.product a img {margin-bottom:0!important;}
+
+.pd_homepage_recent_image{
+    width:100%;
+}
+
+/* Cart CSS */
+
+.cart-addon-header p {margin-bottom:0;}
+
+/* Puppy Display Fix for Mobile */
+@media only screen and (max-width: 840px) {
+.elementor-element.elementor-wc-products.elementor-products-columns-3 ul.products {grid-template-columns: none!important;}
+.woocommerce ul.products li.product a img, .pd_homepage_recent_image {height:380px!important;}
+}
+
+/* Puppy Product CSS to Hide Unwanted Elements */
+.puppy-grid .ast-woo-product-category, .puppy-grid .button, .puppy-grid  .woocommerce-loop-product__title,.puppy-grid  .star-rating, .add_to_cart_button,.puppy-grid  .woocommerce-Price-amount  {display:none!important;}
+ .astra-shop-summary-wrap  {display:none!important;}
+a.pd_homepage_recent_name_link  {color:#FFF!important;}
+.ast-shop-product-out-of-stock {display:none!important;}
+
+/* Header CSS */
+.ast-above-header {z-index:200;line-height:2;}
+.elementor-menu-cart__container .elementor-menu-cart__main {z-index:300!important;}
+
+/* Mega Menu Remove Padding */
+.ast-desktop .ast-mega-menu-enabled .astra-megamenu-li:hover .astra-megamenu, .ast-desktop .ast-mm-custom-text-content, .ast-desktop .ast-mm-template-content {padding:0;}
+
+/* Header Search & Cart Icon 
+li.ast-masthead-custom-menu-items {padding: 0; width:200px;}*/
+.elementor-1600 .elementor-element.elementor-element-bb05ac1{margin-top:0px;margin-bottom:0px;padding:6px 0px 6px 0px;}.elementor-1600 .elementor-element.elementor-element-55da2b5 .elementor-search-form__container{min-height:40px;}.elementor-1600 .elementor-element.elementor-element-55da2b5 .elementor-search-form__submit{min-width:40px;}body:not(.rtl) .elementor-1600 .elementor-element.elementor-element-55da2b5 .elementor-search-form__icon{padding-left:calc(40px / 3);}body.rtl .elementor-1600 .elementor-element.elementor-element-55da2b5 .elementor-search-form__icon{padding-right:calc(40px / 3);}.elementor-1600 .elementor-element.elementor-element-55da2b5 .elementor-search-form__input, .elementor-1600 .elementor-element.elementor-element-55da2b5.elementor-search-form--button-type-text .elementor-search-form__submit{padding-left:calc(40px / 3);padding-right:calc(40px / 3);}.elementor-1600 .elementor-element.elementor-element-55da2b5:not(.elementor-search-form--skin-full_screen) .elementor-search-form__container{background-color:rgba(0,158,226,0.06);border-radius:8px;}.elementor-1600 .elementor-element.elementor-element-55da2b5.elementor-search-form--skin-full_screen input[type="search"].elementor-search-form__input{background-color:rgba(0,158,226,0.06);border-radius:8px;}.elementor-1600 .elementor-element.elementor-element-dce97a7 .elementor-menu-cart__toggle{text-align:center;}.elementor-1600 .elementor-element.elementor-element-dce97a7 .elementor-menu-cart__toggle .elementor-button{color:#32355d;border-width:0px;padding:10px 10px 10px 10px;}.elementor-1600 .elementor-element.elementor-element-dce97a7 .elementor-menu-cart__toggle .elementor-button-icon{color:#284c78;font-size:32px;}body:not(.rtl) .elementor-1600 .elementor-element.elementor-element-dce97a7 .elementor-menu-cart__toggle .elementor-button-text{margin-right:0px;}body.rtl .elementor-1600 .elementor-element.elementor-element-dce97a7 .elementor-menu-cart__toggle .elementor-button-text{margin-left:0px;}.elementor-1600 .elementor-element.elementor-element-dce97a7 .elementor-menu-cart__toggle .elementor-button-icon[data-counter]:before{right:-0.5em;top:-0.5em;}@media(max-width:1024px){.elementor-1600 .elementor-element.elementor-element-bb05ac1{padding:40px 20px 40px 20px;}.elementor-1600 .elementor-element.elementor-element-55da2b5 > .elementor-widget-container{margin:0px 0px 0px 190px;}}@media(max-width:767px){.elementor-1600 .elementor-element.elementor-element-bb05ac1{margin-top:0px;margin-bottom:0px;padding:10px 20px 0px 20px;}.elementor-1600 .elementor-element.elementor-element-e7bc9ae{width:80%;}.elementor-1600 .elementor-element.elementor-element-e7bc9ae > .elementor-element-populated{margin:20px 0px 20px 0px;}.elementor-1600 .elementor-element.elementor-element-55da2b5 > .elementor-widget-container{margin:0px 0px 0px 0px;}.elementor-1600 .elementor-element.elementor-element-6e67800{width:20%;}.elementor-1600 .elementor-element.elementor-element-6e67800 > .elementor-element-populated{margin:0px 0px 0px 0px;}}@media(min-width:768px){.elementor-1600 .elementor-element.elementor-element-e7bc9ae{width:80%;}.elementor-1600 .elementor-element.elementor-element-6e67800{width:20%;}}@media(max-width:1024px) and (min-width:768px){.elementor-1600 .elementor-element.elementor-element-e7bc9ae{width:60%;}.elementor-1600 .elementor-element.elementor-element-6e67800{width:10%;}}
+
+.elementor-1600 .elementor-element.elementor-element-bb05ac1{margin-top:0px;margin-bottom:0px;padding:6px 0px 6px 0px;}.elementor-1600 .elementor-element.elementor-element-55da2b5 .elementor-search-form__container{min-height:40px;}.elementor-1600 .elementor-element.elementor-element-55da2b5 .elementor-search-form__submit{min-width:40px;}body:not(.rtl) .elementor-1600 .elementor-element.elementor-element-55da2b5 .elementor-search-form__icon{padding-left:calc(40px / 3);}body.rtl .elementor-1600 .elementor-element.elementor-element-55da2b5 .elementor-search-form__icon{padding-right:calc(40px / 3);}.elementor-1600 .elementor-element.elementor-element-55da2b5 .elementor-search-form__input, .elementor-1600 .elementor-element.elementor-element-55da2b5.elementor-search-form--button-type-text .elementor-search-form__submit{padding-left:calc(40px / 3);padding-right:calc(40px / 3);}.elementor-1600 .elementor-element.elementor-element-55da2b5:not(.elementor-search-form--skin-full_screen) .elementor-search-form__container{background-color:rgba(0,158,226,0.06);border-radius:8px;}.elementor-1600 .elementor-element.elementor-element-55da2b5.elementor-search-form--skin-full_screen input[type="search"].elementor-search-form__input{background-color:rgba(0,158,226,0.06);border-radius:8px;}.elementor-1600 .elementor-element.elementor-element-dce97a7 .elementor-menu-cart__toggle{text-align:center;}.elementor-1600 .elementor-element.elementor-element-dce97a7 .elementor-menu-cart__toggle .elementor-button{color:#32355d;border-width:0px;padding:10px 10px 10px 10px;}.elementor-1600 .elementor-element.elementor-element-dce97a7 .elementor-menu-cart__toggle .elementor-button-icon{color:#284c78;font-size:32px;}body:not(.rtl) .elementor-1600 .elementor-element.elementor-element-dce97a7 .elementor-menu-cart__toggle .elementor-button-text{margin-right:0px;}body.rtl .elementor-1600 .elementor-element.elementor-element-dce97a7 .elementor-menu-cart__toggle .elementor-button-text{margin-left:0px;}.elementor-1600 .elementor-element.elementor-element-dce97a7 .elementor-menu-cart__toggle .elementor-button-icon[data-counter]:before{right:-0.5em;top:-0.5em;}@media(max-width:1024px){.elementor-1600 .elementor-element.elementor-element-bb05ac1{padding:40px 20px 40px 20px;}.elementor-1600 .elementor-element.elementor-element-55da2b5 > .elementor-widget-container{margin:0px 0px 0px 190px;}}@media(max-width:767px){.elementor-1600 .elementor-element.elementor-element-bb05ac1{margin-top:0px;margin-bottom:0px;padding:10px 20px 0px 20px;}.elementor-1600 .elementor-element.elementor-element-e7bc9ae{width:80%;}.elementor-1600 .elementor-element.elementor-element-e7bc9ae > .elementor-element-populated{margin:20px 0px 20px 0px;}.elementor-1600 .elementor-element.elementor-element-55da2b5 > .elementor-widget-container{margin:0px 0px 0px 0px;}.elementor-1600 .elementor-element.elementor-element-6e67800{width:20%;}.elementor-1600 .elementor-element.elementor-element-6e67800 > .elementor-element-populated{margin:0px 0px 0px 0px;}}@media(min-width:768px){.elementor-1600 .elementor-element.elementor-element-e7bc9ae{width:80%;}.elementor-1600 .elementor-element.elementor-element-6e67800{width:20%;}}@media(max-width:1024px) and (min-width:768px){.elementor-1600 .elementor-element.elementor-element-e7bc9ae{width:60%;}.elementor-1600 .elementor-element.elementor-element-6e67800{width:10%;}}
+
+/* Header Widget CSS */
+.elementor-1604 .elementor-element.elementor-element-9751ba4 .elementor-icon-list-items:not(.elementor-inline-items) .elementor-icon-list-item:not(:last-child){padding-bottom:calc(28px/2);}.elementor-1604 .elementor-element.elementor-element-9751ba4 .elementor-icon-list-items:not(.elementor-inline-items) .elementor-icon-list-item:not(:first-child){margin-top:calc(28px/2);}.elementor-1604 .elementor-element.elementor-element-9751ba4 .elementor-icon-list-items.elementor-inline-items .elementor-icon-list-item{margin-right:calc(28px/2);margin-left:calc(28px/2);}.elementor-1604 .elementor-element.elementor-element-9751ba4 .elementor-icon-list-items.elementor-inline-items{margin-right:calc(-28px/2);margin-left:calc(-28px/2);}body.rtl .elementor-1604 .elementor-element.elementor-element-9751ba4 .elementor-icon-list-items.elementor-inline-items .elementor-icon-list-item:after{left:calc(-28px/2);}body:not(.rtl) .elementor-1604 .elementor-element.elementor-element-9751ba4 .elementor-icon-list-items.elementor-inline-items .elementor-icon-list-item:after{right:calc(-28px/2);}.elementor-1604 .elementor-element.elementor-element-9751ba4 .elementor-icon-list-icon i{color:#93d7e2;font-size:14px;}.elementor-1604 .elementor-element.elementor-element-9751ba4 .elementor-icon-list-icon{width:14px;}.elementor-1604 .elementor-element.elementor-element-9751ba4 .elementor-icon-list-text{color:#ffffff;padding-left:13px;}.elementor-1604 .elementor-element.elementor-element-9751ba4 .elementor-icon-list-item{font-size:12px;}@media(max-width:767px){.elementor-1604 .elementor-element.elementor-element-9751ba4 .elementor-icon-list-items:not(.elementor-inline-items) .elementor-icon-list-item:not(:last-child){padding-bottom:calc(20px/2);}.elementor-1604 .elementor-element.elementor-element-9751ba4 .elementor-icon-list-items:not(.elementor-inline-items) .elementor-icon-list-item:not(:first-child){margin-top:calc(20px/2);}.elementor-1604 .elementor-element.elementor-element-9751ba4 .elementor-icon-list-items.elementor-inline-items .elementor-icon-list-item{margin-right:calc(20px/2);margin-left:calc(20px/2);}.elementor-1604 .elementor-element.elementor-element-9751ba4 .elementor-icon-list-items.elementor-inline-items{margin-right:calc(-20px/2);margin-left:calc(-20px/2);}body.rtl .elementor-1604 .elementor-element.elementor-element-9751ba4 .elementor-icon-list-items.elementor-inline-items .elementor-icon-list-item:after{left:calc(-20px/2);}body:not(.rtl) .elementor-1604 .elementor-element.elementor-element-9751ba4 .elementor-icon-list-items.elementor-inline-items .elementor-icon-list-item:after{right:calc(-20px/2);}.elementor-1604 .elementor-element.elementor-element-9751ba4 .elementor-icon-list-item{line-height:1.9em;}.elementor-1604 .elementor-element.elementor-element-1551505 > .elementor-element-populated{margin:0px 0px 0px 0px;}}@media(max-width:1024px) and (min-width:768px){.elementor-1604 .elementor-element.elementor-element-b26e8c1{width:70%;}.elementor-1604 .elementor-element.elementor-element-1551505{width:30%;}}
