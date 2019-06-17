@@ -9,6 +9,7 @@ Author URI: https://tinyscreenlabs.com
 License: Puppies Direct
 */
 
+define( 'BREEDS_CATEGORY_ID', 230 );
 
 require_once 'includes/admin-settings.php';
 require_once 'includes/puppies-direct-cron.php';
@@ -23,6 +24,10 @@ class tsl_puppies_direct_main
 
     public static function init()
     {
+        /*if(!defined('BREEDS_CATEGORY_ID')) {
+          echo 'Plugin "' . basename(__DIR__) . '": BREEDS_CATEGORY_ID is not defined';
+          exit;
+        }*/
         $class = __CLASS__;
         new $class;
     }

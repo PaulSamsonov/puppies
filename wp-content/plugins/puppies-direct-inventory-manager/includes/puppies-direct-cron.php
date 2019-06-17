@@ -62,7 +62,7 @@ class tsl_puppies_direct_cron
         }
 
         $this->delete_trash();
-
+        //echo '<pre>'; print_r($all_pet_data);
         $this->update_pet_inventory( $all_pet_data );
         $this->remove_pet_inventory( $all_pet_data );
         $this->update_pricing();
@@ -153,10 +153,22 @@ class tsl_puppies_direct_cron
         }
     }
 
-    public function update_pet_inventory( $all_pet_data )
+    public function update_pet_inventory( $all_pet_data, $is_cron = true )
     {
 
         if (!function_exists('wc_get_product_id_by_sku')) return;
+        /*echo '<pre>';
+        print_r($all_pet_data);
+        echo '</pre>';*/
+        //exit;
+
+        if($is_cron) {
+          $status = 'publish';
+          $pdm_pet_product = 'pet';
+        } else {
+          $status = 'pending';
+          $pdm_pet_product = 'breeder';
+        }
 
         foreach ($all_pet_data as $pet) {
 
@@ -186,7 +198,7 @@ class tsl_puppies_direct_cron
                 $post = array(
                     'post_author' > 1,
                     'post_content' => $Description,
-                    'post_status' => "publish",
+                    'post_status' => $status,
                     'post_title' => $pet['PetName'],
                     'post_parent' => '',
                     'post_type' => "product",
@@ -207,7 +219,7 @@ class tsl_puppies_direct_cron
                 if($pet->ID) {
                     $pet_post = array(
                         'ID' => $pet->ID,
-                        'post_status' => 'publish'
+                        'post_status' => $status
                     );
 
                     wp_update_post($pet_post);
@@ -215,7 +227,7 @@ class tsl_puppies_direct_cron
                 }
             }
 
-            update_post_meta($product_id, '_pdm_pet_product', 'pet' );
+            update_post_meta($product_id, '_pdm_pet_product', $pdm_pet_product);
 
             $pet_breed = $pet['BreedName'];
             $pet_categories = $this->pd_woo_manage_category(array('Pets', $pet_breed ));
@@ -280,12 +292,16 @@ class tsl_puppies_direct_cron
 
             wp_set_object_terms($product_id, $tags, 'product_tag');
 
+            // Set vendor
+            if(isset($pet['VendorId'])) wp_set_object_terms( $product_id, $pet['VendorId'], WC_PRODUCT_VENDORS_TAXONOMY );
+
         }
     }
 
     function pd_woo_manage_category($required_categories){
 
-        $parent_term_id = 230; //68;
+        //$parent_term_id = 230; //68;
+        $parent_term_id = BREEDS_CATEGORY_ID;
 
         $pet_categories = [];
         $category = [];

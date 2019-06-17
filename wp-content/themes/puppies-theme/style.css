@@ -141,3 +141,131 @@ li.ast-masthead-custom-menu-items {padding: 0; width:200px;}*/
 
 /* Header Widget CSS */
 .elementor-1604 .elementor-element.elementor-element-9751ba4 .elementor-icon-list-items:not(.elementor-inline-items) .elementor-icon-list-item:not(:last-child){padding-bottom:calc(28px/2);}.elementor-1604 .elementor-element.elementor-element-9751ba4 .elementor-icon-list-items:not(.elementor-inline-items) .elementor-icon-list-item:not(:first-child){margin-top:calc(28px/2);}.elementor-1604 .elementor-element.elementor-element-9751ba4 .elementor-icon-list-items.elementor-inline-items .elementor-icon-list-item{margin-right:calc(28px/2);margin-left:calc(28px/2);}.elementor-1604 .elementor-element.elementor-element-9751ba4 .elementor-icon-list-items.elementor-inline-items{margin-right:calc(-28px/2);margin-left:calc(-28px/2);}body.rtl .elementor-1604 .elementor-element.elementor-element-9751ba4 .elementor-icon-list-items.elementor-inline-items .elementor-icon-list-item:after{left:calc(-28px/2);}body:not(.rtl) .elementor-1604 .elementor-element.elementor-element-9751ba4 .elementor-icon-list-items.elementor-inline-items .elementor-icon-list-item:after{right:calc(-28px/2);}.elementor-1604 .elementor-element.elementor-element-9751ba4 .elementor-icon-list-icon i{color:#93d7e2;font-size:14px;}.elementor-1604 .elementor-element.elementor-element-9751ba4 .elementor-icon-list-icon{width:14px;}.elementor-1604 .elementor-element.elementor-element-9751ba4 .elementor-icon-list-text{color:#ffffff;padding-left:13px;}.elementor-1604 .elementor-element.elementor-element-9751ba4 .elementor-icon-list-item{font-size:12px;}@media(max-width:767px){.elementor-1604 .elementor-element.elementor-element-9751ba4 .elementor-icon-list-items:not(.elementor-inline-items) .elementor-icon-list-item:not(:last-child){padding-bottom:calc(20px/2);}.elementor-1604 .elementor-element.elementor-element-9751ba4 .elementor-icon-list-items:not(.elementor-inline-items) .elementor-icon-list-item:not(:first-child){margin-top:calc(20px/2);}.elementor-1604 .elementor-element.elementor-element-9751ba4 .elementor-icon-list-items.elementor-inline-items .elementor-icon-list-item{margin-right:calc(20px/2);margin-left:calc(20px/2);}.elementor-1604 .elementor-element.elementor-element-9751ba4 .elementor-icon-list-items.elementor-inline-items{margin-right:calc(-20px/2);margin-left:calc(-20px/2);}body.rtl .elementor-1604 .elementor-element.elementor-element-9751ba4 .elementor-icon-list-items.elementor-inline-items .elementor-icon-list-item:after{left:calc(-20px/2);}body:not(.rtl) .elementor-1604 .elementor-element.elementor-element-9751ba4 .elementor-icon-list-items.elementor-inline-items .elementor-icon-list-item:after{right:calc(-20px/2);}.elementor-1604 .elementor-element.elementor-element-9751ba4 .elementor-icon-list-item{line-height:1.9em;}.elementor-1604 .elementor-element.elementor-element-1551505 > .elementor-element-populated{margin:0px 0px 0px 0px;}}@media(max-width:1024px) and (min-width:768px){.elementor-1604 .elementor-element.elementor-element-b26e8c1{width:70%;}.elementor-1604 .elementor-element.elementor-element-1551505{width:30%;}}
+
+/* Breeder Dashboard */
+.button-register {
+    background: #fff;
+    border: 2px solid #009ee2;
+    color: #009ee2;
+    padding: 12px 40px;
+}
+.page-template-breeder-dashboard #content .ast-container {
+    display: flex;
+}
+.page-template-breeder-dashboard #primary,
+.page-template-breeder-dashboard #secondary {
+}
+.page-template-breeder-dashboard #primary {
+    width: 75%;
+    margin: 0;
+    padding: 20px 0;
+}
+.page-template-breeder-dashboard #secondary {
+    width: 25%;
+    margin: 0;
+    padding-right: 30px;
+}
+.page-template-breeder-dashboard #secondary .sidebar-main {
+    height: 100%;
+    background: #f2f2f2;
+    padding: 20px;
+}
+.page-template-breeder-dashboard #secondary .navigation .border {
+    border-bottom: 1px dotted;
+    margin: 10px 0;
+    font-weight: 700;
+}
+.page-template-breeder-dashboard #secondary .navigation ul {
+    list-style: none;
+    margin: 0;
+    text-transform: uppercase;
+}
+.page-template-breeder-dashboard #secondary .navigation ul ul {
+    margin-left: 20px;
+}
+.page-template-breeder-dashboard #secondary .navigation ul a {
+    color: #808285;
+}
+.page-template-breeder-dashboard #secondary .navigation ul .active a {
+    color: #009ee2;
+}
+.page-template-breeder-dashboard h1 {
+    margin: 0 0 30px;
+}
+.page-template-breeder-dashboard a.tile div {
+    color: #009ee2;
+    font-size: 40px;
+    line-height: 1;
+    text-align: center;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    padding: 27px 0;
+    background-color: #f2f2f2;
+}
+.page-template-breeder-dashboard a.tile div span {
+    display: block;
+    margin-top: 10px;
+    font-size: 47%;
+    color: #808285;
+}
+.page-template-breeder-dashboard h2.th {
+    margin: 30px 0 10px;
+}
+.page-template-breeder-dashboard .row {
+    overflow: hidden;
+}
+.page-template-breeder-dashboard .col {
+    width: 100%;
+    float: left;
+    padding-right: 15px;
+}
+.page-template-breeder-dashboard .col-50 {
+    width: 50%;
+}
+.page-template-breeder-dashboard .col-20 {
+    width: 20%;
+}
+.page-template-breeder-dashboard label {
+    display: inline-block;
+    margin-bottom: 5px;
+    font-weight: 700;
+}
+.page-template-breeder-dashboard .form-control {
+    display: block;
+    width: 100%;
+    height: 34px;
+    padding: 6px 12px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    -webkit-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+}
+.page-template-breeder-dashboard textarea.form-control {
+    height: auto;
+}
+.page-template-breeder-dashboard .datepicker {
+    width: 100%;
+    height: 34px;
+}
+.page-template-breeder-dashboard .form-group {
+    margin-bottom: 15px;
+}
+.page-template-breeder-dashboard .ui-datepicker {
+    z-index: 9999 !important;
+}
+.page-template-breeder-dashboard .col-submit {
+    margin-top: 20px;
+    text-align: center;
+}
+.page-template-breeder-dashboard .radio-inline,
+.page-template-breeder-dashboard .checkbox-inline {
+    display: inline-block;
+    /*padding-left: 20px;*/
+    margin-bottom: 0;
+    vertical-align: middle;
+    font-weight: 400;
+    cursor: pointer;
+}
