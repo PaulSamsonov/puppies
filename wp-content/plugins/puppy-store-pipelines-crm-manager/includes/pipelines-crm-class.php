@@ -159,12 +159,12 @@ class tsl_pd_pipelines_crm_manager
         $result = $this->tsl_pipelines_crm_curl_wrap('POST' , 'deals' , false, $deal_json );
         $deal = json_decode($result, True);
 
-        $this->deal_id = $deal['id'];
+        $this->deal_id = $deal['data']['id'];
         $this->deals_array = $deal;
 
         if($note ){
 
-            $this->add_note( $deal["id"] , $note );
+            $this->add_note( $this->deal_id , $note );
 
         }
 
@@ -333,7 +333,11 @@ class tsl_pd_pipelines_crm_manager
         }
 
         curl_close($ch);
-        if($this->debug_mode)  print_r(json_decode($output));
+        if($this->debug_mode)  {
+					echo '<br> - - - <br>' . $pipelines_url;
+					echo '<pre>'; print_r($data); echo '</pre>';
+					echo '<pre>'; print_r(json_decode($output)); echo '</pre>';
+				}
         return $output;
     }
 }

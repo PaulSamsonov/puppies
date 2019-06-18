@@ -13,7 +13,6 @@ include_once 'includes/tsl-puppy-store-pipelines-crm-settings.php';
 include_once 'includes/pipelines-crm-class.php';
 include_once 'includes/gravity-form-manager.php';
 
-
 add_action( 'plugins_loaded', array( 'tsl_puppies_store_pipelines_crm_main', 'init' ));
 
 class tsl_puppies_store_pipelines_crm_main
@@ -83,7 +82,8 @@ class tsl_puppies_store_pipelines_crm_main
             $first_name = $this->get_first_name_value( $slug );
             $last_name = $this->get_last_name_value( $slug );
             $phone = $this->get_phone_value( $slug );
-            $message = $this->get_comments_value( $slug );
+            $message['comments'] = $this->get_comments_value( $slug );
+            $message['ok_to_text'] = $this->get_ok_to_text_value( $slug );
 
             $puppy_id = get_post_meta( $postid , '_pdm_pet_ref_no' , true );
             $puppy_name = get_post_meta( $postid , 'pdm_pet_name' , true );
@@ -286,7 +286,9 @@ class tsl_puppies_store_pipelines_crm_main
             $email_html .= '<tr><td>Name:</td><td>'.$full_name.'</td></tr>';
             $email_html .= '<tr><td>Email:</td><td>'.$this->format_email_link( $email , $subject , $body ) .'</td></tr>';
             if($phone) $email_html .= '<tr><td>Phone:</td><td>'.$phone.'</td></tr>';
-            $email_html .= '<tr><td>Message:</td><td>'.$message.'</td></tr>';
+            //$email_html .= '<tr><td>Message:</td><td>'.$message.'</td></tr>';
+            $email_html .= '<tr><td>How may we help you?:</td><td>'.$message['comments'].'</td></tr>';
+            $email_html .= '<tr><td>Is it okay to text you about this puppy?:</td><td>'.$message['ok_to_text'].'</td></tr>';
             if($puppy_name) $email_html .= '<tr><td>Puppy Name:</td><td>'.$puppy_name.'</td></tr>';
             if($puppy_id) $email_html .= '<tr><td>Puppy ID:</td><td>'.$puppy_id.'</td></tr>';
             if($puppy_link) $email_html .= '<tr><td>Puppy:</td><td><a clicktracking=off href="'.$puppy_link.'">Puppy Info</a></td></tr>';
@@ -304,7 +306,9 @@ class tsl_puppies_store_pipelines_crm_main
             $email_html .= '<tr><td>Name:</td><td>'.$full_name.'</td></tr>';
             $email_html .= '<tr><td>Email:</td><td>'.$this->format_email_link( $email , $subject , $body ) .'</td></tr>';
             if($phone) $email_html .= '<tr><td>Phone:</td><td>'.$phone.'</td></tr>';
-            $email_html .= '<tr><td>Message:</td><td>'.$message.'</td></tr>';
+            //$email_html .= '<tr><td>Message:</td><td>'.$message.'</td></tr>';
+            $email_html .= '<tr><td>How may we help you?:</td><td>'.$message['comments'].'</td></tr>';
+            $email_html .= '<tr><td>Is it okay to text you about this puppy?:</td><td>'.$message['ok_to_text'].'</td></tr>';
 //            $email_html .= '<tr><td colspan="2"><a clicktracking=off href="https://'.$domain_prefix.'.pipelinescrm.com/#task/'.$task_info['id'].'">Link to Task on pipelinesCRM</a></td></tr>';
             if($puppy_name) $email_html .= '<tr><td>Puppy Name:</td><td>'.$puppy_name.'</td></tr>';
             if($puppy_id) $email_html .= '<tr><td>Puppy ID:</td><td>'.$puppy_id.'</td></tr>';
@@ -493,7 +497,7 @@ class tsl_puppies_store_pipelines_crm_main
     function get_ok_to_text_value( $form_slug ){
 
         $field_slug = 'ok-to-text';
-        return $this->get_value( $form_slug , $field_slug );
+        return $this->get_value( $form_slug , $field_slug, '_1' );
 
     }
 
@@ -524,12 +528,17 @@ class tsl_puppies_store_pipelines_crm_main
 
     }
 
-    function get_value( $form_slug, $field_slug ){
+    function get_value( $form_slug, $field_slug, $suf = '' ){
 
         $form_id = get_option('tsl-ps-form-'.$form_slug.'-form');
         $field_id = get_option('tsl-ps-form-'.$form_id.'-'.$field_slug.'-form-field');
-
-        return $_REQUEST['input_' . $field_id ];
+        /*if($field_slug == 'ok-to-text') {
+          echo $form_id;
+          echo '<br>';
+          echo $field_id;
+          echo '<pre>';print_r($_REQUEST);echo '</pre>';
+        }*/
+        return $_REQUEST['input_' . $field_id . $suf ];
 
     }
 
