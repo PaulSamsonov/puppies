@@ -1,0 +1,115 @@
+.tsl-bold{
+    font-weight: bold;
+}
+.tsl-admin-settings-holder{
+    margin:1em;
+    max-width: 75em;
+}
+.tsl-admin-headline{
+    font-size: 2em;
+    font-weight: bold;
+    margin-top:1em;
+    margin-bottom:1em;
+}
+.tsl-admin-subheading{
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-bottom:1em;
+}
+.tsl-admin-pref-table{
+    width:100%;
+    margin-left:2em;
+}
+.tsl-admin-pref-table-heading{
+    font-size: 1.2em;
+    font-weight: bold;
+}
+.tsl-admin-pref-table-category{
+    font-weight: bold;
+}
+.tsl-admin-pref-table-submit-button{
+    text-align:right;
+}
+.tsl-admin-settings-seperator{
+    margin-top:1em;
+    margin-bottom:1em;
+}
+.column-mam-gf-id{
+    width:5em;
+}
+.mam-for-gf-form-field-special-handling{
+    margin-top:.5em;
+}
+.mam-green-text{
+    color:green;
+}
+.mam-display-none{
+    display:none;
+}
+.tsl-indent-2em{
+    margin-left:2em;
+}
+/* The switch - the box around the slider */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+.switch-holder {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+/* Hide default HTML checkbox */
+.switch input {display:none;}
+
+/* The slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: limegreen;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px limegreen;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
