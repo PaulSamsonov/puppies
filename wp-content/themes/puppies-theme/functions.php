@@ -43,6 +43,9 @@ add_filter ('woocommerce_add_to_cart_redirect', 'redirect_to_checkout');
     return $checkout_url;
 }
 
+//
+add_image_size( 'dashboard-view', 258, 258, false );
+
 // breeder_menu_item
 add_filter( 'wp_nav_menu_items', 'breeder_menu_item', 10, 2 );
 function breeder_menu_item ( $items, $args ) {
@@ -50,20 +53,6 @@ function breeder_menu_item ( $items, $args ) {
     $items = '<li><a href="' . get_home_url(null, '/breeder-dashboard') . '" class="menu-link "><span class="menu-text">Dashboard</span></a></li>' . $items;
   }
   return $items;
-}
-
-// breeder_dashboard_rewrites
-add_action( 'init', 'breeder_dashboard_rewrites' );
-function breeder_dashboard_rewrites(){
-  //add_rewrite_rule( '^breeder-dashboard/parents/?$', 'index.php?pagename=breeder-dashboard&path=parents', 'top' );
-  //add_rewrite_rule( '^breeder-dashboard/parents/new/?$', 'index.php?pagename=breeder-dashboard&path=parents-new', 'top' );
-  add_rewrite_rule( '^breeder-dashboard/([^/]*)/?$', 'index.php?pagename=breeder-dashboard&path=$matches[1]', 'top' );
-  add_rewrite_rule( '^breeder-dashboard/parents/([^/]*)/?$', 'index.php?pagename=breeder-dashboard&path=parents-$matches[1]', 'top' );
-  //add_rewrite_tag( '%part1%', '([^&]+)' );
-  add_filter( 'query_vars', function( $vars ) {
-    $vars[] = 'path';
-    return $vars;
-  } );
 }
 
 // Show hidden custom fields

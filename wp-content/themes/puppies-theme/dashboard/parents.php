@@ -2,56 +2,69 @@
 <?php
     $args = array(
       'post_type'   => 'product',
-      'post_status' => 'published',
+      'post_status' => array('publish', 'pending'),
       'author'    => get_current_user_id(),
-      'posts_per_page' => -1,
+      //'orderby'   => 'ID ',
+      'posts_per_page' => -1
     );
 
     $products = new WP_Query( $args );
     while ( $products->have_posts() ) : $products->the_post();
 ?>
 <div class="card">
-    <a href="/breeders/parents/edit/43370">
+    <a href="<?php echo get_home_url(null, '/breeder-dashboard/parents/edit/'.$post->ID); ?>">
         <div class="thumb">
-            <img src="">
+            <div class="img">
+                <?php the_post_thumbnail('dashboard-view'); ?>
+            </div>
             <div class="title"><?php the_title(); ?></div>
         </div>
     </a>
     <div class="ad-info wide-col">
         <table>
-            <tbody><tr>
+            <tbody>
+            <tr>
                 <td>Breed:</td>
-                <td><span><?php echo get_post_meta( $post->ID, '_pdm_pet_breed', true ); ?></span></td>
+                <td><?php echo get_post_meta( $post->ID, '_pdm_pet_breed', true ); ?></td>
             </tr>
             <tr>
                 <td>Sex:</td>
-                <td><span><?php echo get_post_meta( $post->ID, '_pdm_pet_gender', true ); ?></span></td>
+                <td><?php echo get_post_meta( $post->ID, '_pdm_pet_gender', true ); ?></td>
             </tr>
             <tr>
                 <td>Weight:</td>
-                <td><span><?php echo get_post_meta( $post->ID, '_pdm_pet_wight', true ); ?></span></td>
+                <td><?php echo get_post_meta( $post->ID, '_pdm_pet_wight', true ); ?></td>
             </tr>
             <tr>
                 <td>OFA Certified:</td>
-                <td><span></span></td>
+                <td><?php echo get_post_meta( $post->ID, 'pdm_pet_ofa_certified', true ); ?></td>
             </tr>
             <tr>
                 <td>Registry:</td>
-                <td><span><?php echo get_post_meta( $post->ID, '_pdm_pet_registry', true ); ?></span></td>
+                <td><?php echo get_post_meta( $post->ID, '_pdm_pet_registry', true ); ?></td>
             </tr>
             <tr>
                 <td>Birthdate:</td>
-                <td><span><?php echo get_post_meta( $post->ID, '_pdm_pet_dob', true ); ?></span></td>
+                <td><?php echo get_post_meta( $post->ID, '_pdm_pet_dob', true ); ?></td>
             </tr>
-            </tbody></table>
+            </tbody>
+        </table>
     </div>
     <div class="actions">
-        <a href="/breeders/parents/edit/43370" class="control btn-edit">Edit Parent Details</a><br> <div class="left">
-            <a href="/breeders/parents/images/43370" class="control btn-photos"><span class="icon photos"></span><span class="ps-only">Add</span> Photos</a>
-        </div>
+        <a href="<?php echo get_home_url(null, '/breeder-dashboard/parents/edit/'.$post->ID); ?>" class="btn-edit">Edit Details</a><br>
         <div class="right">
-            <a href="javascript:void(0)" onclick="retireConfirmation(this);" data-retireurl="/breeders/parents/retire/43370" class="control btn-retire"><span class="icon retire"></span>Retire</a>
+            <a href="" onclick="retireConfirmation(event, this);" data-retireurl="<?php echo get_home_url(null, '/breeder-dashboard/parents/delete/'.$post->ID); ?>" class="btn-retire">Retire</a>
         </div>
     </div>
 </div>
 <?php endwhile; wp_reset_query(); ?>
+
+<div class="modal-popup" id="popup-retire">
+    <div class="modal-popup-content">
+        <h5 class="modal-popup-title">Are you sure?</h5>
+        <div class="modal-popup-footer">
+            <a href="" class="retire">Yes</a>
+            <a href="" class="close">No</a>
+        </div>
+    </div>
+</div>

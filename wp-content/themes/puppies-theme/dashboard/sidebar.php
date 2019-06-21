@@ -7,11 +7,11 @@
         </div>
       </div>
       <ul>
-        <li<?php echo ($path == '') ? ' class="active"' : ''; ?>><a href="<?php echo get_home_url(null, '/breeder-dashboard'); ?>">Dashboard</a></li>
+        <li<?php echo (!isset($vars['type'])) ? ' class="active"' : ''; ?>><a href="<?php echo get_home_url(null, '/breeder-dashboard'); ?>">Dashboard</a></li>
         <li><div class="border">Parents</div>
           <ul>
-            <li<?php echo ($path == 'parents-new') ? ' class="active"' : ''; ?>><a href="<?php echo get_home_url(null, '/breeder-dashboard/parents/new'); ?>">Add New</a></li>
-            <li<?php echo ($path == 'parents') ? ' class="active"' : ''; ?>><a href="<?php echo get_home_url(null, '/breeder-dashboard/parents'); ?>">View</a></li>
+            <li<?php echo ( $vars['type'] == 'parents' && $vars['action'] == 'new' ) ? ' class="active"' : ''; ?>><a href="<?php echo get_home_url(null, '/breeder-dashboard/parents/new'); ?>">Add New</a></li>
+            <li<?php echo ( $vars['type'] == 'parents' && (!$vars['action'] || $vars['action'] == 'edit') ) ? ' class="active"' : ''; ?>><a href="<?php echo get_home_url(null, '/breeder-dashboard/parents'); ?>">View</a></li>
           </ul>
         </li>
         <li><div class="border">Puppies</div>

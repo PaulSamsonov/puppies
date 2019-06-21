@@ -172,37 +172,49 @@ class tsl_puppies_direct_cron
 
         foreach ($all_pet_data as $pet) {
 
-            if( empty($pet['PetId']) ){
+            if($is_cron) {
+              if (empty($pet['PetId'])) {
                 $this->json_reponse[] = 'Skipped: ' . $pet['PetName'];
                 continue;
-            }
+              }
 
-            $product_id = wc_get_product_id_by_sku($pet['PetId']);
+              $product_id = wc_get_product_id_by_sku($pet['PetId']);
+            } else {
+              if($pet['action'] == 'new') {
+                $product_id = false;
+              } else {
+                $product_id = $pet['product_id'];
+              }
+            }
 
             if( empty( $pet['PetName'] )) {
                 $pet['PetName'] = $this->randomPetName( $pet['Gender'] );
+                if( empty( $pet['PetName'] )) {
+                  $pet['PetName'] = $pet['BreedName'];
+                }
             }
-            if( empty( $pet['PetName'] )) {
-                $pet['PetName'] = $pet['BreedName'];
+
+            if(empty($pet['Description'])){
+              $Description = ' ';
+            }else{
+              $Description = $pet['Description'];
             }
 
             if (!$product_id) {
                 //insert into WooCommerce
 
-                if(empty($pet['Description'])){
-                    $Description = ' ';
-                }else{
-                    $Description = $pet['Description'];
-                }
-
                 $post = array(
-                    'post_author' > 1,
+                    //'post_author' > 1,
                     'post_content' => $Description,
                     'post_status' => $status,
                     'post_title' => $pet['PetName'],
                     'post_parent' => '',
                     'post_type' => "product",
                 );
+
+                if($is_cron) {
+                  $post['post_author'] = 1;
+                }
 
                 $product_id = wp_insert_post($post);
 
@@ -216,15 +228,18 @@ class tsl_puppies_direct_cron
                 update_post_meta( $product_id, 'out_of_stock_by_pet_key', 'no' );
 
             }else{
-                if($pet->ID) {
+                //if($pet->ID) {
                     $pet_post = array(
-                        'ID' => $pet->ID,
-                        'post_status' => $status
+                        //'ID' => $pet->ID,
+                        'ID' => $product_id,
+                        //'post_status' => $status,
+                        'post_title' => $pet['PetName'],
+                        'post_content' => $Description
                     );
 
                     wp_update_post($pet_post);
 
-                }
+                //}
             }
 
             update_post_meta($product_id, '_pdm_pet_product', $pdm_pet_product);
@@ -273,7 +288,7 @@ class tsl_puppies_direct_cron
             if(isset($pet['VideoUrl'])) update_post_meta($product_id, '_pdm_pet_video_url', $pet['VideoUrl']);
             if(isset($pet['Microchip'])) update_post_meta($product_id, '_pdm_pet_microchip_number', $pet['Microchip']);
             update_post_meta($product_id, '_pdm_pet_id', $pet['PetId'] );
-            update_post_meta($product_id, '_pdm_pet_api_key', $pet['apikey'] );
+            if($is_cron) update_post_meta($product_id, '_pdm_pet_api_key', $pet['apikey'] );
             update_post_meta($product_id, '_sold_individually', 1 );
 
 
@@ -292,8 +307,24 @@ class tsl_puppies_direct_cron
 
             wp_set_object_terms($product_id, $tags, 'product_tag');
 
+            // New fields
+            if(isset($pet['ofa_certified'])) update_post_meta($product_id, 'pdm_pet_ofa_certified', $pet['ofa_certified']);
+            if(isset($pet['champion'])) update_post_meta($product_id, 'pdm_pet_champion', $pet['champion']);
+            if(isset($pet['has_been_shown'])) update_post_meta($product_id, 'pdm_pet_has_been_shown', $pet['has_been_shown']);
+
+            if(!$is_cron && isset($pet['RegistryName'])) {
+              update_post_meta( $product_id, '_pdm_pet_registry', $pet['RegistryName']);
+              //if (isset($pet['RegistryName'])) update_post_meta( $pet->ID, 'pdm_pet_registry', $pet['RegistryName']);
+            }
+
             // Set vendor
             if(isset($pet['VendorId'])) wp_set_object_terms( $product_id, $pet['VendorId'], WC_PRODUCT_VENDORS_TAXONOMY );
+
+            // add images
+            if(!$is_cron && $_FILES['Photo']) {
+              $images[] = $this->download_image_to_wp_media_library( $_FILES['Photo']['tmp_name'], $product_id, $_FILES['Photo']['name'], false );
+              $this->setImages($images, $product_id);
+            }
 
         }
     }
@@ -493,11 +524,7 @@ class tsl_puppies_direct_cron
                         }
 
 
-                        if(sizeof($images) > 0){
-                            $images = array_unique($images);
-                            set_post_thumbnail( $pet->ID, $images[0] );
-                            update_post_meta( $pet->ID, '_product_image_gallery', implode(',', $images) );
-                        }
+                        $this->setImages($images, $pet->ID);
 
                         if(isset($data['Breed']['Description'])) {
 
@@ -638,7 +665,7 @@ class tsl_puppies_direct_cron
         }
     }
 
-    function download_image_to_wp_media_library( $url, $post_id , $image_name ){
+    function download_image_to_wp_media_library( $url, $post_id, $image_name, $is_cron = true ){
 
         $image_id = str_replace(' ','_',$image_name );
 
@@ -652,7 +679,12 @@ class tsl_puppies_direct_cron
             require_once(ABSPATH . "wp-admin" . '/includes/media.php');
         }
 
-        $tmp = download_url( $url );
+        if($is_cron) {
+          $tmp = download_url( $url );
+        } else {
+          $tmp = $url;
+        }
+
         if( is_wp_error( $tmp ) ){
         // download failed, handle error
         }
@@ -662,8 +694,12 @@ class tsl_puppies_direct_cron
 
         // Set variables for storage
         // fix file filename for query strings
-        preg_match('/[^?]+.(jpg|jpe|jpeg|gif|png)/i', $url, $matches);
-        $file_array['name'] = basename($matches[0]);
+        if($is_cron) {
+          preg_match('/[^?]+.(jpg|jpe|jpeg|gif|png)/i', $url, $matches);
+          $file_array['name'] = basename($matches[0]);
+        } else {
+          $file_array['name'] = $image_id;
+        }
         $file_array['tmp_name'] = $tmp;
 
         // If error storing temporarily, unlink
@@ -686,6 +722,14 @@ class tsl_puppies_direct_cron
             return $attachment_id;
 
         }
+    }
+
+    function setImages($images, $product_id) {
+      if(sizeof($images) > 0){
+        $images = array_unique($images);
+        set_post_thumbnail( $product_id, $images[0] );
+        update_post_meta( $product_id, '_product_image_gallery', implode(',', $images) );
+      }
     }
 
 }

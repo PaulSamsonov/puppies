@@ -8,20 +8,14 @@ get_header(); ?>
 <?php if ( is_user_logged_in() ) { ?>
   
     <?php
-        $path = get_query_var('path');
+        $vars = get_query_var('dashboard_variables');
         include('dashboard/sidebar.php');
     ?>
 
     <div id="primary" <?php astra_primary_class(); ?>>
         <?php
-          //print_r($wp_query->query);
-          if($path) {
-            include('dashboard/' . $path . '.php');
-          } else {
-            include('dashboard/main.php');
-          }
-          wp_enqueue_script('jquery-ui-datepicker');
-          wp_enqueue_style( 'jquery-ui-css', '//ajax.googleapis.com/ajax/libs/jqueryui/1.8.21/themes/base/jquery-ui.css' );
+            //print_r($wp_query->query);
+            include($vars['template']);
         ?>
     </div>
 
