@@ -18,7 +18,8 @@ define( 'CHILD_THEME_PUPPIES_FOR_SALE_TODAY_VERSION', '1.0.1' );
  */
 function child_enqueue_styles() {
 
-	wp_enqueue_style( 'puppies-for-sale-today-theme-css', get_stylesheet_directory_uri() . '/style.css', array('astra-theme-css'), CHILD_THEME_PUPPIES_FOR_SALE_TODAY_VERSION, 'all' );
+	//wp_enqueue_style( 'puppies-for-sale-today-theme-css', get_stylesheet_directory_uri() . '/style.css', array('astra-theme-css'), CHILD_THEME_PUPPIES_FOR_SALE_TODAY_VERSION );
+  wp_enqueue_style( 'puppies-for-sale-today-theme-css', get_stylesheet_directory_uri() . '/style.css', array('astra-theme-css'), time() );
   wp_enqueue_script( 'puppies-js', get_stylesheet_directory_uri() . '/js/main.js', array('jquery'), '', true );
 
 }

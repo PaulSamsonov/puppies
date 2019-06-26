@@ -15,6 +15,11 @@ get_header(); ?>
     <div id="primary" <?php astra_primary_class(); ?>>
         <?php
             //print_r($wp_query->query);
+            if($_COOKIE['puppies_info']) {
+                echo '<div class="infobox">' . stripslashes($_COOKIE['puppies_info']) . '</div>';
+                unset($_COOKIE['puppies_info']);
+                setcookie('puppies_info', null, -1, '/');
+            }
             include($vars['template']);
         ?>
     </div>

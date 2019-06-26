@@ -152,9 +152,6 @@ li.ast-masthead-custom-menu-items {padding: 0; width:200px;}*/
 .page-template-breeder-dashboard #content .ast-container {
     display: flex;
 }
-.page-template-breeder-dashboard #primary,
-.page-template-breeder-dashboard #secondary {
-}
 .page-template-breeder-dashboard #primary {
     width: 75%;
     margin: 0;
@@ -164,6 +161,16 @@ li.ast-masthead-custom-menu-items {padding: 0; width:200px;}*/
     width: 25%;
     margin: 0;
     padding-right: 30px;
+}
+.page-template-breeder-dashboard ul {
+    list-style: none;
+    margin: 0;
+}
+.page-template-breeder-dashboard .infobox {
+    background-color: #009ee2;
+    margin: 0 0 10px;
+    padding: 15px;
+    color: #fff;
 }
 .page-template-breeder-dashboard #secondary .sidebar-main {
     height: 100%;
@@ -176,8 +183,6 @@ li.ast-masthead-custom-menu-items {padding: 0; width:200px;}*/
     font-weight: 700;
 }
 .page-template-breeder-dashboard #secondary .navigation ul {
-    list-style: none;
-    margin: 0;
     text-transform: uppercase;
 }
 .page-template-breeder-dashboard #secondary .navigation ul ul {
@@ -211,8 +216,10 @@ li.ast-masthead-custom-menu-items {padding: 0; width:200px;}*/
 .page-template-breeder-dashboard h2.th {
     margin: 30px 0 10px;
 }
-.page-template-breeder-dashboard .row {
-    overflow: hidden;
+.page-template-breeder-dashboard .row:after {
+    content: "";
+    clear: both;
+    display: table;
 }
 .page-template-breeder-dashboard .col {
     width: 100%;
@@ -230,11 +237,15 @@ li.ast-masthead-custom-menu-items {padding: 0; width:200px;}*/
     margin-bottom: 5px;
     font-weight: 700;
 }
+.page-template-breeder-dashboard .form-group {
+    margin-bottom: 15px;
+    position: relative;
+}
 .page-template-breeder-dashboard .form-control {
     display: block;
     width: 100%;
     height: 34px;
-    padding: 6px 12px;
+    padding: 5px 12px;
     background-color: #fff;
     border: 1px solid #ccc;
     border-radius: 4px;
@@ -250,9 +261,6 @@ li.ast-masthead-custom-menu-items {padding: 0; width:200px;}*/
     width: 100%;
     height: 34px;
 }
-.page-template-breeder-dashboard .form-group {
-    margin-bottom: 15px;
-}
 .page-template-breeder-dashboard .ui-datepicker {
     z-index: 9999 !important;
 }
@@ -263,19 +271,61 @@ li.ast-masthead-custom-menu-items {padding: 0; width:200px;}*/
 .page-template-breeder-dashboard .radio-inline,
 .page-template-breeder-dashboard .checkbox-inline {
     display: inline-block;
-    /*padding-left: 20px;*/
+    padding-left: 20px;
     margin-bottom: 0;
     vertical-align: middle;
     font-weight: 400;
     cursor: pointer;
+    font-size: 12px;
+    line-height: 25px;
+    text-indent: 5px;
+}
+.page-template-breeder-dashboard .radio input[type="radio"],
+.page-template-breeder-dashboard .radio-inline input[type="radio"],
+.page-template-breeder-dashboard .checkbox input[type="checkbox"],
+.page-template-breeder-dashboard .checkbox-inline input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    float: left;
+    margin-left: -20px;
+}
+.page-template-breeder-dashboard .radio-inline+.radio-inline,
+.page-template-breeder-dashboard .checkbox-inline+.checkbox-inline {
+    margin-top: 0;
+    margin-left: 10px;
+}
+.page-template-breeder-dashboard .form-group p.label-info,
+.page-template-breeder-dashboard .form-group p.field-info {
+    font-size: 10px;
+    line-height: 1.2;
+}
+.page-template-breeder-dashboard .form-group p.field-info {
+    margin: 5px auto 0;
+}
+.page-template-breeder-dashboard .hidden-fields:not(.display-field) {
+    display: none;
+}
+.page-template-breeder-dashboard .puppyNames {
+    font-size: 12px;
+}
+.page-template-breeder-dashboard .agreement span {
+    font-weight: normal;
 }
 /* views/manage */
+.page-template-breeder-dashboard .cards {
+    display: flex;
+    flex-wrap: wrap;
+}
 .page-template-breeder-dashboard .card {
     width: 270px;
     border: 1px solid #d8d8d8;
     padding: 5px;
-    float: left;
     margin: 0 5px 15px;
+}
+.page-template-breeder-dashboard .card .card-content {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
 }
 .page-template-breeder-dashboard .card .thumb .img {
     width: 258px;
@@ -313,6 +363,9 @@ li.ast-masthead-custom-menu-items {padding: 0; width:200px;}*/
 .page-template-breeder-dashboard .card .ad-info td:last-child {
     color: #8daab4;
 }
+.page-template-breeder-dashboard .card .card-content .actions {
+    margin-top: auto;
+}
 .page-template-breeder-dashboard .card .actions .right {
     width: 100%;
 }
@@ -333,27 +386,81 @@ li.ast-masthead-custom-menu-items {padding: 0; width:200px;}*/
 .page-template-breeder-dashboard .card .btn-retire {
     background: #fd0;
 }
+.page-template-breeder-dashboard .card .btn-delete {
+    background: #ff0000;
+}
 /* Popup */
 .modal-popup {
     display: none;
-    align-items: center;
-    justify-content: space-around;
+    /*align-items: center;
+    justify-content: space-around;*/
     width: 100%;
     height: 100%;
     position: fixed;
     top: 0;
+    bottom: 0;
     left: 0;
+    right: 0;
     background-color: rgba(0,0,0,.8);
     overflow: auto;
     z-index: 99999;
 }
 .modal-popup-content {
     width: 500px;
-    padding: 15px;
-    text-align: center;
+    min-width: 320px;
+    margin: 30px auto;
+    padding: 20px;
+    overflow: hidden;
     background: #fff;
+    position: relative;
 }
-#popup-retire .modal-popup-footer a {
-    display: inline-block;
-    margin: 5px 15px;
+.modal-popup-content a.close {
+    position: absolute;
+    top: 0;
+    right: 5px;
+    font-size: 40px;
+    line-height: 1;
+    outline: none;
+    z-index: 99999;
+}
+#popup-retire .modal-popup-content {
+    text-align: center;
+}
+#popup-retire .modal-popup-footer button {
+    margin: 15px;
+}
+#popup-puppynames .modal-popup-content {
+    width: 900px;
+}
+/* Tooltip */
+.tooltip-content {
+    display: none;
+    position: absolute;
+    right: -260px;
+    top: 0;
+    background: #009ee2;
+    width: 240px;
+    padding: 15px;
+    font-size: 13px;
+}
+.tooltip-content strong {
+    display: block;
+    margin: 0 auto 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #333;
+    font-size: 15px;
+}
+.tooltip-content .close {
+    position: absolute;
+    top: 0;
+    right: 5px;
+    color: #32355d;
+    font-size: 30px;
+    line-height: 1;
+}
+/* Responsive */
+@media (max-width: 1900px) {
+    .page-template-breeder-dashboard form {
+        width: calc(100% - 335px);
+    }
 }

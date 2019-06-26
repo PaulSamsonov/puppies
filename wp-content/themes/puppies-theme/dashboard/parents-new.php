@@ -1,6 +1,8 @@
 <?php
 $data = $vars['data'];
-//print_r($vars);
+/*echo '<pre>';
+print_r($vars);
+echo '</pre>';*/
 ?>
 <h1><?php echo ($vars['action'] == 'edit') ? 'Edit' : 'Create'; ?> Parent</h1>
 <form enctype="multipart/form-data" action="" accept-charset="utf-8" method="post">
@@ -28,7 +30,7 @@ $data = $vars['data'];
             <div class="form-group">
                 <label for="form_birthdate">Birthdate*</label>
                 <div class="input-group date">
-                    <input required readonly class="datepicker" name="BirthDate" type="text" id="form_birthdate" value="<?php echo $data['BirthDate']; ?>"><span class="input-group-addon"><span class="glyphicon-calendar glyphicon"></span></span>
+                    <input required autocomplete="off" class="datepicker" name="BirthDate" type="text" id="form_birthdate" value="<?php echo $data['BirthDate']; ?>"><span class="input-group-addon"><span class="glyphicon-calendar glyphicon"></span></span>
                 </div>
             </div>
         </div>
@@ -36,8 +38,8 @@ $data = $vars['data'];
     <div class="row">
         <div class="col col-50">
             <div class="form-group">
-                <label for="form_breed_id">Breed*</label>
-                <select class="form-control breed-dropdown-select" required name="BreedName">
+                <label>Breed*</label>
+                <select class="form-control" required name="BreedName">
                     <option></option>
                     <?php
                       $categories = get_categories(array(
@@ -196,288 +198,287 @@ $data = $vars['data'];
             <div class="form-group">
                 <label>Color*</label>
                 <select required class="form-control" name="Coloring">
-                    <option value="6"<?php if($data['Coloring'] == '6') echo ' selected'; ?>>Agouti &amp; White</option>
-                    <option value="108"<?php if($data['Coloring'] == '108') echo ' selected'; ?>>Apricot</option>
-                    <option value="229"<?php if($data['Coloring'] == '229') echo ' selected'; ?>>Apricot &amp; White</option>
-                    <option value="195"<?php if($data['Coloring'] == '195') echo ' selected'; ?>>Apricot Fawn</option>
-                    <option value="175"<?php if($data['Coloring'] == '175') echo ' selected'; ?>>Beaver</option>
-                    <option value="181"<?php if($data['Coloring'] == '181') echo ' selected'; ?>>Beaver Sable</option>
-                    <option value="1"<?php if($data['Coloring'] == '1') echo ' selected'; ?>>Beige</option>
-                    <option value="35"<?php if($data['Coloring'] == '35') echo ' selected'; ?>>Bi</option>
-                    <option value="144"<?php if($data['Coloring'] == '144') echo ' selected'; ?>>Bi-Color</option>
-                    <option value="2"<?php if($data['Coloring'] == '2') echo ' selected'; ?>>Black</option>
-                    <option value="186"<?php if($data['Coloring'] == '186') echo ' selected'; ?>>Black &amp; Apricot</option>
-                    <option value="182"<?php if($data['Coloring'] == '182') echo ' selected'; ?>>Black &amp; Brindle</option>
-                    <option value="187"<?php if($data['Coloring'] == '187') echo ' selected'; ?>>Black &amp; Brown</option>
-                    <option value="124"<?php if($data['Coloring'] == '124') echo ' selected'; ?>>Black &amp; Cream</option>
-                    <option value="81"<?php if($data['Coloring'] == '81') echo ' selected'; ?>>Black &amp; Fawn</option>
-                    <option value="219"<?php if($data['Coloring'] == '219') echo ' selected'; ?>>Black &amp; Gold</option>
-                    <option value="188"<?php if($data['Coloring'] == '188') echo ' selected'; ?>>Black &amp; Gray</option>
-                    <option value="197"<?php if($data['Coloring'] == '197') echo ' selected'; ?>>Black &amp; Mahogany</option>
-                    <option value="95"<?php if($data['Coloring'] == '95') echo ' selected'; ?>>Black &amp; Red</option>
-                    <option value="130"<?php if($data['Coloring'] == '130') echo ' selected'; ?>>Black &amp; Rust</option>
-                    <option value="3"<?php if($data['Coloring'] == '3') echo ' selected'; ?>>Black &amp; Silver</option>
-                    <option value="159"<?php if($data['Coloring'] == '159') echo ' selected'; ?>>Black &amp; Silver Brindle</option>
-                    <option value="4"<?php if($data['Coloring'] == '4') echo ' selected'; ?>>Black &amp; Tan</option>
-                    <option value="160"<?php if($data['Coloring'] == '160') echo ' selected'; ?>>Black &amp; Tan Brindle</option>
-                    <option value="242"<?php if($data['Coloring'] == '242') echo ' selected'; ?>>Black &amp; Tan Merle</option>
-                    <option value="7"<?php if($data['Coloring'] == '7') echo ' selected'; ?>>Black &amp; White</option>
-                    <option value="240"<?php if($data['Coloring'] == '240') echo ' selected'; ?>>Black and White Piebald</option>
-                    <option value="16"<?php if($data['Coloring'] == '16') echo ' selected'; ?>>Black Brindle</option>
-                    <option value="239"<?php if($data['Coloring'] == '239') echo ' selected'; ?>>Black Brindle &amp; White</option>
-                    <option value="96"<?php if($data['Coloring'] == '96') echo ' selected'; ?>>Black Sabled Fawn</option>
-                    <option value="97"<?php if($data['Coloring'] == '97') echo ' selected'; ?>>Black Sabled Silver</option>
-                    <option value="64"<?php if($data['Coloring'] == '64') echo ' selected'; ?>>Black, Brindle &amp; White</option>
-                    <option value="82"<?php if($data['Coloring'] == '82') echo ' selected'; ?>>Black, Fawn &amp; White</option>
-                    <option value="203"<?php if($data['Coloring'] == '203') echo ' selected'; ?>>Black, Gold &amp; Silver</option>
-                    <option value="204"<?php if($data['Coloring'] == '204') echo ' selected'; ?>>Black, Gold &amp; White</option>
-                    <option value="207"<?php if($data['Coloring'] == '207') echo ' selected'; ?>>Black, Gray &amp; White</option>
-                    <option value="43"<?php if($data['Coloring'] == '43') echo ' selected'; ?>>Black, Red &amp; White</option>
-                    <option value="230"<?php if($data['Coloring'] == '230') echo ' selected'; ?>>Black, Silver &amp; Tan</option>
-                    <option value="44"<?php if($data['Coloring'] == '44') echo ' selected'; ?>>Black, Tan &amp; Bluetick</option>
-                    <option value="46"<?php if($data['Coloring'] == '46') echo ' selected'; ?>>Black, Tan &amp; Redtick</option>
-                    <option value="39"<?php if($data['Coloring'] == '39') echo ' selected'; ?>>Black, Tan &amp; White</option>
-                    <option value="205"<?php if($data['Coloring'] == '205') echo ' selected'; ?>>Black, White &amp; Silver</option>
-                    <option value="90"<?php if($data['Coloring'] == '90') echo ' selected'; ?>>Black, White &amp; Tan</option>
-                    <option value="91"<?php if($data['Coloring'] == '91') echo ' selected'; ?>>Blenheim</option>
-                    <option value="17"<?php if($data['Coloring'] == '17') echo ' selected'; ?>>Blue</option>
-                    <option value="125"<?php if($data['Coloring'] == '125') echo ' selected'; ?>>Blue &amp; Cream</option>
-                    <option value="220"<?php if($data['Coloring'] == '220') echo ' selected'; ?>>Blue &amp; Gold</option>
-                    <option value="131"<?php if($data['Coloring'] == '131') echo ' selected'; ?>>Blue &amp; Rust</option>
-                    <option value="93"<?php if($data['Coloring'] == '93') echo ' selected'; ?>>Blue &amp; Tan</option>
-                    <option value="8"<?php if($data['Coloring'] == '8') echo ' selected'; ?>>Blue &amp; White</option>
-                    <option value="222"<?php if($data['Coloring'] == '222') echo ' selected'; ?>>Blue &amp; White Pied</option>
-                    <option value="18"<?php if($data['Coloring'] == '18') echo ' selected'; ?>>Blue Brindle</option>
-                    <option value="98"<?php if($data['Coloring'] == '98') echo ' selected'; ?>>Blue Brindled Fawn</option>
-                    <option value="19"<?php if($data['Coloring'] == '19') echo ' selected'; ?>>Blue Fawn</option>
-                    <option value="227"<?php if($data['Coloring'] == '227') echo ' selected'; ?>>Blue Fawn &amp; White</option>
-                    <option value="20"<?php if($data['Coloring'] == '20') echo ' selected'; ?>>Blue Fawn Brindle</option>
-                    <option value="254"<?php if($data['Coloring'] == '254') echo ' selected'; ?>>Blue Leopard</option>
-                    <option value="37"<?php if($data['Coloring'] == '37') echo ' selected'; ?>>Blue Merle</option>
-                    <option value="120"<?php if($data['Coloring'] == '120') echo ' selected'; ?>>Blue Merle &amp; White</option>
-                    <option value="121"<?php if($data['Coloring'] == '121') echo ' selected'; ?>>Blue Merle, White &amp; Tan</option>
-                    <option value="31"<?php if($data['Coloring'] == '31') echo ' selected'; ?>>Blue Mottled</option>
-                    <option value="117"<?php if($data['Coloring'] == '117') echo ' selected'; ?>>Blue Roan</option>
-                    <option value="118"<?php if($data['Coloring'] == '118') echo ' selected'; ?>>Blue Roan &amp; Tan</option>
-                    <option value="176"<?php if($data['Coloring'] == '176') echo ' selected'; ?>>Blue Sable</option>
-                    <option value="32"<?php if($data['Coloring'] == '32') echo ' selected'; ?>>Blue Speckled</option>
-                    <option value="169"<?php if($data['Coloring'] == '169') echo ' selected'; ?>>Blue Stag Red</option>
-                    <option value="41"<?php if($data['Coloring'] == '41') echo ' selected'; ?>>Blue, Tan &amp; White</option>
-                    <option value="48"<?php if($data['Coloring'] == '48') echo ' selected'; ?>>Brindle</option>
-                    <option value="65"<?php if($data['Coloring'] == '65') echo ' selected'; ?>>Brindle &amp; White</option>
-                    <option value="216"<?php if($data['Coloring'] == '216') echo ' selected'; ?>>Brindle Merle &amp; White</option>
-                    <option value="248"<?php if($data['Coloring'] == '248') echo ' selected'; ?>>Bronze</option>
-                    <option value="249"<?php if($data['Coloring'] == '249') echo ' selected'; ?>>Bronze &amp; White</option>
-                    <option value="21"<?php if($data['Coloring'] == '21') echo ' selected'; ?>>Brown</option>
-                    <option value="209"<?php if($data['Coloring'] == '209') echo ' selected'; ?>>Brown &amp; White</option>
-                    <option value="22"<?php if($data['Coloring'] == '22') echo ' selected'; ?>>Brown Brindle</option>
-                    <option value="210"<?php if($data['Coloring'] == '210') echo ' selected'; ?>>Brown, Black &amp; White</option>
-                    <option value="268"<?php if($data['Coloring'] == '268') echo ' selected'; ?>>Brown, Black Overlay</option>
-                    <option value="42"<?php if($data['Coloring'] == '42') echo ' selected'; ?>>Brown, White &amp; Tan</option>
-                    <option value="115"<?php if($data['Coloring'] == '115') echo ' selected'; ?>>Buff</option>
-                    <option value="116"<?php if($data['Coloring'] == '116') echo ' selected'; ?>>Buff &amp; White</option>
-                    <option value="184"<?php if($data['Coloring'] == '184') echo ' selected'; ?>>Cafe Au Lait</option>
-                    <option value="166"<?php if($data['Coloring'] == '166') echo ' selected'; ?>>Charcoal</option>
-                    <option value="275"<?php if($data['Coloring'] == '275') echo ' selected'; ?>>Chestnut</option>
-                    <option value="89"<?php if($data['Coloring'] == '89') echo ' selected'; ?>>Chestnut Brindle</option>
-                    <option value="75"<?php if($data['Coloring'] == '75') echo ' selected'; ?>>Chocolate</option>
-                    <option value="189"<?php if($data['Coloring'] == '189') echo ' selected'; ?>>Chocolate &amp; Apricot</option>
-                    <option value="126"<?php if($data['Coloring'] == '126') echo ' selected'; ?>>Chocolate &amp; Cream</option>
-                    <option value="226"<?php if($data['Coloring'] == '226') echo ' selected'; ?>>Chocolate &amp; Gold</option>
-                    <option value="134"<?php if($data['Coloring'] == '134') echo ' selected'; ?>>Chocolate &amp; Rust</option>
-                    <option value="94"<?php if($data['Coloring'] == '94') echo ' selected'; ?>>Chocolate &amp; Tan</option>
-                    <option value="99"<?php if($data['Coloring'] == '99') echo ' selected'; ?>>Chocolate &amp; White</option>
-                    <option value="100"<?php if($data['Coloring'] == '100') echo ' selected'; ?>>Chocolate Blue</option>
-                    <option value="152"<?php if($data['Coloring'] == '152') echo ' selected'; ?>>Chocolate Brindle</option>
-                    <option value="101"<?php if($data['Coloring'] == '101') echo ' selected'; ?>>Chocolate Brindled Fawn</option>
-                    <option value="232"<?php if($data['Coloring'] == '232') echo ' selected'; ?>>Chocolate Dapple</option>
-                    <option value="183"<?php if($data['Coloring'] == '183') echo ' selected'; ?>>Chocolate Merle</option>
-                    <option value="194"<?php if($data['Coloring'] == '194') echo ' selected'; ?>>Chocolate Phantom</option>
-                    <option value="238"<?php if($data['Coloring'] == '238') echo ' selected'; ?>>Chocolate Roan &amp; White</option>
-                    <option value="161"<?php if($data['Coloring'] == '161') echo ' selected'; ?>>Chocolate Sable</option>
-                    <option value="102"<?php if($data['Coloring'] == '102') echo ' selected'; ?>>Chocolate Sabled Fawn</option>
-                    <option value="170"<?php if($data['Coloring'] == '170') echo ' selected'; ?>>Chocolate Stag Red</option>
-                    <option value="45"<?php if($data['Coloring'] == '45') echo ' selected'; ?>>Chocolate, White &amp; Tan</option>
-                    <option value="274"<?php if($data['Coloring'] == '274') echo ' selected'; ?>>Cinnamon</option>
-                    <option value="211"<?php if($data['Coloring'] == '211') echo ' selected'; ?>>Copper &amp; White</option>
-                    <option value="49"<?php if($data['Coloring'] == '49') echo ' selected'; ?>>Cream</option>
-                    <option value="103"<?php if($data['Coloring'] == '103') echo ' selected'; ?>>Cream &amp; White</option>
-                    <option value="87"<?php if($data['Coloring'] == '87') echo ' selected'; ?>>Cream Brindle</option>
-                    <option value="50"<?php if($data['Coloring'] == '50') echo ' selected'; ?>>Cream Sable</option>
-                    <option value="257"<?php if($data['Coloring'] == '257') echo ' selected'; ?>>Dark Deadgrass</option>
-                    <option value="145"<?php if($data['Coloring'] == '145') echo ' selected'; ?>>Dark Golden</option>
-                    <option value="259"<?php if($data['Coloring'] == '259') echo ' selected'; ?>>Deadgrass</option>
-                    <option value="148"<?php if($data['Coloring'] == '148') echo ' selected'; ?>>English Cream</option>
-                    <option value="23"<?php if($data['Coloring'] == '23') echo ' selected'; ?>>Fawn</option>
-                    <option value="127"<?php if($data['Coloring'] == '127') echo ' selected'; ?>>Fawn (Isabella) Cream</option>
-                    <option value="132"<?php if($data['Coloring'] == '132') echo ' selected'; ?>>Fawn (Isabella) &amp; Rust</option>
-                    <option value="128"<?php if($data['Coloring'] == '128') echo ' selected'; ?>>Fawn (Isabella) &amp; Tan</option>
-                    <option value="172"<?php if($data['Coloring'] == '172') echo ' selected'; ?>>Fawn (Isabella) Stag Red</option>
-                    <option value="142"<?php if($data['Coloring'] == '142') echo ' selected'; ?>>Fawn &amp; Black</option>
-                    <option value="84"<?php if($data['Coloring'] == '84') echo ' selected'; ?>>Fawn &amp; Brindle</option>
-                    <option value="171"<?php if($data['Coloring'] == '171') echo ' selected'; ?>>Fawn &amp; Rust</option>
-                    <option value="77"<?php if($data['Coloring'] == '77') echo ' selected'; ?>>Fawn &amp; White</option>
-                    <option value="24"<?php if($data['Coloring'] == '24') echo ' selected'; ?>>Fawn Brindle</option>
-                    <option value="78"<?php if($data['Coloring'] == '78') echo ' selected'; ?>>Fawn Brindle &amp; White</option>
-                    <option value="104"<?php if($data['Coloring'] == '104') echo ' selected'; ?>>Fawn Brindled Black</option>
-                    <option value="25"<?php if($data['Coloring'] == '25') echo ' selected'; ?>>Fawn Sable</option>
-                    <option value="269"<?php if($data['Coloring'] == '269') echo ' selected'; ?>>Fawn, Black Overlay</option>
-                    <option value="155"<?php if($data['Coloring'] == '155') echo ' selected'; ?>>Fawnequin</option>
-                    <option value="70"<?php if($data['Coloring'] == '70') echo ' selected'; ?>>Flashy Brindle</option>
-                    <option value="73"<?php if($data['Coloring'] == '73') echo ' selected'; ?>>Flashy Fawn</option>
-                    <option value="149"<?php if($data['Coloring'] == '149') echo ' selected'; ?>>Fox Red</option>
-                    <option value="54"<?php if($data['Coloring'] == '54') echo ' selected'; ?>>Gold</option>
-                    <option value="105"<?php if($data['Coloring'] == '105') echo ' selected'; ?>>Gold &amp; White</option>
-                    <option value="156"<?php if($data['Coloring'] == '156') echo ' selected'; ?>>Gold Brindle</option>
-                    <option value="157"<?php if($data['Coloring'] == '157') echo ' selected'; ?>>Gold Sable</option>
-                    <option value="228"<?php if($data['Coloring'] == '228') echo ' selected'; ?>>Gold Sable &amp; White</option>
-                    <option value="146"<?php if($data['Coloring'] == '146') echo ' selected'; ?>>Golden</option>
-                    <option value="262"<?php if($data['Coloring'] == '262') echo ' selected'; ?>>Golden Rust</option>
-                    <option value="51"<?php if($data['Coloring'] == '51') echo ' selected'; ?>>Gray</option>
-                    <option value="212"<?php if($data['Coloring'] == '212') echo ' selected'; ?>>Gray &amp; Black</option>
-                    <option value="9"<?php if($data['Coloring'] == '9') echo ' selected'; ?>>Gray &amp; White</option>
-                    <option value="79"<?php if($data['Coloring'] == '79') echo ' selected'; ?>>Gray Brindle</option>
-                    <option value="52"<?php if($data['Coloring'] == '52') echo ' selected'; ?>>Gray Sable</option>
-                    <option value="164"<?php if($data['Coloring'] == '164') echo ' selected'; ?>>Grizzle</option>
-                    <option value="267"<?php if($data['Coloring'] == '267') echo ' selected'; ?>>Grizzle &amp; Tan</option>
-                    <option value="150"<?php if($data['Coloring'] == '150') echo ' selected'; ?>>Harlequin</option>
-                    <option value="143"<?php if($data['Coloring'] == '143') echo ' selected'; ?>>Honey Pied</option>
-                    <option value="223"<?php if($data['Coloring'] == '223') echo ' selected'; ?>>Isabella</option>
-                    <option value="68"<?php if($data['Coloring'] == '68') echo ' selected'; ?>>Lavender</option>
-                    <option value="69"<?php if($data['Coloring'] == '69') echo ' selected'; ?>>Lavender &amp; White</option>
-                    <option value="221"<?php if($data['Coloring'] == '221') echo ' selected'; ?>>Lemon</option>
-                    <option value="40"<?php if($data['Coloring'] == '40') echo ' selected'; ?>>Lemon &amp; White</option>
-                    <option value="258"<?php if($data['Coloring'] == '258') echo ' selected'; ?>>Light Deadgrass</option>
-                    <option value="147"<?php if($data['Coloring'] == '147') echo ' selected'; ?>>Light Golden</option>
-                    <option value="55"<?php if($data['Coloring'] == '55') echo ' selected'; ?>>Lilac</option>
-                    <option value="107"<?php if($data['Coloring'] == '107') echo ' selected'; ?>>Lilac &amp; White</option>
-                    <option value="26"<?php if($data['Coloring'] == '26') echo ' selected'; ?>>Liver</option>
-                    <option value="53"<?php if($data['Coloring'] == '53') echo ' selected'; ?>>Liver &amp; Tan</option>
-                    <option value="136"<?php if($data['Coloring'] == '136') echo ' selected'; ?>>Liver &amp; White</option>
-                    <option value="234"<?php if($data['Coloring'] == '234') echo ' selected'; ?>>Liver &amp; White, Blue Factored</option>
-                    <option value="27"<?php if($data['Coloring'] == '27') echo ' selected'; ?>>Liver Brindle</option>
-                    <option value="241"<?php if($data['Coloring'] == '241') echo ' selected'; ?>>Liver Merle</option>
-                    <option value="256"<?php if($data['Coloring'] == '256') echo ' selected'; ?>>Liver Pepper</option>
-                    <option value="137"<?php if($data['Coloring'] == '137') echo ' selected'; ?>>Liver, White &amp; Tan</option>
-                    <option value="47"<?php if($data['Coloring'] == '47') echo ' selected'; ?>>Mahogany</option>
-                    <option value="247"<?php if($data['Coloring'] == '247') echo ' selected'; ?>>Mahogany &amp; White</option>
-                    <option value="151"<?php if($data['Coloring'] == '151') echo ' selected'; ?>>Mantle</option>
-                    <option value="153"<?php if($data['Coloring'] == '153') echo ' selected'; ?>>Mantle Merle</option>
-                    <option value="245"<?php if($data['Coloring'] == '245') echo ' selected'; ?>>Merle</option>
-                    <option value="154"<?php if($data['Coloring'] == '154') echo ' selected'; ?>>Merlequin</option>
-                    <option value="251"<?php if($data['Coloring'] == '251') echo ' selected'; ?>>Mustard</option>
+                    <option<?php if($data['Coloring'] == 'Agouti & White') echo ' selected'; ?>>Agouti & White</option>
+                    <option<?php if($data['Coloring'] == 'Apricot') echo ' selected'; ?>>Apricot</option>
+                    <option<?php if($data['Coloring'] == 'Apricot & White') echo ' selected'; ?>>Apricot & White</option>
+                    <option<?php if($data['Coloring'] == 'Apricot Fawn') echo ' selected'; ?>>Apricot Fawn</option>
+                    <option<?php if($data['Coloring'] == 'Beaver') echo ' selected'; ?>>Beaver</option>
+                    <option<?php if($data['Coloring'] == 'Beaver Sable') echo ' selected'; ?>>Beaver Sable</option>
+                    <option<?php if($data['Coloring'] == 'Beige') echo ' selected'; ?>>Beige</option>
+                    <option<?php if($data['Coloring'] == 'Bi') echo ' selected'; ?>>Bi</option>
+                    <option<?php if($data['Coloring'] == 'Bi-Color') echo ' selected'; ?>>Bi-Color</option>
+                    <option<?php if($data['Coloring'] == 'Black') echo ' selected'; ?>>Black</option>
+                    <option<?php if($data['Coloring'] == 'Black & Apricot') echo ' selected'; ?>>Black & Apricot</option>
+                    <option<?php if($data['Coloring'] == 'Black & Brindle') echo ' selected'; ?>>Black & Brindle</option>
+                    <option<?php if($data['Coloring'] == 'Black & Brown') echo ' selected'; ?>>Black & Brown</option>
+                    <option<?php if($data['Coloring'] == 'Black & Cream') echo ' selected'; ?>>Black & Cream</option>
+                    <option<?php if($data['Coloring'] == 'Black & Fawn') echo ' selected'; ?>>Black & Fawn</option>
+                    <option<?php if($data['Coloring'] == 'Black & Gold') echo ' selected'; ?>>Black & Gold</option>
+                    <option<?php if($data['Coloring'] == 'Black & Gray') echo ' selected'; ?>>Black & Gray</option>
+                    <option<?php if($data['Coloring'] == 'Black & Mahogany') echo ' selected'; ?>>Black & Mahogany</option>
+                    <option<?php if($data['Coloring'] == 'Black & Red') echo ' selected'; ?>>Black & Red</option>
+                    <option<?php if($data['Coloring'] == 'Black & Rust') echo ' selected'; ?>>Black & Rust</option>
+                    <option<?php if($data['Coloring'] == 'Black & Silver') echo ' selected'; ?>>Black & Silver</option>
+                    <option<?php if($data['Coloring'] == 'Black & Silver Brindle') echo ' selected'; ?>>Black & Silver Brindle</option>
+                    <option<?php if($data['Coloring'] == 'Black & Tan') echo ' selected'; ?>>Black & Tan</option>
+                    <option<?php if($data['Coloring'] == 'Black & Tan Brindle') echo ' selected'; ?>>Black & Tan Brindle</option>
+                    <option<?php if($data['Coloring'] == 'Black & Tan Merle') echo ' selected'; ?>>Black & Tan Merle</option>
+                    <option<?php if($data['Coloring'] == 'Black & White') echo ' selected'; ?>>Black & White</option>
+                    <option<?php if($data['Coloring'] == 'Black and White Piebald') echo ' selected'; ?>>Black and White Piebald</option>
+                    <option<?php if($data['Coloring'] == 'Black Brindle') echo ' selected'; ?>>Black Brindle</option>
+                    <option<?php if($data['Coloring'] == 'Black Brindle & White') echo ' selected'; ?>>Black Brindle & White</option>
+                    <option<?php if($data['Coloring'] == 'Black Sabled Fawn') echo ' selected'; ?>>Black Sabled Fawn</option>
+                    <option<?php if($data['Coloring'] == 'Black Sabled Silver') echo ' selected'; ?>>Black Sabled Silver</option>
+                    <option<?php if($data['Coloring'] == 'Black, Brindle & White') echo ' selected'; ?>>Black, Brindle & White</option>
+                    <option<?php if($data['Coloring'] == 'Black, Fawn & White') echo ' selected'; ?>>Black, Fawn & White</option>
+                    <option<?php if($data['Coloring'] == 'Black, Gold & Silver') echo ' selected'; ?>>Black, Gold & Silver</option>
+                    <option<?php if($data['Coloring'] == 'Black, Gold & White') echo ' selected'; ?>>Black, Gold & White</option>
+                    <option<?php if($data['Coloring'] == 'Black, Gray & White') echo ' selected'; ?>>Black, Gray & White</option>
+                    <option<?php if($data['Coloring'] == 'Black, Red & White') echo ' selected'; ?>>Black, Red & White</option>
+                    <option<?php if($data['Coloring'] == 'Black, Silver & Tan') echo ' selected'; ?>>Black, Silver & Tan</option>
+                    <option<?php if($data['Coloring'] == 'Black, Tan & Bluetick') echo ' selected'; ?>>Black, Tan & Bluetick</option>
+                    <option<?php if($data['Coloring'] == 'Black, Tan & Redtick') echo ' selected'; ?>>Black, Tan & Redtick</option>
+                    <option<?php if($data['Coloring'] == 'Black, Tan & White') echo ' selected'; ?>>Black, Tan & White</option>
+                    <option<?php if($data['Coloring'] == 'Black, White & Silver') echo ' selected'; ?>>Black, White & Silver</option>
+                    <option<?php if($data['Coloring'] == 'Black, White & Tan') echo ' selected'; ?>>Black, White & Tan</option>
+                    <option<?php if($data['Coloring'] == 'Blenheim') echo ' selected'; ?>>Blenheim</option>
+                    <option<?php if($data['Coloring'] == 'Blue') echo ' selected'; ?>>Blue</option>
+                    <option<?php if($data['Coloring'] == 'Blue & Cream') echo ' selected'; ?>>Blue & Cream</option>
+                    <option<?php if($data['Coloring'] == 'Blue & Gold') echo ' selected'; ?>>Blue & Gold</option>
+                    <option<?php if($data['Coloring'] == 'Blue & Rust') echo ' selected'; ?>>Blue & Rust</option>
+                    <option<?php if($data['Coloring'] == 'Blue & Tan') echo ' selected'; ?>>Blue & Tan</option>
+                    <option<?php if($data['Coloring'] == 'Blue & White') echo ' selected'; ?>>Blue & White</option>
+                    <option<?php if($data['Coloring'] == 'Blue & White Pied') echo ' selected'; ?>>Blue & White Pied</option>
+                    <option<?php if($data['Coloring'] == 'Blue Brindle') echo ' selected'; ?>>Blue Brindle</option>
+                    <option<?php if($data['Coloring'] == 'Blue Brindled Fawn') echo ' selected'; ?>>Blue Brindled Fawn</option>
+                    <option<?php if($data['Coloring'] == 'Blue Fawn') echo ' selected'; ?>>Blue Fawn</option>
+                    <option<?php if($data['Coloring'] == 'Blue Fawn & White') echo ' selected'; ?>>Blue Fawn & White</option>
+                    <option<?php if($data['Coloring'] == 'Blue Fawn Brindle') echo ' selected'; ?>>Blue Fawn Brindle</option>
+                    <option<?php if($data['Coloring'] == 'Blue Leopard') echo ' selected'; ?>>Blue Leopard</option>
+                    <option<?php if($data['Coloring'] == 'Blue Merle') echo ' selected'; ?>>Blue Merle</option>
+                    <option<?php if($data['Coloring'] == 'Blue Merle & White') echo ' selected'; ?>>Blue Merle & White</option>
+                    <option<?php if($data['Coloring'] == 'Blue Merle, White & Tan') echo ' selected'; ?>>Blue Merle, White & Tan</option>
+                    <option<?php if($data['Coloring'] == 'Blue Mottled') echo ' selected'; ?>>Blue Mottled</option>
+                    <option<?php if($data['Coloring'] == 'Blue Roan') echo ' selected'; ?>>Blue Roan</option>
+                    <option<?php if($data['Coloring'] == 'Blue Roan & Tan') echo ' selected'; ?>>Blue Roan & Tan</option>
+                    <option<?php if($data['Coloring'] == 'Blue Sable') echo ' selected'; ?>>Blue Sable</option>
+                    <option<?php if($data['Coloring'] == 'Blue Speckled') echo ' selected'; ?>>Blue Speckled</option>
+                    <option<?php if($data['Coloring'] == 'Blue Stag Red') echo ' selected'; ?>>Blue Stag Red</option>
+                    <option<?php if($data['Coloring'] == 'Blue, Tan & White') echo ' selected'; ?>>Blue, Tan & White</option>
+                    <option<?php if($data['Coloring'] == 'Brindle') echo ' selected'; ?>>Brindle</option>
+                    <option<?php if($data['Coloring'] == 'Brindle & White') echo ' selected'; ?>>Brindle & White</option>
+                    <option<?php if($data['Coloring'] == 'Brindle Merle & White') echo ' selected'; ?>>Brindle Merle & White</option>
+                    <option<?php if($data['Coloring'] == 'Bronze') echo ' selected'; ?>>Bronze</option>
+                    <option<?php if($data['Coloring'] == 'Bronze & White') echo ' selected'; ?>>Bronze & White</option>
+                    <option<?php if($data['Coloring'] == 'Brown') echo ' selected'; ?>>Brown</option>
+                    <option<?php if($data['Coloring'] == 'Brown & White') echo ' selected'; ?>>Brown & White</option>
+                    <option<?php if($data['Coloring'] == 'Brown Brindle') echo ' selected'; ?>>Brown Brindle</option>
+                    <option<?php if($data['Coloring'] == 'Brown, Black & White') echo ' selected'; ?>>Brown, Black & White</option>
+                    <option<?php if($data['Coloring'] == 'Brown, Black Overlay') echo ' selected'; ?>>Brown, Black Overlay</option>
+                    <option<?php if($data['Coloring'] == 'Brown, White & Tan') echo ' selected'; ?>>Brown, White & Tan</option>
+                    <option<?php if($data['Coloring'] == 'Buff') echo ' selected'; ?>>Buff</option>
+                    <option<?php if($data['Coloring'] == 'Buff & White') echo ' selected'; ?>>Buff & White</option>
+                    <option<?php if($data['Coloring'] == 'Cafe Au Lait') echo ' selected'; ?>>Cafe Au Lait</option>
+                    <option<?php if($data['Coloring'] == 'Charcoal') echo ' selected'; ?>>Charcoal</option>
+                    <option<?php if($data['Coloring'] == 'Chestnut') echo ' selected'; ?>>Chestnut</option>
+                    <option<?php if($data['Coloring'] == 'Chestnut Brindle') echo ' selected'; ?>>Chestnut Brindle</option>
+                    <option<?php if($data['Coloring'] == 'Chocolate') echo ' selected'; ?>>Chocolate</option>
+                    <option<?php if($data['Coloring'] == 'Chocolate & Apricot') echo ' selected'; ?>>Chocolate & Apricot</option>
+                    <option<?php if($data['Coloring'] == 'Chocolate & Cream') echo ' selected'; ?>>Chocolate & Cream</option>
+                    <option<?php if($data['Coloring'] == 'Chocolate & Gold') echo ' selected'; ?>>Chocolate & Gold</option>
+                    <option<?php if($data['Coloring'] == 'Chocolate & Rust') echo ' selected'; ?>>Chocolate & Rust</option>
+                    <option<?php if($data['Coloring'] == 'Chocolate & Tan') echo ' selected'; ?>>Chocolate & Tan</option>
+                    <option<?php if($data['Coloring'] == 'Chocolate & White') echo ' selected'; ?>>Chocolate & White</option>
+                    <option<?php if($data['Coloring'] == 'Chocolate Blue') echo ' selected'; ?>>Chocolate Blue</option>
+                    <option<?php if($data['Coloring'] == 'Chocolate Brindle') echo ' selected'; ?>>Chocolate Brindle</option>
+                    <option<?php if($data['Coloring'] == 'Chocolate Brindled Fawn') echo ' selected'; ?>>Chocolate Brindled Fawn</option>
+                    <option<?php if($data['Coloring'] == 'Chocolate Dapple') echo ' selected'; ?>>Chocolate Dapple</option>
+                    <option<?php if($data['Coloring'] == 'Chocolate Merle') echo ' selected'; ?>>Chocolate Merle</option>
+                    <option<?php if($data['Coloring'] == 'Chocolate Phantom') echo ' selected'; ?>>Chocolate Phantom</option>
+                    <option<?php if($data['Coloring'] == 'Chocolate Roan & White') echo ' selected'; ?>>Chocolate Roan & White</option>
+                    <option<?php if($data['Coloring'] == 'Chocolate Sable') echo ' selected'; ?>>Chocolate Sable</option>
+                    <option<?php if($data['Coloring'] == 'Chocolate Sabled Fawn') echo ' selected'; ?>>Chocolate Sabled Fawn</option>
+                    <option<?php if($data['Coloring'] == 'Chocolate Stag Red') echo ' selected'; ?>>Chocolate Stag Red</option>
+                    <option<?php if($data['Coloring'] == 'Chocolate, White & Tan') echo ' selected'; ?>>Chocolate, White & Tan</option>
+                    <option<?php if($data['Coloring'] == 'Cinnamon') echo ' selected'; ?>>Cinnamon</option>
+                    <option<?php if($data['Coloring'] == 'Copper & White') echo ' selected'; ?>>Copper & White</option>
+                    <option<?php if($data['Coloring'] == 'Cream') echo ' selected'; ?>>Cream</option>
+                    <option<?php if($data['Coloring'] == 'Cream & White') echo ' selected'; ?>>Cream & White</option>
+                    <option<?php if($data['Coloring'] == 'Cream Brindle') echo ' selected'; ?>>Cream Brindle</option>
+                    <option<?php if($data['Coloring'] == 'Cream Sable') echo ' selected'; ?>>Cream Sable</option>
+                    <option<?php if($data['Coloring'] == 'Dark Deadgrass') echo ' selected'; ?>>Dark Deadgrass</option>
+                    <option<?php if($data['Coloring'] == 'Dark Golden') echo ' selected'; ?>>Dark Golden</option>
+                    <option<?php if($data['Coloring'] == 'Deadgrass') echo ' selected'; ?>>Deadgrass</option>
+                    <option<?php if($data['Coloring'] == 'English Cream') echo ' selected'; ?>>English Cream</option>
+                    <option<?php if($data['Coloring'] == 'Fawn') echo ' selected'; ?>>Fawn</option>
+                    <option<?php if($data['Coloring'] == 'Fawn (Isabella) Cream') echo ' selected'; ?>>Fawn (Isabella) Cream</option>
+                    <option<?php if($data['Coloring'] == 'Fawn (Isabella) & Rust') echo ' selected'; ?>>Fawn (Isabella) & Rust</option>
+                    <option<?php if($data['Coloring'] == 'Fawn (Isabella) & Tan') echo ' selected'; ?>>Fawn (Isabella) & Tan</option>
+                    <option<?php if($data['Coloring'] == 'Fawn (Isabella) Stag Red') echo ' selected'; ?>>Fawn (Isabella) Stag Red</option>
+                    <option<?php if($data['Coloring'] == 'Fawn & Black') echo ' selected'; ?>>Fawn & Black</option>
+                    <option<?php if($data['Coloring'] == 'Fawn & Brindle') echo ' selected'; ?>>Fawn & Brindle</option>
+                    <option<?php if($data['Coloring'] == 'Fawn & Rust') echo ' selected'; ?>>Fawn & Rust</option>
+                    <option<?php if($data['Coloring'] == 'Fawn & White') echo ' selected'; ?>>Fawn & White</option>
+                    <option<?php if($data['Coloring'] == 'Fawn Brindle') echo ' selected'; ?>>Fawn Brindle</option>
+                    <option<?php if($data['Coloring'] == 'Fawn Brindle & White') echo ' selected'; ?>>Fawn Brindle & White</option>
+                    <option<?php if($data['Coloring'] == 'Fawn Brindled Black') echo ' selected'; ?>>Fawn Brindled Black</option>
+                    <option<?php if($data['Coloring'] == 'Fawn Sable') echo ' selected'; ?>>Fawn Sable</option>
+                    <option<?php if($data['Coloring'] == 'Fawn, Black Overlay') echo ' selected'; ?>>Fawn, Black Overlay</option>
+                    <option<?php if($data['Coloring'] == 'Fawnequin') echo ' selected'; ?>>Fawnequin</option>
+                    <option<?php if($data['Coloring'] == 'Flashy Brindle') echo ' selected'; ?>>Flashy Brindle</option>
+                    <option<?php if($data['Coloring'] == 'Flashy Fawn') echo ' selected'; ?>>Flashy Fawn</option>
+                    <option<?php if($data['Coloring'] == 'Fox Red') echo ' selected'; ?>>Fox Red</option>
+                    <option<?php if($data['Coloring'] == 'Gold') echo ' selected'; ?>>Gold</option>
+                    <option<?php if($data['Coloring'] == 'Gold & White') echo ' selected'; ?>>Gold & White</option>
+                    <option<?php if($data['Coloring'] == 'Gold Brindle') echo ' selected'; ?>>Gold Brindle</option>
+                    <option<?php if($data['Coloring'] == 'Gold Sable') echo ' selected'; ?>>Gold Sable</option>
+                    <option<?php if($data['Coloring'] == 'Gold Sable & White') echo ' selected'; ?>>Gold Sable & White</option>
+                    <option<?php if($data['Coloring'] == 'Golden') echo ' selected'; ?>>Golden</option>
+                    <option<?php if($data['Coloring'] == 'Golden Rust') echo ' selected'; ?>>Golden Rust</option>
+                    <option<?php if($data['Coloring'] == 'Gray') echo ' selected'; ?>>Gray</option>
+                    <option<?php if($data['Coloring'] == 'Gray & Black') echo ' selected'; ?>>Gray & Black</option>
+                    <option<?php if($data['Coloring'] == '>Gray & White') echo ' selected'; ?>>Gray & White</option>
+                    <option<?php if($data['Coloring'] == 'Gray Brindle') echo ' selected'; ?>>Gray Brindle</option>
+                    <option<?php if($data['Coloring'] == 'Gray Sable') echo ' selected'; ?>>Gray Sable</option>
+                    <option<?php if($data['Coloring'] == 'Grizzle') echo ' selected'; ?>>Grizzle</option>
+                    <option<?php if($data['Coloring'] == 'Grizzle & Tan') echo ' selected'; ?>>Grizzle & Tan</option>
+                    <option<?php if($data['Coloring'] == 'Harlequin') echo ' selected'; ?>>Harlequin</option>
+                    <option<?php if($data['Coloring'] == 'Honey Pied') echo ' selected'; ?>>Honey Pied</option>
+                    <option<?php if($data['Coloring'] == 'Isabella') echo ' selected'; ?>>Isabella</option>
+                    <option<?php if($data['Coloring'] == 'Lavender') echo ' selected'; ?>>Lavender</option>
+                    <option<?php if($data['Coloring'] == 'Lavender & White') echo ' selected'; ?>>Lavender & White</option>
+                    <option<?php if($data['Coloring'] == 'Lemon') echo ' selected'; ?>>Lemon</option>
+                    <option<?php if($data['Coloring'] == 'Lemon & White') echo ' selected'; ?>>Lemon & White</option>
+                    <option<?php if($data['Coloring'] == 'Light Deadgrass') echo ' selected'; ?>>Light Deadgrass</option>
+                    <option<?php if($data['Coloring'] == 'Light Golden') echo ' selected'; ?>>Light Golden</option>
+                    <option<?php if($data['Coloring'] == 'Lilac') echo ' selected'; ?>>Lilac</option>
+                    <option<?php if($data['Coloring'] == 'Lilac & White') echo ' selected'; ?>>Lilac & White</option>
+                    <option<?php if($data['Coloring'] == 'Liver') echo ' selected'; ?>>Liver</option>
+                    <option<?php if($data['Coloring'] == 'Liver & Tan') echo ' selected'; ?>>Liver & Tan</option>
+                    <option<?php if($data['Coloring'] == 'Liver & White') echo ' selected'; ?>>Liver & White</option>
+                    <option<?php if($data['Coloring'] == 'Liver & White, Blue Factored') echo ' selected'; ?>>Liver & White, Blue Factored</option>
+                    <option<?php if($data['Coloring'] == 'Liver Brindle') echo ' selected'; ?>>Liver Brindle</option>
+                    <option<?php if($data['Coloring'] == 'Liver Merle') echo ' selected'; ?>>Liver Merle</option>
+                    <option<?php if($data['Coloring'] == 'Liver Pepper') echo ' selected'; ?>>Liver Pepper</option>
+                    <option<?php if($data['Coloring'] == 'Liver, White & Tan') echo ' selected'; ?>>Liver, White & Tan</option>
+                    <option<?php if($data['Coloring'] == 'Mahogany') echo ' selected'; ?>>Mahogany</option>
+                    <option<?php if($data['Coloring'] == 'Mahogany & White') echo ' selected'; ?>>Mahogany & White</option>
+                    <option<?php if($data['Coloring'] == 'Mantle') echo ' selected'; ?>>Mantle</option>
+                    <option<?php if($data['Coloring'] == 'Mantle Merle') echo ' selected'; ?>>Mantle Merle</option>
+                    <option<?php if($data['Coloring'] == 'Merle') echo ' selected'; ?>>Merle</option>
+                    <option<?php if($data['Coloring'] == 'Merlequin') echo ' selected'; ?>>Merlequin</option>
+                    <option<?php if($data['Coloring'] == 'Mustard') echo ' selected'; ?>>Mustard</option>
                     <option <?php if(!$data['Coloring']) echo ' selected'; ?>>Not Specified</option>
-                    <option value="177"<?php if($data['Coloring'] == '177') echo ' selected'; ?>>Orange</option>
-                    <option value="139"<?php if($data['Coloring'] == '139') echo ' selected'; ?>>Orange &amp; White</option>
-                    <option value="178"<?php if($data['Coloring'] == '178') echo ' selected'; ?>>Orange Sable</option>
-                    <option value="225"<?php if($data['Coloring'] == '225') echo ' selected'; ?>>Orange Sable &amp; White</option>
-                    <option value="109"<?php if($data['Coloring'] == '109') echo ' selected'; ?>>Palomino</option>
-                    <option value="252"<?php if($data['Coloring'] == '252') echo ' selected'; ?>>Pepper</option>
-                    <option value="193"<?php if($data['Coloring'] == '193') echo ' selected'; ?>>Phantom</option>
-                    <option value="113"<?php if($data['Coloring'] == '113') echo ' selected'; ?>>Pink</option>
-                    <option value="110"<?php if($data['Coloring'] == '110') echo ' selected'; ?>>Pink &amp; Chocolate</option>
-                    <option value="111"<?php if($data['Coloring'] == '111') echo ' selected'; ?>>Pink &amp; Slate</option>
-                    <option value="5"<?php if($data['Coloring'] == '5') echo ' selected'; ?>>Red</option>
-                    <option value="190"<?php if($data['Coloring'] == '190') echo ' selected'; ?>>Red &amp; Apricot</option>
-                    <option value="133"<?php if($data['Coloring'] == '133') echo ' selected'; ?>>Red &amp; Rust</option>
-                    <option value="135"<?php if($data['Coloring'] == '135') echo ' selected'; ?>>Red &amp; Tan</option>
-                    <option value="10"<?php if($data['Coloring'] == '10') echo ' selected'; ?>>Red &amp; White</option>
-                    <option value="28"<?php if($data['Coloring'] == '28') echo ' selected'; ?>>Red Brindle</option>
-                    <option value="80"<?php if($data['Coloring'] == '80') echo ' selected'; ?>>Red Brindle &amp; White</option>
-                    <option value="233"<?php if($data['Coloring'] == '233') echo ' selected'; ?>>Red Dapple</option>
-                    <option value="85"<?php if($data['Coloring'] == '85') echo ' selected'; ?>>Red Fawn</option>
-                    <option value="86"<?php if($data['Coloring'] == '86') echo ' selected'; ?>>Red Fawn Brindle</option>
-                    <option value="165"<?php if($data['Coloring'] == '165') echo ' selected'; ?>>Red Gold</option>
-                    <option value="264"<?php if($data['Coloring'] == '264') echo ' selected'; ?>>Red Golden</option>
-                    <option value="253"<?php if($data['Coloring'] == '253') echo ' selected'; ?>>Red Leopard</option>
-                    <option value="38"<?php if($data['Coloring'] == '38') echo ' selected'; ?>>Red Merle</option>
-                    <option value="217"<?php if($data['Coloring'] == '217') echo ' selected'; ?>>Red Merle &amp; White</option>
-                    <option value="33"<?php if($data['Coloring'] == '33') echo ' selected'; ?>>Red Mottled</option>
-                    <option value="119"<?php if($data['Coloring'] == '119') echo ' selected'; ?>>Red Roan</option>
-                    <option value="29"<?php if($data['Coloring'] == '29') echo ' selected'; ?>>Red Sable</option>
-                    <option value="235"<?php if($data['Coloring'] == '235') echo ' selected'; ?>>Red Sable &amp; White</option>
-                    <option value="243"<?php if($data['Coloring'] == '243') echo ' selected'; ?>>Red Sable Blue Factored</option>
-                    <option value="202"<?php if($data['Coloring'] == '202') echo ' selected'; ?>>Red Sesame</option>
-                    <option value="34"<?php if($data['Coloring'] == '34') echo ' selected'; ?>>Red Speckled</option>
-                    <option value="237"<?php if($data['Coloring'] == '237') echo ' selected'; ?>>Red Tri</option>
-                    <option value="88"<?php if($data['Coloring'] == '88') echo ' selected'; ?>>Red Wheaten</option>
-                    <option value="270"<?php if($data['Coloring'] == '270') echo ' selected'; ?>>Red, Black Overlay</option>
-                    <option value="71"<?php if($data['Coloring'] == '71') echo ' selected'; ?>>Reverse Brindle</option>
-                    <option value="72"<?php if($data['Coloring'] == '72') echo ' selected'; ?>>Reverse Flashy Brindle</option>
-                    <option value="92"<?php if($data['Coloring'] == '92') echo ' selected'; ?>>Ruby</option>
-                    <option value="261"<?php if($data['Coloring'] == '261') echo ' selected'; ?>>Rust</option>
-                    <option value="265"<?php if($data['Coloring'] == '265') echo ' selected'; ?>>Rust Golden</option>
-                    <option value="56"<?php if($data['Coloring'] == '56') echo ' selected'; ?>>Sable</option>
-                    <option value="11"<?php if($data['Coloring'] == '11') echo ' selected'; ?>>Sable &amp; White</option>
-                    <option value="57"<?php if($data['Coloring'] == '57') echo ' selected'; ?>>Sable Merle</option>
-                    <option value="122"<?php if($data['Coloring'] == '122') echo ' selected'; ?>>Sable Merle &amp; White</option>
-                    <option value="236"<?php if($data['Coloring'] == '236') echo ' selected'; ?>>Sable Piebald</option>
-                    <option value="250"<?php if($data['Coloring'] == '250') echo ' selected'; ?>>Salt</option>
-                    <option value="198"<?php if($data['Coloring'] == '198') echo ' selected'; ?>>Salt &amp; Pepper</option>
-                    <option value="273"<?php if($data['Coloring'] == '273') echo ' selected'; ?>>Sandy</option>
-                    <option value="266"<?php if($data['Coloring'] == '266') echo ' selected'; ?>>Sandy Yellow</option>
-                    <option value="67"<?php if($data['Coloring'] == '67') echo ' selected'; ?>>Seal</option>
-                    <option value="12"<?php if($data['Coloring'] == '12') echo ' selected'; ?>>Seal &amp; White</option>
-                    <option value="30"<?php if($data['Coloring'] == '30') echo ' selected'; ?>>Seal Brown</option>
-                    <option value="66"<?php if($data['Coloring'] == '66') echo ' selected'; ?>>Seal, Brindle &amp; White</option>
-                    <option value="260"<?php if($data['Coloring'] == '260') echo ' selected'; ?>>Sedge</option>
-                    <option value="224"<?php if($data['Coloring'] == '224') echo ' selected'; ?>>Shaded Cream</option>
-                    <option value="106"<?php if($data['Coloring'] == '106') echo ' selected'; ?>>Silver</option>
-                    <option value="13"<?php if($data['Coloring'] == '13') echo ' selected'; ?>>Silver &amp; White</option>
-                    <option value="185"<?php if($data['Coloring'] == '185') echo ' selected'; ?>>Silver Beige</option>
-                    <option value="158"<?php if($data['Coloring'] == '158') echo ' selected'; ?>>Silver Brindle</option>
-                    <option value="231"<?php if($data['Coloring'] == '231') echo ' selected'; ?>>Silver Dapple</option>
-                    <option value="196"<?php if($data['Coloring'] == '196') echo ' selected'; ?>>Silver Fawn</option>
-                    <option value="215"<?php if($data['Coloring'] == '215') echo ' selected'; ?>>Silver Gray</option>
-                    <option value="255"<?php if($data['Coloring'] == '255') echo ' selected'; ?>>Silver Leopard</option>
-                    <option value="162"<?php if($data['Coloring'] == '162') echo ' selected'; ?>>Silver Sable</option>
-                    <option value="271"<?php if($data['Coloring'] == '271') echo ' selected'; ?>>Silver, Black Overlay</option>
-                    <option value="206"<?php if($data['Coloring'] == '206') echo ' selected'; ?>>Silver, Gold &amp; White</option>
-                    <option value="112"<?php if($data['Coloring'] == '112') echo ' selected'; ?>>Slate</option>
-                    <option value="168"<?php if($data['Coloring'] == '168') echo ' selected'; ?>>Stag Red</option>
-                    <option value="74"<?php if($data['Coloring'] == '74') echo ' selected'; ?>>Tan</option>
-                    <option value="213"<?php if($data['Coloring'] == '213') echo ' selected'; ?>>Tan &amp; Black</option>
-                    <option value="214"<?php if($data['Coloring'] == '214') echo ' selected'; ?>>Tan &amp; White</option>
-                    <option value="244"<?php if($data['Coloring'] == '244') echo ' selected'; ?>>Tawny</option>
-                    <option value="36"<?php if($data['Coloring'] == '36') echo ' selected'; ?>>Tri</option>
-                    <option value="179"<?php if($data['Coloring'] == '179') echo ' selected'; ?>>Tri-Colored</option>
-                    <option value="999999"<?php if($data['Coloring'] == '999999') echo ' selected'; ?>>Unknown</option>
-                    <option value="76"<?php if($data['Coloring'] == '76') echo ' selected'; ?>>Wheaten</option>
-                    <option value="14"<?php if($data['Coloring'] == '14') echo ' selected'; ?>>White</option>
-                    <option value="191"<?php if($data['Coloring'] == '191') echo ' selected'; ?>>White &amp; Apricot</option>
-                    <option value="276"<?php if($data['Coloring'] == '276') echo ' selected'; ?>>White &amp; Badger</option>
-                    <option value="15"<?php if($data['Coloring'] == '15') echo ' selected'; ?>>White &amp; Biscuit</option>
-                    <option value="58"<?php if($data['Coloring'] == '58') echo ' selected'; ?>>White &amp; Black</option>
-                    <option value="59"<?php if($data['Coloring'] == '59') echo ' selected'; ?>>White &amp; Blue</option>
-                    <option value="60"<?php if($data['Coloring'] == '60') echo ' selected'; ?>>White &amp; Blue Merle</option>
-                    <option value="140"<?php if($data['Coloring'] == '140') echo ' selected'; ?>>White &amp; Brindle</option>
-                    <option value="114"<?php if($data['Coloring'] == '114') echo ' selected'; ?>>White &amp; Chocolate</option>
-                    <option value="141"<?php if($data['Coloring'] == '141') echo ' selected'; ?>>White &amp; Fawn</option>
-                    <option value="138"<?php if($data['Coloring'] == '138') echo ' selected'; ?>>White &amp; Liver</option>
-                    <option value="61"<?php if($data['Coloring'] == '61') echo ' selected'; ?>>White &amp; Red</option>
-                    <option value="62"<?php if($data['Coloring'] == '62') echo ' selected'; ?>>White &amp; Red Merle</option>
-                    <option value="173"<?php if($data['Coloring'] == '173') echo ' selected'; ?>>White &amp; Sable</option>
-                    <option value="201"<?php if($data['Coloring'] == '201') echo ' selected'; ?>>White &amp; Sable Merle</option>
-                    <option value="192"<?php if($data['Coloring'] == '192') echo ' selected'; ?>>White &amp; Silver</option>
-                    <option value="277"<?php if($data['Coloring'] == '277') echo ' selected'; ?>>White &amp; Tan</option>
-                    <option value="123"<?php if($data['Coloring'] == '123') echo ' selected'; ?>>White Merle</option>
-                    <option value="63"<?php if($data['Coloring'] == '63') echo ' selected'; ?>>White Ticked</option>
-                    <option value="167"<?php if($data['Coloring'] == '167') echo ' selected'; ?>>White with Cream</option>
-                    <option value="174"<?php if($data['Coloring'] == '174') echo ' selected'; ?>>White, Black &amp; Tan</option>
-                    <option value="272"<?php if($data['Coloring'] == '272') echo ' selected'; ?>>White, Red Shading</option>
-                    <option value="129"<?php if($data['Coloring'] == '129') echo ' selected'; ?>>Wild Boar</option>
-                    <option value="180"<?php if($data['Coloring'] == '180') echo ' selected'; ?>>Wolf Sable</option>
-                    <option value="163"<?php if($data['Coloring'] == '163') echo ' selected'; ?>>Yellow</option>
+                    <option<?php if($data['Coloring'] == 'Orange') echo ' selected'; ?>>Orange</option>
+                    <option<?php if($data['Coloring'] == 'Orange & White') echo ' selected'; ?>>Orange & White</option>
+                    <option<?php if($data['Coloring'] == 'Orange Sable') echo ' selected'; ?>>Orange Sable</option>
+                    <option<?php if($data['Coloring'] == 'Orange Sable & White') echo ' selected'; ?>>Orange Sable & White</option>
+                    <option<?php if($data['Coloring'] == 'Palomino') echo ' selected'; ?>>Palomino</option>
+                    <option<?php if($data['Coloring'] == 'Pepper') echo ' selected'; ?>>Pepper</option>
+                    <option<?php if($data['Coloring'] == 'Phantom') echo ' selected'; ?>>Phantom</option>
+                    <option<?php if($data['Coloring'] == 'Pink') echo ' selected'; ?>>Pink</option>
+                    <option<?php if($data['Coloring'] == 'Pink & Chocolate') echo ' selected'; ?>>Pink & Chocolate</option>
+                    <option<?php if($data['Coloring'] == 'Pink & Slate') echo ' selected'; ?>>Pink & Slate</option>
+                    <option<?php if($data['Coloring'] == 'Red') echo ' selected'; ?>>Red</option>
+                    <option<?php if($data['Coloring'] == 'Red & Apricot') echo ' selected'; ?>>Red & Apricot</option>
+                    <option<?php if($data['Coloring'] == 'Red & Rust') echo ' selected'; ?>>Red & Rust</option>
+                    <option<?php if($data['Coloring'] == 'Red & Tan') echo ' selected'; ?>>Red & Tan</option>
+                    <option<?php if($data['Coloring'] == 'Red & White') echo ' selected'; ?>>Red & White</option>
+                    <option<?php if($data['Coloring'] == 'Red Brindle') echo ' selected'; ?>>Red Brindle</option>
+                    <option<?php if($data['Coloring'] == 'Red Brindle & White') echo ' selected'; ?>>Red Brindle & White</option>
+                    <option<?php if($data['Coloring'] == 'Red Dapple') echo ' selected'; ?>>Red Dapple</option>
+                    <option<?php if($data['Coloring'] == 'Red Fawn') echo ' selected'; ?>>Red Fawn</option>
+                    <option<?php if($data['Coloring'] == 'Red Fawn Brindle') echo ' selected'; ?>>Red Fawn Brindle</option>
+                    <option<?php if($data['Coloring'] == 'Red Gold') echo ' selected'; ?>>Red Gold</option>
+                    <option<?php if($data['Coloring'] == 'Red Golden') echo ' selected'; ?>>Red Golden</option>
+                    <option<?php if($data['Coloring'] == 'Red Leopard') echo ' selected'; ?>>Red Leopard</option>
+                    <option<?php if($data['Coloring'] == 'Red Merle') echo ' selected'; ?>>Red Merle</option>
+                    <option<?php if($data['Coloring'] == 'Red Merle & White') echo ' selected'; ?>>Red Merle & White</option>
+                    <option<?php if($data['Coloring'] == 'Red Mottled') echo ' selected'; ?>>Red Mottled</option>
+                    <option<?php if($data['Coloring'] == 'Red Roan') echo ' selected'; ?>>Red Roan</option>
+                    <option<?php if($data['Coloring'] == 'Red Sable') echo ' selected'; ?>>Red Sable</option>
+                    <option<?php if($data['Coloring'] == 'Red Sable & White') echo ' selected'; ?>>Red Sable & White</option>
+                    <option<?php if($data['Coloring'] == 'Red Sable Blue Factored') echo ' selected'; ?>>Red Sable Blue Factored</option>
+                    <option<?php if($data['Coloring'] == 'Red Sesame') echo ' selected'; ?>>Red Sesame</option>
+                    <option<?php if($data['Coloring'] == 'Red Speckled') echo ' selected'; ?>>Red Speckled</option>
+                    <option<?php if($data['Coloring'] == 'Red Tri') echo ' selected'; ?>>Red Tri</option>
+                    <option<?php if($data['Coloring'] == 'Red Wheaten') echo ' selected'; ?>>Red Wheaten</option>
+                    <option<?php if($data['Coloring'] == 'Red, Black Overlay') echo ' selected'; ?>>Red, Black Overlay</option>
+                    <option<?php if($data['Coloring'] == 'Reverse Brindle') echo ' selected'; ?>>Reverse Brindle</option>
+                    <option<?php if($data['Coloring'] == 'Reverse Flashy Brindle') echo ' selected'; ?>>Reverse Flashy Brindle</option>
+                    <option<?php if($data['Coloring'] == 'Ruby') echo ' selected'; ?>>Ruby</option>
+                    <option<?php if($data['Coloring'] == 'Rust') echo ' selected'; ?>>Rust</option>
+                    <option<?php if($data['Coloring'] == 'Rust Golden') echo ' selected'; ?>>Rust Golden</option>
+                    <option<?php if($data['Coloring'] == 'Sable') echo ' selected'; ?>>Sable</option>
+                    <option<?php if($data['Coloring'] == 'Sable & White') echo ' selected'; ?>>Sable & White</option>
+                    <option<?php if($data['Coloring'] == 'Sable Merle') echo ' selected'; ?>>Sable Merle</option>
+                    <option<?php if($data['Coloring'] == 'Sable Merle & White') echo ' selected'; ?>>Sable Merle & White</option>
+                    <option<?php if($data['Coloring'] == 'Sable Piebald') echo ' selected'; ?>>Sable Piebald</option>
+                    <option<?php if($data['Coloring'] == 'Salt') echo ' selected'; ?>>Salt</option>
+                    <option<?php if($data['Coloring'] == 'Salt & Pepper') echo ' selected'; ?>>Salt & Pepper</option>
+                    <option<?php if($data['Coloring'] == 'Sandy') echo ' selected'; ?>>Sandy</option>
+                    <option<?php if($data['Coloring'] == 'Sandy Yellow') echo ' selected'; ?>>Sandy Yellow</option>
+                    <option<?php if($data['Coloring'] == 'Seal') echo ' selected'; ?>>Seal</option>
+                    <option<?php if($data['Coloring'] == 'Seal & White') echo ' selected'; ?>>Seal & White</option>
+                    <option<?php if($data['Coloring'] == 'Seal Brown') echo ' selected'; ?>>Seal Brown</option>
+                    <option<?php if($data['Coloring'] == 'Seal, Brindle & White') echo ' selected'; ?>>Seal, Brindle & White</option>
+                    <option<?php if($data['Coloring'] == 'Sedge') echo ' selected'; ?>>Sedge</option>
+                    <option<?php if($data['Coloring'] == 'Shaded Cream') echo ' selected'; ?>>Shaded Cream</option>
+                    <option<?php if($data['Coloring'] == 'Silver') echo ' selected'; ?>>Silver</option>
+                    <option<?php if($data['Coloring'] == 'Silver & White') echo ' selected'; ?>>Silver & White</option>
+                    <option<?php if($data['Coloring'] == 'Silver Beige') echo ' selected'; ?>>Silver Beige</option>
+                    <option<?php if($data['Coloring'] == 'Silver Brindle') echo ' selected'; ?>>Silver Brindle</option>
+                    <option<?php if($data['Coloring'] == 'Silver Dapple') echo ' selected'; ?>>Silver Dapple</option>
+                    <option<?php if($data['Coloring'] == 'Silver Fawn') echo ' selected'; ?>>Silver Fawn</option>
+                    <option<?php if($data['Coloring'] == 'Silver Gray') echo ' selected'; ?>>Silver Gray</option>
+                    <option<?php if($data['Coloring'] == 'Silver Leopard') echo ' selected'; ?>>Silver Leopard</option>
+                    <option<?php if($data['Coloring'] == 'Silver Sable') echo ' selected'; ?>>Silver Sable</option>
+                    <option<?php if($data['Coloring'] == 'Silver, Black Overlay') echo ' selected'; ?>>Silver, Black Overlay</option>
+                    <option<?php if($data['Coloring'] == 'Silver, Gold & White') echo ' selected'; ?>>Silver, Gold & White</option>
+                    <option<?php if($data['Coloring'] == 'Slate') echo ' selected'; ?>>Slate</option>
+                    <option<?php if($data['Coloring'] == 'Stag Red') echo ' selected'; ?>>Stag Red</option>
+                    <option<?php if($data['Coloring'] == 'Tan') echo ' selected'; ?>>Tan</option>
+                    <option<?php if($data['Coloring'] == 'Tan & Black') echo ' selected'; ?>>Tan & Black</option>
+                    <option<?php if($data['Coloring'] == 'Tan & White') echo ' selected'; ?>>Tan & White</option>
+                    <option<?php if($data['Coloring'] == 'Tawny') echo ' selected'; ?>>Tawny</option>
+                    <option<?php if($data['Coloring'] == 'Tri') echo ' selected'; ?>>Tri</option>
+                    <option<?php if($data['Coloring'] == 'Tri-Colored') echo ' selected'; ?>>Tri-Colored</option>
+                    <option<?php if($data['Coloring'] == 'Unknown') echo ' selected'; ?>>Unknown</option>
+                    <option<?php if($data['Coloring'] == 'Wheaten') echo ' selected'; ?>>Wheaten</option>
+                    <option<?php if($data['Coloring'] == 'White') echo ' selected'; ?>>White</option>
+                    <option<?php if($data['Coloring'] == 'White & Apricot') echo ' selected'; ?>>White & Apricot</option>
+                    <option<?php if($data['Coloring'] == 'White & Badger') echo ' selected'; ?>>White & Badger</option>
+                    <option<?php if($data['Coloring'] == 'White & Biscuit') echo ' selected'; ?>>White & Biscuit</option>
+                    <option<?php if($data['Coloring'] == 'White & Black') echo ' selected'; ?>>White & Black</option>
+                    <option<?php if($data['Coloring'] == 'White & Blue') echo ' selected'; ?>>White & Blue</option>
+                    <option<?php if($data['Coloring'] == 'White & Blue Merle') echo ' selected'; ?>>White & Blue Merle</option>
+                    <option<?php if($data['Coloring'] == 'White & Brindle') echo ' selected'; ?>>White & Brindle</option>
+                    <option<?php if($data['Coloring'] == 'White & Chocolate') echo ' selected'; ?>>White & Chocolate</option>
+                    <option<?php if($data['Coloring'] == 'White & Fawn') echo ' selected'; ?>>White & Fawn</option>
+                    <option<?php if($data['Coloring'] == 'White & Liver') echo ' selected'; ?>>White & Liver</option>
+                    <option<?php if($data['Coloring'] == 'White & Red') echo ' selected'; ?>>White & Red</option>
+                    <option<?php if($data['Coloring'] == 'White & Red Merle') echo ' selected'; ?>>White & Red Merle</option>
+                    <option<?php if($data['Coloring'] == 'White & Sable') echo ' selected'; ?>>White & Sable</option>
+                    <option<?php if($data['Coloring'] == 'White & Sable Merle') echo ' selected'; ?>>White & Sable Merle</option>
+                    <option<?php if($data['Coloring'] == 'White & Silver') echo ' selected'; ?>>White & Silver</option>
+                    <option<?php if($data['Coloring'] == 'White & Tan') echo ' selected'; ?>>White & Tan</option>
+                    <option<?php if($data['Coloring'] == 'White Merle') echo ' selected'; ?>>White Merle</option>
+                    <option<?php if($data['Coloring'] == 'White Ticked') echo ' selected'; ?>>White Ticked</option>
+                    <option<?php if($data['Coloring'] == '>White with Cream') echo ' selected'; ?>>White with Cream</option>
+                    <option<?php if($data['Coloring'] == 'White, Black & Tan') echo ' selected'; ?>>White, Black & Tan</option>
+                    <option<?php if($data['Coloring'] == 'White, Red Shading') echo ' selected'; ?>>White, Red Shading</option>
+                    <option<?php if($data['Coloring'] == 'Wild Boar') echo ' selected'; ?>>Wild Boar</option>
+                    <option<?php if($data['Coloring'] == 'Wolf Sable') echo ' selected'; ?>>Wolf Sable</option>
+                    <option<?php if($data['Coloring'] == 'Yellow') echo ' selected'; ?>>Yellow</option>
                 </select>
             </div>
         </div>
     </div>
-    <div id="registryRegistration">
-        <div class="row">
-            <div class="col">
-                <div class="form-group">
-                    <label for="form_registry_registration">Registration Number*</label><input required class="form-control" name="ReferenceNumber" type="text" id="form_registry_registration" value="<?php echo $data['ReferenceNumber']; ?>">
-                </div>
+    <div class="row">
+        <div class="col">
+            <div class="form-group">
+                <label for="form_registry_registration">Registration Number*</label>
+                <input required class="form-control" name="RegisterNumber" type="text" id="form_registry_registration" value="<?php echo $data['RegisterNumber']; ?>">
             </div>
         </div>
     </div>

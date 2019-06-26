@@ -317,6 +317,11 @@ class tsl_puppies_direct_cron
               //if (isset($pet['RegistryName'])) update_post_meta( $pet->ID, 'pdm_pet_registry', $pet['RegistryName']);
             }
 
+            if(!$is_cron && isset($pet['asking_price'])) {
+              update_post_meta($product_id, '_price', $pet['asking_price']);
+              update_post_meta($product_id, '_regular_price', $pet['asking_price']);
+            }
+
             // Set vendor
             if(isset($pet['VendorId'])) wp_set_object_terms( $product_id, $pet['VendorId'], WC_PRODUCT_VENDORS_TAXONOMY );
 
