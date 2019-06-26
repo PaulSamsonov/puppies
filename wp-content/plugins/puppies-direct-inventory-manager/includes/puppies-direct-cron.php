@@ -153,68 +153,44 @@ class tsl_puppies_direct_cron
         }
     }
 
-    public function update_pet_inventory( $all_pet_data, $is_cron = true )
+		public function update_pet_inventory( $all_pet_data )
     {
 
         if (!function_exists('wc_get_product_id_by_sku')) return;
-        /*echo '<pre>';
-        print_r($all_pet_data);
-        echo '</pre>';*/
-        //exit;
-
-        if($is_cron) {
-          $status = 'publish';
-          $pdm_pet_product = 'pet';
-        } else {
-          $status = 'pending';
-          $pdm_pet_product = 'breeder';
-        }
 
         foreach ($all_pet_data as $pet) {
 
-            if($is_cron) {
-              if (empty($pet['PetId'])) {
+            if( empty($pet['PetId']) ){
                 $this->json_reponse[] = 'Skipped: ' . $pet['PetName'];
                 continue;
-              }
-
-              $product_id = wc_get_product_id_by_sku($pet['PetId']);
-            } else {
-              if($pet['action'] == 'new') {
-                $product_id = false;
-              } else {
-                $product_id = $pet['product_id'];
-              }
             }
+
+            $product_id = wc_get_product_id_by_sku($pet['PetId']);
 
             if( empty( $pet['PetName'] )) {
                 $pet['PetName'] = $this->randomPetName( $pet['Gender'] );
-                if( empty( $pet['PetName'] )) {
-                  $pet['PetName'] = $pet['BreedName'];
-                }
             }
-
-            if(empty($pet['Description'])){
-              $Description = ' ';
-            }else{
-              $Description = $pet['Description'];
+            if( empty( $pet['PetName'] )) {
+                $pet['PetName'] = $pet['BreedName'];
             }
 
             if (!$product_id) {
                 //insert into WooCommerce
 
+                if(empty($pet['Description'])){
+                    $Description = ' ';
+                }else{
+                    $Description = $pet['Description'];
+                }
+
                 $post = array(
-                    //'post_author' > 1,
+                    'post_author' > 1,
                     'post_content' => $Description,
-                    'post_status' => $status,
+                    'post_status' => "publish",
                     'post_title' => $pet['PetName'],
                     'post_parent' => '',
                     'post_type' => "product",
                 );
-
-                if($is_cron) {
-                  $post['post_author'] = 1;
-                }
 
                 $product_id = wp_insert_post($post);
 
@@ -228,21 +204,18 @@ class tsl_puppies_direct_cron
                 update_post_meta( $product_id, 'out_of_stock_by_pet_key', 'no' );
 
             }else{
-                //if($pet->ID) {
+                if($pet->ID) {
                     $pet_post = array(
-                        //'ID' => $pet->ID,
-                        'ID' => $product_id,
-                        //'post_status' => $status,
-                        'post_title' => $pet['PetName'],
-                        'post_content' => $Description
+                        'ID' => $pet->ID,
+                        'post_status' => 'publish'
                     );
 
                     wp_update_post($pet_post);
 
-                //}
+                }
             }
 
-            update_post_meta($product_id, '_pdm_pet_product', $pdm_pet_product);
+            update_post_meta($product_id, '_pdm_pet_product', 'pet' );
 
             $pet_breed = $pet['BreedName'];
             $pet_categories = $this->pd_woo_manage_category(array('Pets', $pet_breed ));
@@ -288,7 +261,7 @@ class tsl_puppies_direct_cron
             if(isset($pet['VideoUrl'])) update_post_meta($product_id, '_pdm_pet_video_url', $pet['VideoUrl']);
             if(isset($pet['Microchip'])) update_post_meta($product_id, '_pdm_pet_microchip_number', $pet['Microchip']);
             update_post_meta($product_id, '_pdm_pet_id', $pet['PetId'] );
-            if($is_cron) update_post_meta($product_id, '_pdm_pet_api_key', $pet['apikey'] );
+            update_post_meta($product_id, '_pdm_pet_api_key', $pet['apikey'] );
             update_post_meta($product_id, '_sold_individually', 1 );
 
 
@@ -306,30 +279,6 @@ class tsl_puppies_direct_cron
             update_post_meta($product_id, 'pdm_pet_id', $pet['PetId'] );
 
             wp_set_object_terms($product_id, $tags, 'product_tag');
-
-            // New fields
-            if(isset($pet['ofa_certified'])) update_post_meta($product_id, 'pdm_pet_ofa_certified', $pet['ofa_certified']);
-            if(isset($pet['champion'])) update_post_meta($product_id, 'pdm_pet_champion', $pet['champion']);
-            if(isset($pet['has_been_shown'])) update_post_meta($product_id, 'pdm_pet_has_been_shown', $pet['has_been_shown']);
-
-            if(!$is_cron && isset($pet['RegistryName'])) {
-              update_post_meta( $product_id, '_pdm_pet_registry', $pet['RegistryName']);
-              //if (isset($pet['RegistryName'])) update_post_meta( $pet->ID, 'pdm_pet_registry', $pet['RegistryName']);
-            }
-
-            if(!$is_cron && isset($pet['asking_price'])) {
-              update_post_meta($product_id, '_price', $pet['asking_price']);
-              update_post_meta($product_id, '_regular_price', $pet['asking_price']);
-            }
-
-            // Set vendor
-            if(isset($pet['VendorId'])) wp_set_object_terms( $product_id, $pet['VendorId'], WC_PRODUCT_VENDORS_TAXONOMY );
-
-            // add images
-            if(!$is_cron && $_FILES['Photo']) {
-              $images[] = $this->download_image_to_wp_media_library( $_FILES['Photo']['tmp_name'], $product_id, $_FILES['Photo']['name'], false );
-              $this->setImages($images, $product_id);
-            }
 
         }
     }
