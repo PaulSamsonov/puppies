@@ -62,7 +62,7 @@ class tsl_puppies_direct_cron
         }
 
         $this->delete_trash();
-        //echo '<pre>'; print_r($all_pet_data);
+
         $this->update_pet_inventory( $all_pet_data );
         $this->remove_pet_inventory( $all_pet_data );
         $this->update_pricing();
@@ -153,7 +153,7 @@ class tsl_puppies_direct_cron
         }
     }
 
-		public function update_pet_inventory( $all_pet_data )
+    public function update_pet_inventory( $all_pet_data )
     {
 
         if (!function_exists('wc_get_product_id_by_sku')) return;
@@ -285,8 +285,7 @@ class tsl_puppies_direct_cron
 
     function pd_woo_manage_category($required_categories){
 
-        //$parent_term_id = 230; //68;
-        $parent_term_id = BREEDS_CATEGORY_ID;
+        $parent_term_id = 230; //68;
 
         $pet_categories = [];
         $category = [];
@@ -478,7 +477,11 @@ class tsl_puppies_direct_cron
                         }
 
 
-                        $this->setImages($images, $pet->ID);
+                        if(sizeof($images) > 0){
+                            $images = array_unique($images);
+                            set_post_thumbnail( $pet->ID, $images[0] );
+                            update_post_meta( $pet->ID, '_product_image_gallery', implode(',', $images) );
+                        }
 
                         if(isset($data['Breed']['Description'])) {
 
@@ -619,7 +622,7 @@ class tsl_puppies_direct_cron
         }
     }
 
-    function download_image_to_wp_media_library( $url, $post_id, $image_name, $is_cron = true ){
+    function download_image_to_wp_media_library( $url, $post_id , $image_name ){
 
         $image_id = str_replace(' ','_',$image_name );
 
@@ -633,12 +636,7 @@ class tsl_puppies_direct_cron
             require_once(ABSPATH . "wp-admin" . '/includes/media.php');
         }
 
-        if($is_cron) {
-          $tmp = download_url( $url );
-        } else {
-          $tmp = $url;
-        }
-
+        $tmp = download_url( $url );
         if( is_wp_error( $tmp ) ){
         // download failed, handle error
         }
@@ -648,12 +646,8 @@ class tsl_puppies_direct_cron
 
         // Set variables for storage
         // fix file filename for query strings
-        if($is_cron) {
-          preg_match('/[^?]+.(jpg|jpe|jpeg|gif|png)/i', $url, $matches);
-          $file_array['name'] = basename($matches[0]);
-        } else {
-          $file_array['name'] = $image_id;
-        }
+        preg_match('/[^?]+.(jpg|jpe|jpeg|gif|png)/i', $url, $matches);
+        $file_array['name'] = basename($matches[0]);
         $file_array['tmp_name'] = $tmp;
 
         // If error storing temporarily, unlink
@@ -676,14 +670,6 @@ class tsl_puppies_direct_cron
             return $attachment_id;
 
         }
-    }
-
-    function setImages($images, $product_id) {
-      if(sizeof($images) > 0){
-        $images = array_unique($images);
-        set_post_thumbnail( $product_id, $images[0] );
-        update_post_meta( $product_id, '_product_image_gallery', implode(',', $images) );
-      }
     }
 
 }
