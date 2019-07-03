@@ -16,7 +16,7 @@ jQuery(function($) {
         }
     });
     // close popups
-    $('.modal-popup .close').click(function(e) {
+    $('.modal-popup .close').on('click', function(e) {
         e.preventDefault();
         $('.modal-popup').hide();
         $('body').css('overflow', 'auto');
@@ -32,15 +32,17 @@ jQuery(function($) {
         // media Delete
         if($t.hasClass('dropDelete')) {
             pop.find('.accept').on('click', function(e) {
-                var parent = $t.parents('.col-media');
+                var parent = $t.parents('.col-parent');
+                var frm = $('.dropzone');
                 $.post(puppy_vars.ajaxurl, {
                     action: 'puppy_media',
                     type: 'delete',
-                    pid: $('#frmDropzone').data('pid'),
+                    mime: frm.data('mime'),
+                    pid: frm.data('pid'),
                     aid: parent.data('aid')
                 }, function (r) {
                     //parent.remove();
-                    $('#previews').html('<strong>Reloading...</strong>');
+                    $('.media-previews').html('<strong>Reloading...</strong>');
                     window.location.reload(true);
                 });
                 $t.prop('disabled', true).text('Deleting...');
@@ -49,7 +51,7 @@ jQuery(function($) {
         } else {
             // retireConfirmation
             if($t.hasClass('btn-retire') || $t.hasClass('btn-delete')) {
-                pop.find('.accept').click(function (e) {
+                pop.find('.accept').on('click', function(e) {
                     e.preventDefault();
                     window.location = $t.data('url');
                 });
@@ -62,7 +64,7 @@ jQuery(function($) {
         $(this).next('.tooltip-content').show();
     });
     // close tooltip
-    $('.tooltip-content .close').click(function(e) {
+    $('.tooltip-content .close').on('click', function(e) {
         e.preventDefault();
         $('.tooltip-content').hide();
     });
@@ -88,8 +90,9 @@ jQuery(function($) {
     });
     // Dropzone
     if(typeof Dropzone !== 'undefined') {
-        var previewNode = document.querySelector("#template");
-        var previewTemplate = document.querySelector("#template").parentNode.innerHTML;
+        // Photo
+        var previewNode = document.querySelector('#template_photo');
+        var previewTemplate = previewNode.parentNode.innerHTML;
         previewNode.parentNode.removeChild(previewNode);
         Dropzone.options.frmDropzone = {
             url: puppy_vars.ajaxurl,
@@ -97,20 +100,21 @@ jQuery(function($) {
             paramName: 'puppy_media',
             maxFilesize: 5, // MB
             maxFiles: 1,
-            acceptedFiles: 'image/*, video/*',
-            clickable: '.dropSelect',
+            acceptedFiles: 'image/*',
+            clickable: '.drop-photos .dropSelect',
             previewTemplate: previewTemplate,
-            previewsContainer: '#previews',
+            previewsContainer: '#previews_photo',
             dictDefaultMessage: 'or drop file here',
             init: function () {
                 var myDropzone = this;
                 this.on('addedfile', function() {
                     $('.active .dropChange, .active .dropDelete').hide();
-                    $('#previews .dropUpload, #previews .dropCancel, .active .dropUpload, .active .dropCancel').show();
-                    $('.dropUpload').on('click', function () {
+                    $('#previews_photo .dropUpload, #previews_photo .dropCancel, .active .dropUpload, .active .dropCancel').show();
+                    $('.drop-photos .dropUpload').on('click', function () {
+                        $('#previews_video').hide();
                         myDropzone.processQueue();
                     });
-                    $('.dropCancel').on('click', function () {
+                    $('.drop-photos .dropCancel').on('click', function () {
                         myDropzone.removeAllFiles();
                         $('.dropChange, .dropDelete').show();
                         $('.dropUpload, .dropCancel').hide();
@@ -118,12 +122,12 @@ jQuery(function($) {
                 });
                 this.on('uploadprogress', function(file, progress, bytesSent) {
                     if (file.previewElement) {
-                        var progressElement = file.previewElement.querySelector('.progress-bar');
+                        var progressElement = file.previewElement.querySelector('.drop-photos .progress-bar');
                         progressElement.style.width = progress + "%";
                     }
                 });
                 this.on('sending', function(file) {
-                    document.querySelector('.progress').style.opacity = '1';
+                    document.querySelector('.drop-photos .progress').style.opacity = '1';
                     file.previewElement.querySelector('.dropUpload').setAttribute('disabled', 'disabled');
                 });
                 /*this.on('queuecomplete', function(progress) {
@@ -136,14 +140,14 @@ jQuery(function($) {
                 formData.append('pid', frm.data('pid'));
                 formData.append('aid', frm.data('aid'));
                 formData.append('is_thumb', frm.data('is_thumb'));
-                formData.append('order', $('#template .dropOrder').val());
-                $('#previews .dropUpload, .col-media[data-aid="'+frm.data('aid')+'"] .dropUpload').text('Uploading...');
+                formData.append('order', $('#template_photo .dropOrder').val());
+                $('#previews_photo .dropUpload, .col-media[data-aid="'+frm.data('aid')+'"] .dropUpload').text('Uploading...');
             },
             complete: function (file, response) {
                 var myDropzone = this;
                 setTimeout(function(){
                     myDropzone.removeFile(file);
-                    $('#previews').html('<strong>Reloading...</strong>');
+                    $('#previews_photo').html('<strong>Reloading...</strong>');
                     //$('.col-media[data-aid="'+$('#frmDropzone').data('aid')+'"]').html('<strong>Reloading...</strong>');
                     window.location.reload(true);
                 }, 500);
@@ -163,7 +167,7 @@ jQuery(function($) {
                 'aid': parent.data('aid'),
                 'is_thumb': parent.data('is_thumb')
             });
-            $('#previews').addClass('changing');
+            $('#previews_photo').addClass('changing');
         });
         // change Order
         $('.media-actions .dropOrder').on('change', function(e) {
@@ -178,10 +182,71 @@ jQuery(function($) {
                 is_thumb: parent.data('is_thumb'),
                 order: $t.val()
             }, function (r) {
-                $('#previews').html('<strong>Reloading...</strong>');
+                $('#previews_photo').html('<strong>Reloading...</strong>');
                 window.location.reload(true);
             });
         });
+        // Video
+        var previewNode = document.querySelector('#template_video');
+        var previewTemplate = previewNode.parentNode.innerHTML;
+        previewNode.parentNode.removeChild(previewNode);
+        Dropzone.options.frmDropzoneVideo = {
+            url: puppy_vars.ajaxurl,
+            autoProcessQueue: false,
+            paramName: 'puppy_media',
+            maxFilesize: 50, // MB
+            maxFiles: 1,
+            acceptedFiles: 'video/*',
+            clickable: '.drop-video .dropSelect',
+            previewTemplate: previewTemplate,
+            previewsContainer: '#previews_video',
+            dictDefaultMessage: 'or drop file here',
+            init: function () {
+                var myDropzone = this;
+                this.on('addedfile', function() {
+                    $('.active .dropChange, .active .dropDelete').hide();
+                    $('#previews_video .dropUpload, #previews_video .dropCancel, .active .dropUpload, .active .dropCancel').show();
+                    $('.drop-video .dropUpload').on('click', function () {
+                        $('#previews_photo').hide();
+                        myDropzone.processQueue();
+                    });
+                    $('.drop-video .dropCancel').on('click', function () {
+                        myDropzone.removeAllFiles();
+                        $('.dropChange, .dropDelete').show();
+                        $('.dropUpload, .dropCancel').hide();
+                    });
+                });
+                this.on('uploadprogress', function(file, progress, bytesSent) {
+                    if (file.previewElement) {
+                        var progressElement = file.previewElement.querySelector('.drop-video .progress-bar');
+                        progressElement.style.width = progress + "%";
+                    }
+                });
+                this.on('sending', function(file) {
+                    document.querySelector('.drop-video .progress').style.opacity = '1';
+                    file.previewElement.querySelector('.dropUpload').setAttribute('disabled', 'disabled');
+                });
+            },
+            sending: function (file, xhr, formData) {
+                var frm = $('#frmDropzoneVideo');
+                formData.append('action', 'puppy_media');
+                formData.append('pid', frm.data('pid'));
+                //formData.append('aid', frm.data('aid'));
+                formData.append('type', 'video');
+                $('#previews_video .dropUpload').text('Uploading...');
+            },
+            complete: function (file, response) {
+                var myDropzone = this;
+                setTimeout(function(){
+                    myDropzone.removeFile(file);
+                    $('#previews_video').html('<strong>Reloading...</strong>');
+                    window.location.reload(true);
+                }, 500);
+            },
+            success : function(file, response){
+
+            },
+        };
     }
     // mark puppy Sold
     $('.btn-mark-sold').on('click', function(e) {

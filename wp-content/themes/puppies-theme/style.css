@@ -445,28 +445,28 @@ li.ast-masthead-custom-menu-items {padding: 0; width:200px;}*/
     width: 100%;
     margin-bottom: 20px;
 }
-.page-template-breeder-dashboard #previews button,
+.page-template-breeder-dashboard .media-previews button,
 .page-template-breeder-dashboard .media-actions button {
     border: none;
     line-height: 1;
 }
-.page-template-breeder-dashboard #previews {
+.page-template-breeder-dashboard .media-previews {
     margin-bottom: 20px;
 }
-.page-template-breeder-dashboard #previews .error {
+.page-template-breeder-dashboard .media-previews .error {
     color: #ff0000;
 }
-.page-template-breeder-dashboard #previews .dz-image-preview {
+.page-template-breeder-dashboard .media-previews .dz-image-preview {
     display: flex;
 }
-.page-template-breeder-dashboard #previews .preview {
+.page-template-breeder-dashboard .media-previews .preview {
     margin-right: 20px;
 }
-.page-template-breeder-dashboard #previews p {
+.page-template-breeder-dashboard .media-previews p {
     margin-bottom: 15px;
 }
-.page-template-breeder-dashboard #previews.changing .ordering,
-.page-template-breeder-dashboard #previews.changing .progress {
+.page-template-breeder-dashboard .media-previews.changing .ordering,
+.page-template-breeder-dashboard .media-previews.changing .progress {
     display: none;
 }
 .page-template-breeder-dashboard .dropUpload,
@@ -502,6 +502,7 @@ li.ast-masthead-custom-menu-items {padding: 0; width:200px;}*/
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
+    margin-bottom: 30px;
 }
 .page-template-breeder-dashboard .col-media {
     width: calc(50% - 5px);
@@ -527,6 +528,9 @@ li.ast-masthead-custom-menu-items {padding: 0; width:200px;}*/
 .page-template-breeder-dashboard .media-actions .dropOrder {
     display: block;
     margin-bottom: 10px;
+}
+.page-template-breeder-dashboard .media-video {
+    margin-bottom: 15px;
 }
 /* Popup */
 .modal-popup {

@@ -6,33 +6,66 @@ print_r($vars);
 echo '</pre>';*/
 ?>
 <h1><?php echo $data['title']; ?></h1>
-<h2>Add Photos</h2>
-<div class="dropUpload-holder">
-    <button class="dropSelect">Select image</button>
-</div>
-<div class="dropzone" id="frmDropzone" data-pid="<?php echo $data['id']; ?>"></div>
-<div id="previews">
-    <div id="template">
-        <div class="preview">
-            <img data-dz-thumbnail>
-        </div>
-        <div>
-            <p>Name: <span data-dz-name></span></p>
-            <strong class="error" data-dz-errormessage></strong>
-            <p>Size: <span data-dz-size></span></p>
-            <?php if($data['display_order']) { ?>
-                <p class="ordering">Display Order: <?php echo $data['display_order']; ?></p>
-            <?php } ?>
-            <div class="progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
-                <div class="progress-bar" data-dz-uploadprogress=""></div>
+<div class="drop-photos">
+    <h2>Photos</h2>
+    <div class="dropUpload-holder">
+        <button class="dropSelect dropSelectImage">Select image</button>
+    </div>
+    <div class="dropzone" id="frmDropzone" data-pid="<?php echo $data['id']; ?>" data-mime="image"></div>
+    <div id="previews_photo" class="media-previews">
+        <div id="template_photo">
+            <div class="preview">
+                <img data-dz-thumbnail>
             </div>
-            <div class="actions">
-                <button class="dropUpload">Upload</button>
-                <button data-dz-remove class="dropCancel btn-delete">Cancel</button>
+            <div>
+                <p>Name: <span data-dz-name></span></p>
+                <strong class="error" data-dz-errormessage></strong>
+                <p>Size: <span data-dz-size></span></p>
+                <?php if($data['display_order']) { ?>
+                    <p class="ordering">Display Order: <?php echo $data['display_order']; ?></p>
+                <?php } ?>
+                <div class="progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+                    <div class="progress-bar" data-dz-uploadprogress=""></div>
+                </div>
+                <div class="actions">
+                    <button class="dropUpload">Upload</button>
+                    <button data-dz-remove class="dropCancel btn-delete">Cancel</button>
+                </div>
             </div>
         </div>
     </div>
+    <div class="row-media">
+        <?php echo $data['out_media']; ?>
+    </div>
 </div>
-<div class="row-media">
-    <?php echo $data['out_media']; ?>
+<?php if($vars['type'] == 'puppies') { ?>
+<div class="drop-video">
+    <h2>Video</h2>
+    <div class="dropUpload-holder"<?php echo $data['out_media_video'] ? ' style="display:none;"' : '';  ?>>
+        <button class="dropSelect dropSelectVideo">Select video</button>
+    </div>
+    <div class="dropzone" id="frmDropzoneVideo" data-pid="<?php echo $data['id']; ?>" data-mime="video"<?php echo $data['out_media_video'] ? ' style="display:none;"' : '';  ?>></div>
+    <div id="previews_video" class="media-previews">
+        <div id="template_video">
+            <div class="preview">
+                <img data-dz-thumbnail>
+            </div>
+            <div>
+                <p>Name: <span data-dz-name></span></p>
+                <strong class="error" data-dz-errormessage></strong>
+                <p>Size: <span data-dz-size></span></p>
+                <div class="progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+                    <div class="progress-bar" data-dz-uploadprogress=""></div>
+                </div>
+                <div class="actions">
+                    <button class="dropUpload">Upload</button>
+                    <button data-dz-remove class="dropCancel btn-delete">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row-media">
+      <?php echo $data['out_media_video']; ?>
+    </div>
+    <?php } ?>
 </div>

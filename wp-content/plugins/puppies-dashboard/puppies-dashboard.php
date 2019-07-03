@@ -180,7 +180,7 @@ class puppies_dashboard_main {
         }
         wp_redirect(get_home_url(null, '/breeder-dashboard/'.$type . $action));
       } elseif($action == 'media' && is_numeric($path_id)) {
-        $vars['data'] = $this->class_media->get_media_data($path_id);
+        $vars['data'] = $this->class_media->get_media_data($path_id, $type);
         $vars['template'] = 'dashboard/media.php';
       } else {
         $vars['template'] = 'dashboard/' . $type . '.php';

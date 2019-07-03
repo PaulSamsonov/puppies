@@ -16,14 +16,16 @@ class puppies_dashboard_media {
         $this->update_attachment($new_attach_id, $_POST['pid'], $_POST['aid'], $_POST['is_thumb']);
       } else {
         $attach_id = $this->download_image_to_wp_media_library( $_FILES['puppy_media'], $_POST['pid'] );
-        if($attach_id) $this->set_attachments($attach_id, $_POST['pid'], $_POST['order']);
+        if($attach_id && $_POST['type'] != 'video') $this->set_attachments($attach_id, $_POST['pid'], $_POST['order']);
       }
     } elseif($_POST['type'] == 'delete' && $_POST['pid'] && $_POST['aid']) {
-      $del = wp_delete_attachment( $_POST['aid'], true );
-      $product_image_gallery = get_post_meta($_POST['pid'], '_product_image_gallery', true);
-      $product_image_gallery = str_replace($_POST['aid'], '', $product_image_gallery);
-      $product_image_gallery = $this->sanitize_gallery_field($product_image_gallery);
-      update_post_meta( $_POST['pid'], '_product_image_gallery',  $product_image_gallery);
+      wp_delete_attachment( $_POST['aid'], true );
+      if($_POST['mime'] == 'image') {
+        $product_image_gallery = get_post_meta($_POST['pid'], '_product_image_gallery', true);
+        $product_image_gallery = str_replace($_POST['aid'], '', $product_image_gallery);
+        $product_image_gallery = $this->sanitize_gallery_field($product_image_gallery);
+        update_post_meta($_POST['pid'], '_product_image_gallery', $product_image_gallery);
+      }
     } elseif($_POST['type'] == 'order' && $_POST['pid'] && $_POST['aid']) {
       $this->set_attachments($_POST['aid'], $_POST['pid'], $_POST['order'], false, $_POST['is_thumb']);
     }
@@ -31,12 +33,12 @@ class puppies_dashboard_media {
     wp_die();
   }
 
-  public function get_media_data($id) {
-    $product = get_post($id);
+  public function get_media_data($pid, $type) {
+    $product = get_post($pid);
     $thumbnail_id = get_post_meta($product->ID, '_thumbnail_id', true);
     $out_media = '';
-    $out_gallery = '';
     if($thumbnail_id) {
+      $out_gallery = '';
       $this->orders = 1;
       $image_gallery = get_post_meta($product->ID, '_product_image_gallery', true);
       if($image_gallery) {
@@ -53,11 +55,19 @@ class puppies_dashboard_media {
       $out_media .= $out_gallery;
     }
     $data = array(
-      'id' => $id,
+      'id' => $pid,
       'title' => $product->post_title,
       'out_media' => $out_media,
       'display_order' => $this->display_order(),
     );
+    if($type == 'puppies') {
+      if($attach = get_attached_media( 'video', $product->ID )) {
+        $attach = reset($attach);
+        $data['out_media_video'] = $this->out_video($product->ID, $attach);
+      } else {
+        $data['out_media_video'] = false;
+      }
+    }
 
     return $data;
   }
@@ -132,16 +142,20 @@ class puppies_dashboard_media {
                   set_post_thumbnail( $product_id, $exp_image_gallery[0] );
                   array_shift($exp_image_gallery);
                   $count = $count - 1;
-                  for ($i = 0, $j = 0; $i < $count; $i++, $j++) {
-                    if($i == $order) {
-                      $new_gallery[$i] = $temp_tid;
-                      $new_gallery[$i+1] = $exp_image_gallery[$i];
-                      $j++;
-                    } else {
-                      $new_gallery[$j] = $exp_image_gallery[$i];
-                    }
-                    if($order == $count) {
-                      $new_gallery[$order] = $temp_tid;
+                  if($count == 0) {
+                    $new_gallery[0] = $temp_tid;
+                  } else {
+                    for ($i = 0, $j = 0; $i < $count; $i++, $j++) {
+                      if($i == $order) {
+                        $new_gallery[$i] = $temp_tid;
+                        $new_gallery[$i+1] = $exp_image_gallery[$i];
+                        $j++;
+                      } else {
+                        $new_gallery[$j] = $exp_image_gallery[$i];
+                      }
+                      if($order == $count) {
+                        $new_gallery[$order] = $temp_tid;
+                      }
                     }
                   }
                 } else {
@@ -208,7 +222,7 @@ class puppies_dashboard_media {
 
   public function out_media_item($pid, $aid, $order, $is_thumb = false) {
     $out = '
-      <div class="col-media" data-aid="'.$aid.'" data-is_thumb="'.($is_thumb ? 'yes' : 'no').'">
+      <div class="col-media col-parent" data-aid="'.$aid.'" data-is_thumb="'.($is_thumb ? 'yes' : 'no').'">
           <h6>PHOTO #'.$order.'</h6>
           <div class="cell-media">
               <div class="media-image">
@@ -222,6 +236,20 @@ class puppies_dashboard_media {
                   <button class="dropDelete btn-delete modal-popup-link" data-href="#popup-confirm">Delete</button>
               </div>
           </div>
+      </div>';
+
+    return $out;
+  }
+
+  public function out_video($pid, $attach) {
+    $out = '
+      <div class="col-video col-parent" data-aid="'.$attach->ID.'">
+        <div class="media-video">
+            '.do_shortcode('[video src="'.$attach->guid.'"]').'
+        </div>
+        <div class="media-actions">
+            <button class="dropDelete btn-delete modal-popup-link" data-href="#popup-confirm">Delete</button>
+        </div>
       </div>';
 
     return $out;
