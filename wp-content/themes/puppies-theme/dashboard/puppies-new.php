@@ -791,39 +791,24 @@ echo '</pre>';*/
             </div>
         </div>
     </div>
-    <div class="row">
-        <div class="col">
-            <div class="form-group">
-                <label>Photo</label><br>
-                <?php
-                    if($data['Photo']) {
-                        echo wp_get_attachment_image($data['Photo'], 'full ');// . '<a id="deleteImage" href="">Delete</a>';
-                    }
-                ?>
-                <input type="file" name="Photo">
+    <?php if($vars['action'] == 'new') { ?>
+        <div class="row">
+            <div class="col">
+                <div class="agreement">
+                    <label>
+                        <input required name="usda_agreement" value="1" type="checkbox">
+                        <span>By checking this box, you are electronically signing and certifying that you consent to the terms of our <a target="_blank" href="/breeders/agreement">Membership Agreement</a> and that the information provided above is true and accurate.</span>
+                    </label>
+                </div>
+                <div class="agreement">
+                    <label>
+                        <input required name="price_agreement" value="1" type="checkbox">
+                        <span>Yes, all of my puppy’s costs are accounted for in the asking price field.</span>
+                    </label>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col">
-            <?php if(!$data['usda_agreement']) { ?>
-            <div class="agreement">
-                <label>
-                    <input required name="usda_agreement" value="1" type="checkbox">
-                    <span>By checking this box, you are electronically signing and certifying that you consent to the terms of our <a target="_blank" href="/breeders/agreement">Membership Agreement</a> and that the information provided above is true and accurate.</span>
-                </label>
-            </div>
-            <?php } ?>
-            <?php if(!$data['price_agreement']) { ?>
-            <div class="agreement">
-                <label>
-                    <input required name="price_agreement" value="1" type="checkbox">
-                    <span>Yes, all of my puppy’s costs are accounted for in the asking price field.</span>
-                </label>
-            </div>
-            <?php } ?>
-        </div>
-    </div>
+    <?php } ?>
     <div class="row">
         <div class="col col-submit">
             <button name="dashboard_submit">Submit</button>

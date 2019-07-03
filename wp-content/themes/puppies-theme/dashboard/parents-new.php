@@ -650,19 +650,6 @@ echo '</pre>';*/
         </div>
     </div>
     <div class="row">
-        <div class="col">
-            <div class="form-group">
-                <label>Photo</label><br>
-                <?php
-                    if($data['Photo']) {
-                        echo wp_get_attachment_image($data['Photo'], 'full ');// . '<a id="deleteImage" href="">Delete</a>';
-                    }
-                ?>
-                <input type="file" name="Photo">
-            </div>
-        </div>
-    </div>
-    <div class="row">
         <div class="col col-submit">
             <button name="dashboard_submit">Submit</button>
             <input type="hidden" name="type" value="parents">

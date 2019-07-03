@@ -194,7 +194,8 @@ li.ast-masthead-custom-menu-items {padding: 0; width:200px;}*/
 .page-template-breeder-dashboard #secondary .navigation ul .active a {
     color: #009ee2;
 }
-.page-template-breeder-dashboard h1 {
+.page-template-breeder-dashboard h1,
+.page-template-breeder-dashboard h2 {
     margin: 0 0 30px;
 }
 .page-template-breeder-dashboard a.tile div {
@@ -280,10 +281,7 @@ li.ast-masthead-custom-menu-items {padding: 0; width:200px;}*/
     line-height: 25px;
     text-indent: 5px;
 }
-.page-template-breeder-dashboard .radio input[type="radio"],
-.page-template-breeder-dashboard .radio-inline input[type="radio"],
-.page-template-breeder-dashboard .checkbox input[type="checkbox"],
-.page-template-breeder-dashboard .checkbox-inline input[type="checkbox"] {
+.page-template-breeder-dashboard input[type="radio"] {
     width: 20px;
     height: 20px;
     float: left;
@@ -353,6 +351,22 @@ li.ast-masthead-custom-menu-items {padding: 0; width:200px;}*/
     color: #32355d;
     font-size: 12px;
 }
+.page-template-breeder-dashboard .card .ad-info .parents-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+.page-template-breeder-dashboard .card .ad-info .parent-col {
+    width: 50%;
+    text-align: center;
+}
+.page-template-breeder-dashboard .card .ad-info .parent-col .name {
+    font-size: 10px;
+}
+.page-template-breeder-dashboard .card .ad-info .parent-col img {
+    max-width: 128px;
+    max-height: 60px;
+}
 .page-template-breeder-dashboard .card .ad-info td {
     padding: 1px 5px 0 0;
 }
@@ -362,14 +376,25 @@ li.ast-masthead-custom-menu-items {padding: 0; width:200px;}*/
 }
 .page-template-breeder-dashboard .card .ad-info td:last-child {
     color: #8daab4;
+    vertical-align: bottom;
 }
 .page-template-breeder-dashboard .card .card-content .actions {
     margin-top: auto;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
 }
+.page-template-breeder-dashboard .card .actions .left,
 .page-template-breeder-dashboard .card .actions .right {
-    width: 100%;
+    width: 49%;
 }
-.page-template-breeder-dashboard .card .actions a {
+.page-template-breeder-dashboard .card .actions .left a {
+    text-align: left;
+}
+.page-template-breeder-dashboard .card .actions .right a {
+    text-align: right;
+}
+.page-template-breeder-dashboard .card .actions a:not(.view-link) {
     display: inline-block;
     width: 100%;
     margin: 3px 0;
@@ -380,14 +405,128 @@ li.ast-masthead-custom-menu-items {padding: 0; width:200px;}*/
     font-size: 12px;
     font-weight: bold;
 }
+.page-template-breeder-dashboard .card .actions a.view-link {
+    width: 100%;
+    text-align: center;
+    font-size: 12px;
+}
 .page-template-breeder-dashboard .card .btn-edit {
     background: #60af00;
 }
 .page-template-breeder-dashboard .card .btn-retire {
     background: #fd0;
 }
-.page-template-breeder-dashboard .card .btn-delete {
+.page-template-breeder-dashboard .btn-delete {
     background: #ff0000;
+}
+.page-template-breeder-dashboard .card .btn-photos {
+    background: #b2a2c7;
+}
+.page-template-breeder-dashboard .card .btn-videos {
+    background: #f79646;
+}
+.page-template-breeder-dashboard .card .btn-mark-sold {
+    background: #237fef;
+}
+.page-template-breeder-dashboard .table-main {
+    border: none;
+}
+.page-template-breeder-dashboard .table-main td {
+    border-top: 1px solid rgba(0,0,0,.1);
+}
+.page-template-breeder-dashboard .table-main td:last-child {
+    text-align: right;
+}
+/* Media */
+.page-template-breeder-dashboard .dropzone {
+    margin-bottom: 20px;
+}
+.page-template-breeder-dashboard .dropUpload-holder {
+    width: 100%;
+    margin-bottom: 20px;
+}
+.page-template-breeder-dashboard #previews button,
+.page-template-breeder-dashboard .media-actions button {
+    border: none;
+    line-height: 1;
+}
+.page-template-breeder-dashboard #previews {
+    margin-bottom: 20px;
+}
+.page-template-breeder-dashboard #previews .error {
+    color: #ff0000;
+}
+.page-template-breeder-dashboard #previews .dz-image-preview {
+    display: flex;
+}
+.page-template-breeder-dashboard #previews .preview {
+    margin-right: 20px;
+}
+.page-template-breeder-dashboard #previews p {
+    margin-bottom: 15px;
+}
+.page-template-breeder-dashboard #previews.changing .ordering,
+.page-template-breeder-dashboard #previews.changing .progress {
+    display: none;
+}
+.page-template-breeder-dashboard .dropUpload,
+.page-template-breeder-dashboard .dropCancel {
+    display: none;
+}
+.page-template-breeder-dashboard .dz-drag-hover,
+.page-template-breeder-dashboard .dz-started {
+    border: 2px solid #60af00;
+    color: #60af00;
+}
+.page-template-breeder-dashboard .progress {
+    opacity: 0;
+    overflow: hidden;
+    height: 20px;
+    margin-bottom: 20px;
+    background-color: #f5f5f5;
+    border-radius: 4px;
+    box-shadow: inset 0 1px 2px rgba(0,0,0,.1);
+}
+.page-template-breeder-dashboard .progress-bar {
+    width: 0;
+    height: 100%;
+    -webkit-box-shadow: inset 0 -1px 0 rgba(0,0,0,.15);
+    box-shadow: inset 0 -1px 0 rgba(0,0,0,.15);
+    transition: width .6s ease;
+    background-image: linear-gradient(45deg,rgba(255,255,255,.15) 25%,transparent 25%,transparent 50%,rgba(255,255,255,.15) 50%,rgba(255,255,255,.15) 75%,transparent 75%,transparent);
+    background-color: #5cb85c;
+    background-size: 40px 40px;
+    animation: progress-bar-stripes 2s linear infinite;
+}
+.page-template-breeder-dashboard .row-media {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+.page-template-breeder-dashboard .col-media {
+    width: calc(50% - 5px);
+    border: 1px dashed #ccc;
+    margin-bottom: 10px;
+    padding: 10px;
+}
+.page-template-breeder-dashboard .col-media h6 {
+    margin-bottom: 10px;
+}
+.page-template-breeder-dashboard .cell-media {
+    display: flex;
+    align-items: center;
+}
+.page-template-breeder-dashboard .media-image {
+    width: 150px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 10px;
+}
+.page-template-breeder-dashboard .media-actions .dropOrder {
+    display: block;
+    margin-bottom: 10px;
 }
 /* Popup */
 .modal-popup {
@@ -423,10 +562,10 @@ li.ast-masthead-custom-menu-items {padding: 0; width:200px;}*/
     outline: none;
     z-index: 99999;
 }
-#popup-retire .modal-popup-content {
+#popup-confirm .modal-popup-content {
     text-align: center;
 }
-#popup-retire .modal-popup-footer button {
+#popup-confirm .modal-popup-footer button {
     margin: 15px;
 }
 #popup-puppynames .modal-popup-content {

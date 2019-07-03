@@ -1,24 +1,59 @@
 <?php
-
 /*
 Plugin Name: Puppies Dashboard
 Description: Breeders dashboard managment
 Version: 1.0
 */
 
-define('BREEDER_DASHBOARD_TEMPLATE', 'breeder-dashboard.php');
+define( 'BREEDS_CATEGORY_ID', 230 );
+define( 'BREEDER_DASHBOARD_TEMPLATE', 'breeder-dashboard.php' );
+
+require_once dirname(__FILE__) . '/includes/media.php';
 
 new puppies_dashboard_main();
 
 class puppies_dashboard_main {
 
   public $plugin_cron;
+  public $class_media;
 
   public function __construct() {
-
-    add_action( 'init', array( $this, 'rewrites' ));
+    // Class media
+    $this->class_media = new puppies_dashboard_media();
+    // Init hook
+    add_action( 'init', array( $this, 'init' ));
+    // wp loaded hook
     add_action( 'wp', array( $this, 'main' ));
+  }
 
+  public function init() {
+    // rewrites
+    $this->rewrites();
+
+    // cpt Parents
+    $this->custom_post_type();
+
+    // Dashboard menu item
+    add_filter( 'wp_nav_menu_items', array( $this, 'menu_item' ), 10, 2 );
+
+    // Show hidden custom fields
+    add_filter( 'is_protected_meta', '__return_false' );
+
+    // Show product author
+    //add_post_type_support( 'product', 'author' );
+
+    // thumbnail sizes
+    add_image_size( 'dashboard-view', 258, 258, false );
+    add_image_size( 'dashboard-parent', 128, 60, false );
+    add_image_size( 'dashboard-main', 36, 36, false );
+    add_image_size( 'dashboard-media', 150, 100, false );
+
+    // enqueue_scripts
+    add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ), 99 );
+
+    // Ajax
+    add_action( 'wp_ajax_puppy_media', array( $this->class_media, 'ajax_media' ) );
+    add_action( 'wp_ajax_puppy_sold', array( $this, 'ajax_mark_sold' ) );
   }
 
   public function rewrites() {
@@ -34,27 +69,80 @@ class puppies_dashboard_main {
     } );
   }
 
+  public function custom_post_type() {
+    register_post_type('puppy_parents', array(
+      'labels'             => array(
+        'name'               => 'Parents',
+        'singular_name'      => 'Parent',
+      ),
+      'public'             => true,
+      'publicly_queryable' => true,
+      'show_ui'            => true,
+      'show_in_menu'       => true,
+      'query_var'          => true,
+      'rewrite'            => true,
+      'capability_type'    => 'post',
+      'has_archive'        => false,
+      'hierarchical'       => false,
+      'menu_position'      => null,
+      'supports'           => array('title','editor','author','thumbnail','excerpt','custom-fields')
+    ) );
+  }
+
+  public function enqueue_scripts() {
+    wp_localize_script( 'jquery', 'puppy_vars',
+      array(
+        'ajaxurl' => admin_url('admin-ajax.php')
+      )
+    );
+  }
+
+  public function menu_item ( $items, $args ) {
+    if ($args->theme_location == 'above_header_menu') {
+      $items = '<li><a href="' . get_home_url(null, '/breeder-dashboard') . '" class="menu-link "><span class="menu-text">Dashboard</span></a></li>' . $items;
+    }
+    return $items;
+  }
+
   public function main() {
-    if( !is_page_template(BREEDER_DASHBOARD_TEMPLATE) ) return;
+
+    /*echo '<pre>';
+    print_r($_FILES);
+    print_r($_POST);
+    echo '</pre>';*/
 
     $this->plugin_cron = new tsl_puppies_direct_cron();
+
+    if( !is_page_template(BREEDER_DASHBOARD_TEMPLATE) ) return;
 
     if(isset($_POST['dashboard_submit'])) {
       $this->submit( $_POST );
     }
 
     $this->output();
+
+    add_action('wp_footer', array( $this, 'footer' ));
   }
 
   public function submit($data) {
+
+    if($data['type'] == 'puppies' && $data['action'] == 'new' && (!$data['usda_agreement'] || !$data['price_agreement'])) {
+      return;
+    }
+
     if($data['action'] == 'new') {
       $data['VendorId'] = WC_Product_Vendors_Utils::get_user_active_vendor();
 
-      $puppies_info = "Thank you for adding your new puppy. We have received your puppy's information for review and will notify you when we have approved the puppy for sale. Please contact us with any questions.";
+      if($data['type'] == 'parents') {
+        $puppies_info = "Thank you for adding your new parents. We have received your puppy's information for review and will notify you when we have approved the puppy for sale. Please contact us with any questions.";
+      } else {
+        $puppies_info = "Thank you for adding your new puppy. We have received your puppy's information for review and will notify you when we have approved the puppy for sale. Please contact us with any questions.";
+      }
       setcookie('puppies_info', $puppies_info, time()+600, '/');
     }
 
     $this->update( $data );
+
     if($data['type'] == 'puppies') {
       $action = '/pending';
     } else {
@@ -64,8 +152,58 @@ class puppies_dashboard_main {
     wp_redirect(get_home_url(null, '/breeder-dashboard/'.$data['type'] . $action));
   }
 
+  public function output() {
+    $vars = array();
+    /*if($_COOKIE['puppies_info']) {
+      $vars['alert'] = '<div class="infobox">' . stripslashes($_COOKIE['puppies_info']) . '</div>';
+      unset($_COOKIE['puppies_info']);
+      setcookie('puppies_info', null, -1, '/');
+    }*/
+    $type = get_query_var('type');
+    if($type) {
+      $action = get_query_var('action');
+      $path_id = get_query_var('id');
+      $vars['type'] = $type;
+      $vars['action'] = $action;
+      $vars['path_id'] = $path_id;
+      if($action == 'new') {
+        $vars['template'] = 'dashboard/'.$type.'-new.php';
+      } elseif($action == 'edit' && is_numeric($path_id)) {
+        $vars['data'] = $this->get_product_data($path_id, $vars['type']);
+        $vars['template'] = 'dashboard/'.$type.'-new.php';
+      } elseif($action == 'delete' && is_numeric($path_id)) {
+        wp_trash_post( $path_id );
+        if($_GET['redirect']) {
+          $action = '/' . $_GET['redirect'];
+        } else {
+          $action = '';
+        }
+        wp_redirect(get_home_url(null, '/breeder-dashboard/'.$type . $action));
+      } elseif($action == 'media' && is_numeric($path_id)) {
+        $vars['data'] = $this->class_media->get_media_data($path_id);
+        $vars['template'] = 'dashboard/media.php';
+      } else {
+        $vars['template'] = 'dashboard/' . $type . '.php';
+      }
+    } else {
+      $vars['template'] = 'dashboard/main.php';
+    }
+    set_query_var( 'dashboard_variables', $vars );
+
+    // Add scripts
+    if( $vars['action'] == 'new' || $vars['action'] == 'edit' ) {
+      wp_enqueue_script('jquery-ui-datepicker');
+      wp_enqueue_style( 'jquery-ui-css', '//ajax.googleapis.com/ajax/libs/jqueryui/1.8.21/themes/base/jquery-ui.css' );
+    } elseif( $vars['action'] == 'media' ) {
+      //wp_enqueue_style( 'dropzone', plugins_url(null, __FILE__).'/dropzone.css', '', time() );
+      wp_enqueue_style( 'dropzone', '//cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/min/dropzone.min.css', '', time() );
+      //wp_enqueue_script( 'dropzone-js', plugins_url(null, __FILE__).'/dropzone.js', '', '', true );
+      wp_enqueue_script( 'dropzone-js', '//cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/min/dropzone.min.js', '', '', true );
+    }
+  }
+
   public function update( $data ) {
-    
+
     /*echo '<pre>';
     print_r($data);
     echo '</pre>';*/
@@ -73,6 +211,12 @@ class puppies_dashboard_main {
 
     if($data['product_id']) {
       $product_id = $data['product_id'];
+    }
+
+    if($data['type'] == 'parents') {
+      $post_type = 'puppy_parents';
+    } else {
+      $post_type = 'product';
     }
 
     if( empty( $data['PetName'] )) {
@@ -85,7 +229,7 @@ class puppies_dashboard_main {
     if (!$product_id) {
 
       $post = array(
-        'post_type' => 'product',
+        'post_type' => $post_type,
         'post_title' => $data['PetName'],
         'post_content' => $data['Description'],
         'post_status' => 'pending'
@@ -114,8 +258,7 @@ class puppies_dashboard_main {
 
     update_post_meta($product_id, '_pd_product', 'breeder');
 
-    $data_breed = $data['BreedName'];
-    $data_categories = $this->plugin_cron->pd_woo_manage_category(array('Pets', $data_breed ));
+    $data_categories = $this->plugin_cron->pd_woo_manage_category(array('Pets', $data['BreedName'] ));
 
     wp_set_object_terms( $product_id, $data_categories, 'product_cat' );
 
@@ -182,8 +325,6 @@ class puppies_dashboard_main {
     if(isset($data['microchip_id'])) update_post_meta($product_id, 'microchip_id', $data['microchip_id']);
     if(isset($data['known_health'])) update_post_meta($product_id, 'known_health', $data['known_health']);
     if(isset($data['breeder_notes'])) update_post_meta($product_id, 'breeder_notes', $data['breeder_notes']);
-    if(isset($data['usda_agreement'])) update_post_meta($product_id, 'usda_agreement', $data['usda_agreement']);
-    if(isset($data['price_agreement'])) update_post_meta($product_id, 'price_agreement', $data['price_agreement']);
 
     if(isset($data['RegistryName'])) {
       update_post_meta( $product_id, 'pd_registry', $data['RegistryName']);
@@ -197,45 +338,6 @@ class puppies_dashboard_main {
 
     // Set vendor
     if(isset($data['VendorId'])) wp_set_object_terms( $product_id, $data['VendorId'], WC_PRODUCT_VENDORS_TAXONOMY );
-
-    // add images
-    if($_FILES['Photo']) {
-      $images[] = $this->plugin_cron->download_image_to_wp_media_library( $_FILES['Photo']['tmp_name'], $product_id, $_FILES['Photo']['name'], false );
-      $this->plugin_cron->setImages($images, $product_id);
-    }
-  }
-
-  public function output() {
-    $vars = array();
-    /*if($_COOKIE['puppies_info']) {
-      $vars['alert'] = '<div class="infobox">' . stripslashes($_COOKIE['puppies_info']) . '</div>';
-      unset($_COOKIE['puppies_info']);
-      setcookie('puppies_info', null, -1, '/');
-    }*/
-    $type = get_query_var('type');
-    if($type) {
-      $action = get_query_var('action');
-      $path_id = get_query_var('id');
-      $vars['type'] = $type;
-      $vars['action'] = $action;
-      $vars['path_id'] = $path_id;
-      if($action == 'new') {
-        $vars['template'] = 'dashboard/'.$type.'-new.php';
-      } elseif($action == 'edit' && is_numeric($path_id)) {
-        $vars['data'] = $this->get_product_data($path_id, $vars['type']);
-        $vars['template'] = 'dashboard/'.$type.'-new.php';
-      } elseif($action == 'delete' && is_numeric($path_id)) {
-        wp_trash_post( $path_id );
-        wp_redirect(get_home_url(null, '/breeder-dashboard/'.$type));
-      } else {
-        $vars['template'] = 'dashboard/' . $type . '.php';
-      }
-    } else {
-      $vars['template'] = 'dashboard/main.php';
-    }
-    set_query_var( 'dashboard_variables', $vars );
-    wp_enqueue_script('jquery-ui-datepicker');
-    wp_enqueue_style( 'jquery-ui-css', '//ajax.googleapis.com/ajax/libs/jqueryui/1.8.21/themes/base/jquery-ui.css' );
   }
 
   public function get_product_data($id, $type) {
@@ -257,8 +359,6 @@ class puppies_dashboard_main {
         'ofa_certified' => get_post_meta($product->ID, 'pd_ofa_certified', true),
         'champion' => get_post_meta($product->ID, 'pd_champion', true),
         'has_been_shown' => get_post_meta($product->ID, 'pd_has_been_shown', true),
-        'Photo' => get_post_meta($product->ID, '_thumbnail_id', true),
-        //'PhotoGallery' => get_post_meta($product->ID, '_product_image_gallery', true), //66598,66507
       );
     } else {
       $arr = array(
@@ -281,14 +381,33 @@ class puppies_dashboard_main {
         'microchip_id' => get_post_meta($product->ID, 'microchip_id', true),
         'known_health' => get_post_meta($product->ID, 'known_health', true),
         'breeder_notes' => get_post_meta($product->ID, 'breeder_notes', true),
-        'usda_agreement' => get_post_meta($product->ID, 'usda_agreement', true),
-        'price_agreement' => get_post_meta($product->ID, 'price_agreement', true),
-        'Photo' => get_post_meta($product->ID, '_thumbnail_id', true),
-        //'PhotoGallery' => get_post_meta($product->ID, '_product_image_gallery', true), //66598,66507
       );
     }
 
     return array_merge($product_data, $arr);
+  }
+
+  public function ajax_mark_sold() {
+    if($_POST['pid'] && $_POST['tostatus']) {
+      update_post_meta($_POST['pid'], '_stock_status', $_POST['tostatus']);
+      //echo get_home_url(null, '/breeder-dashboard/puppies/');
+    }
+
+    wp_die();
+  }
+
+  public function footer() {
+?>
+    <div class="modal-popup" id="popup-confirm">
+      <div class="modal-popup-content">
+        <h4 class="modal-popup-title">Are you sure?</h4>
+        <div class="modal-popup-footer">
+          <button class="accept">Yes</button>
+          <button class="close">No</button>
+        </div>
+      </div>
+    </div>
+<?php
   }
 
 }

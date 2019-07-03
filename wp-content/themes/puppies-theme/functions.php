@@ -43,21 +43,3 @@ add_filter ('woocommerce_add_to_cart_redirect', 'redirect_to_checkout');
     $checkout_url = $woocommerce->cart->get_checkout_url();
     return $checkout_url;
 }
-
-//
-add_image_size( 'dashboard-view', 258, 258, false );
-
-// breeder_menu_item
-add_filter( 'wp_nav_menu_items', 'breeder_menu_item', 10, 2 );
-function breeder_menu_item ( $items, $args ) {
-  if ($args->theme_location == 'above_header_menu') {
-    $items = '<li><a href="' . get_home_url(null, '/breeder-dashboard') . '" class="menu-link "><span class="menu-text">Dashboard</span></a></li>' . $items;
-  }
-  return $items;
-}
-
-// Show hidden custom fields
-add_filter( 'is_protected_meta', '__return_false' );
-
-// Show product author
-//add_post_type_support( 'product', 'author' );
