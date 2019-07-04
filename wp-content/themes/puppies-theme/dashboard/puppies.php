@@ -1,4 +1,4 @@
-<h1>Manage Puppies</h1>
+<h1><?php echo ucfirst($vars['action']); ?> Puppies</h1>
 <?php
     switch( $vars['action'] ) {
       case 'approved':
@@ -26,7 +26,7 @@
       );
     }
     $products = new WP_Query( $args );
-    if($products && $vars['action'] != 'delivered' && $vars['action'] != 'in-transit') {
+    if($products->found_posts && $vars['action'] != 'delivered' && $vars['action'] != 'in-transit') {
 ?>
 <div class="cards">
   <?php while ( $products->have_posts() ) { $products->the_post(); ?>
@@ -53,7 +53,7 @@
                 <?php
                     $args = array(
                         'post_type' => 'puppy_parents',
-                        'post_status' => array('publish', 'pending'),
+                        'post_status' => 'publish',
                         'author'    => get_current_user_id(),
                         'meta_query' => array(
                             array(
@@ -61,7 +61,7 @@
                                 'value' => $breed,
                             )
                         ),
-                        'posts_per_page' => -1
+                        'posts_per_page' => 2
                     );
                     $parents = get_posts( $args );
                     if($parents) {
@@ -124,7 +124,7 @@
                     <?php } ?>
                 </div>
                 <div class="right">
-                    <a href="<?php echo get_home_url(null, '/breeder-dashboard/puppies/media/'.$post->ID); ?>" class="btn-videos"><span class="icon videos"></span>Videos</a>
+                    <a href="<?php echo get_home_url(null, '/breeder-dashboard/puppies/media/'.$post->ID); ?>#section-video" class="btn-videos"><span class="icon videos"></span>Videos</a>
                     <a class="modal-popup-link btn-delete" href="#popup-confirm" data-url="<?php echo get_home_url(null, '/breeder-dashboard/puppies/delete/'.$post->ID.'?redirect='.$vars['action']); ?>">Delete</a>
                 </div>
                 <a class="view-link" href="<?php echo get_permalink($post->ID); ?>" target="_blank">View on site</a>
@@ -133,4 +133,6 @@
     </div>
   <?php } wp_reset_query(); ?>
 </div>
+<?php } else { ?>
+<p>There are no puppies</p>
 <?php } ?>

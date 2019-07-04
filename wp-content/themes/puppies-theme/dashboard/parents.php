@@ -8,7 +8,7 @@
       'posts_per_page' => -1
     );
     $products = new WP_Query( $args );
-    if($products) {
+    if($products->found_posts) {
 ?>
 <div class="cards">
   <?php while ( $products->have_posts() ) : $products->the_post();?>
@@ -71,4 +71,6 @@
     </div>
   <?php endwhile; wp_reset_query(); ?>
 </div>
+<?php } else { ?>
+    <p>There are no parents</p>
 <?php } ?>

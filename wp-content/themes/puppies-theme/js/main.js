@@ -39,7 +39,8 @@ jQuery(function($) {
                     type: 'delete',
                     mime: frm.data('mime'),
                     pid: frm.data('pid'),
-                    aid: parent.data('aid')
+                    aid: parent.data('aid'),
+                    is_thumb: parent.data('is_thumb')
                 }, function (r) {
                     //parent.remove();
                     $('.media-previews').html('<strong>Reloading...</strong>');
@@ -100,7 +101,7 @@ jQuery(function($) {
             paramName: 'puppy_media',
             maxFilesize: 5, // MB
             maxFiles: 1,
-            acceptedFiles: 'image/*',
+            acceptedFiles: '.jpg, .jpeg, .png, .gif',
             clickable: '.drop-photos .dropSelect',
             previewTemplate: previewTemplate,
             previewsContainer: '#previews_photo',
@@ -145,12 +146,18 @@ jQuery(function($) {
             },
             complete: function (file, response) {
                 var myDropzone = this;
-                setTimeout(function(){
-                    myDropzone.removeFile(file);
-                    $('#previews_photo').html('<strong>Reloading...</strong>');
-                    //$('.col-media[data-aid="'+$('#frmDropzone').data('aid')+'"]').html('<strong>Reloading...</strong>');
-                    window.location.reload(true);
-                }, 500);
+                if(file.accepted) {
+                    setTimeout(function() {
+                        myDropzone.removeFile(file);
+                        $('#previews_photo').html('<strong>Reloading...</strong>');
+                        //$('.col-media[data-aid="'+$('#frmDropzone').data('aid')+'"]').html('<strong>Reloading...</strong>');
+                        window.location.reload(true);
+                    }, 500);
+                } else {
+                    setTimeout(function() {
+                        myDropzone.removeFile(file);
+                    }, 3000);
+                }
             },
             success : function(file, response){
 
@@ -237,11 +244,17 @@ jQuery(function($) {
             },
             complete: function (file, response) {
                 var myDropzone = this;
-                setTimeout(function(){
-                    myDropzone.removeFile(file);
-                    $('#previews_video').html('<strong>Reloading...</strong>');
-                    window.location.reload(true);
-                }, 500);
+                if(file.accepted) {
+                    setTimeout(function() {
+                        myDropzone.removeFile(file);
+                        $('#previews_video').html('<strong>Reloading...</strong>');
+                        window.location.reload(true);
+                    }, 500);
+                } else {
+                    setTimeout(function() {
+                        myDropzone.removeFile(file);
+                    }, 3000);
+                }
             },
             success : function(file, response){
 

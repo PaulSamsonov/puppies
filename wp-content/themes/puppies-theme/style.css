@@ -465,6 +465,9 @@ li.ast-masthead-custom-menu-items {padding: 0; width:200px;}*/
 .page-template-breeder-dashboard .media-previews p {
     margin-bottom: 15px;
 }
+.page-template-breeder-dashboard #template_photo {
+    margin-bottom: 15px;
+}
 .page-template-breeder-dashboard .media-previews.changing .ordering,
 .page-template-breeder-dashboard .media-previews.changing .progress {
     display: none;

@@ -22,9 +22,19 @@ class puppies_dashboard_media {
       wp_delete_attachment( $_POST['aid'], true );
       if($_POST['mime'] == 'image') {
         $product_image_gallery = get_post_meta($_POST['pid'], '_product_image_gallery', true);
-        $product_image_gallery = str_replace($_POST['aid'], '', $product_image_gallery);
-        $product_image_gallery = $this->sanitize_gallery_field($product_image_gallery);
-        update_post_meta($_POST['pid'], '_product_image_gallery', $product_image_gallery);
+        if($product_image_gallery) {
+          $product_image_gallery = $this->sanitize_gallery_field($product_image_gallery);
+          $exp_image_gallery = explode(',', $product_image_gallery);
+          if($_POST['is_thumb'] == 'yes') {
+            set_post_thumbnail( $_POST['pid'], $exp_image_gallery[0] );
+            unset($exp_image_gallery[0]);
+          } else {
+            $old_order = array_search($_POST['aid'], $exp_image_gallery);
+            unset($exp_image_gallery[$old_order]);
+          }
+          $product_image_gallery = implode(',', $exp_image_gallery);
+          update_post_meta($_POST['pid'], '_product_image_gallery', $product_image_gallery);
+        }
       }
     } elseif($_POST['type'] == 'order' && $_POST['pid'] && $_POST['aid']) {
       $this->set_attachments($_POST['aid'], $_POST['pid'], $_POST['order'], false, $_POST['is_thumb']);

@@ -39,7 +39,7 @@ echo '</pre>';*/
     </div>
 </div>
 <?php if($vars['type'] == 'puppies') { ?>
-<div class="drop-video">
+<div class="drop-video" id="section-video">
     <h2>Video</h2>
     <div class="dropUpload-holder"<?php echo $data['out_media_video'] ? ' style="display:none;"' : '';  ?>>
         <button class="dropSelect dropSelectVideo">Select video</button>

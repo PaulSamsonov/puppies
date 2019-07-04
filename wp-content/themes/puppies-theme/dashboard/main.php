@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col col-20">
-    <a class="tile approved" href="<?php echo get_home_url(null, '/breeder-dashboard/puppies/pending'); ?>">
+    <a class="tile" href="<?php echo get_home_url(null, '/breeder-dashboard/puppies/pending'); ?>">
       <?php
           $args = array(
             'post_type'   => 'product',
@@ -82,9 +82,10 @@
   <div class="col">
     <h2 class="th">Most Viewed Puppies</h2>
     <table class="table-main">
-      <tbody class="table-striped">
+      <tbody>
       <tr>
-
+          <td>No viewed puppies</td>
+          <td></td>
       </tr>
       </tbody>
     </table>
@@ -104,7 +105,7 @@
     ?>
     <table class="table-main">
       <tbody>
-      <?php if($products) { while ( $products->have_posts() ) { $products->the_post(); ?>
+      <?php if($products->found_posts) { while ( $products->have_posts() ) { $products->the_post(); ?>
           <tr>
             <td>
               <a title="Edit Puppy" href="<?php echo get_home_url(null, '/breeder-dashboard/puppies/edit/'.$post->ID); ?>">
@@ -120,7 +121,12 @@
             </td>
             <td><?php echo $time_diff = human_time_diff( get_post_time('U'), current_time('timestamp') ); ?> ago</td>
           </tr>
-      <?php } wp_reset_query(); } ?>
+      <?php } wp_reset_query(); } else { ?>
+        <tr>
+            <td>No recently approved</td>
+            <td></td>
+        </tr>
+      <?php } ?>
       </tbody>
     </table>
   </div>
@@ -129,9 +135,10 @@
     <div class="col">
         <h2 class="th">Upcoming Due Dates</h2>
         <table class="table-main">
-            <thead>
+            <tbody>
             <tr>
-
+                <td>No upcoming due dates</td>
+                <td></td>
             </tr>
             </tbody>
         </table>

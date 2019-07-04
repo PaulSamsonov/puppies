@@ -54,6 +54,9 @@ class puppies_dashboard_main {
     // Ajax
     add_action( 'wp_ajax_puppy_media', array( $this->class_media, 'ajax_media' ) );
     add_action( 'wp_ajax_puppy_sold', array( $this, 'ajax_mark_sold' ) );
+
+    // wp_footer
+    add_action('wp_footer', array( $this, 'footer' ));
   }
 
   public function rewrites() {
@@ -117,11 +120,9 @@ class puppies_dashboard_main {
 
     if(isset($_POST['dashboard_submit'])) {
       $this->submit( $_POST );
+    } else {
+      $this->output();
     }
-
-    $this->output();
-
-    add_action('wp_footer', array( $this, 'footer' ));
   }
 
   public function submit($data) {
@@ -150,15 +151,11 @@ class puppies_dashboard_main {
     }
 
     wp_redirect(get_home_url(null, '/breeder-dashboard/'.$data['type'] . $action));
+    exit;
   }
 
   public function output() {
     $vars = array();
-    /*if($_COOKIE['puppies_info']) {
-      $vars['alert'] = '<div class="infobox">' . stripslashes($_COOKIE['puppies_info']) . '</div>';
-      unset($_COOKIE['puppies_info']);
-      setcookie('puppies_info', null, -1, '/');
-    }*/
     $type = get_query_var('type');
     if($type) {
       $action = get_query_var('action');
