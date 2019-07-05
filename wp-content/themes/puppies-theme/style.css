@@ -143,7 +143,7 @@ li.ast-masthead-custom-menu-items {padding: 0; width:200px;}*/
 .elementor-1604 .elementor-element.elementor-element-9751ba4 .elementor-icon-list-items:not(.elementor-inline-items) .elementor-icon-list-item:not(:last-child){padding-bottom:calc(28px/2);}.elementor-1604 .elementor-element.elementor-element-9751ba4 .elementor-icon-list-items:not(.elementor-inline-items) .elementor-icon-list-item:not(:first-child){margin-top:calc(28px/2);}.elementor-1604 .elementor-element.elementor-element-9751ba4 .elementor-icon-list-items.elementor-inline-items .elementor-icon-list-item{margin-right:calc(28px/2);margin-left:calc(28px/2);}.elementor-1604 .elementor-element.elementor-element-9751ba4 .elementor-icon-list-items.elementor-inline-items{margin-right:calc(-28px/2);margin-left:calc(-28px/2);}body.rtl .elementor-1604 .elementor-element.elementor-element-9751ba4 .elementor-icon-list-items.elementor-inline-items .elementor-icon-list-item:after{left:calc(-28px/2);}body:not(.rtl) .elementor-1604 .elementor-element.elementor-element-9751ba4 .elementor-icon-list-items.elementor-inline-items .elementor-icon-list-item:after{right:calc(-28px/2);}.elementor-1604 .elementor-element.elementor-element-9751ba4 .elementor-icon-list-icon i{color:#93d7e2;font-size:14px;}.elementor-1604 .elementor-element.elementor-element-9751ba4 .elementor-icon-list-icon{width:14px;}.elementor-1604 .elementor-element.elementor-element-9751ba4 .elementor-icon-list-text{color:#ffffff;padding-left:13px;}.elementor-1604 .elementor-element.elementor-element-9751ba4 .elementor-icon-list-item{font-size:12px;}@media(max-width:767px){.elementor-1604 .elementor-element.elementor-element-9751ba4 .elementor-icon-list-items:not(.elementor-inline-items) .elementor-icon-list-item:not(:last-child){padding-bottom:calc(20px/2);}.elementor-1604 .elementor-element.elementor-element-9751ba4 .elementor-icon-list-items:not(.elementor-inline-items) .elementor-icon-list-item:not(:first-child){margin-top:calc(20px/2);}.elementor-1604 .elementor-element.elementor-element-9751ba4 .elementor-icon-list-items.elementor-inline-items .elementor-icon-list-item{margin-right:calc(20px/2);margin-left:calc(20px/2);}.elementor-1604 .elementor-element.elementor-element-9751ba4 .elementor-icon-list-items.elementor-inline-items{margin-right:calc(-20px/2);margin-left:calc(-20px/2);}body.rtl .elementor-1604 .elementor-element.elementor-element-9751ba4 .elementor-icon-list-items.elementor-inline-items .elementor-icon-list-item:after{left:calc(-20px/2);}body:not(.rtl) .elementor-1604 .elementor-element.elementor-element-9751ba4 .elementor-icon-list-items.elementor-inline-items .elementor-icon-list-item:after{right:calc(-20px/2);}.elementor-1604 .elementor-element.elementor-element-9751ba4 .elementor-icon-list-item{line-height:1.9em;}.elementor-1604 .elementor-element.elementor-element-1551505 > .elementor-element-populated{margin:0px 0px 0px 0px;}}@media(max-width:1024px) and (min-width:768px){.elementor-1604 .elementor-element.elementor-element-b26e8c1{width:70%;}.elementor-1604 .elementor-element.elementor-element-1551505{width:30%;}}
 
 /* Breeder Dashboard */
-.button-register {
+.page-template-breeder-dashboard .button-register {
     background: #fff;
     border: 2px solid #009ee2;
     color: #009ee2;
@@ -156,6 +156,9 @@ li.ast-masthead-custom-menu-items {padding: 0; width:200px;}*/
     width: 75%;
     margin: 0;
     padding: 20px 0;
+}
+.page-template-breeder-dashboard #primary.page-dashboard-list {
+    max-width: 840px;
 }
 .page-template-breeder-dashboard #secondary {
     width: 25%;
@@ -197,6 +200,9 @@ li.ast-masthead-custom-menu-items {padding: 0; width:200px;}*/
 .page-template-breeder-dashboard h1,
 .page-template-breeder-dashboard h2 {
     margin: 0 0 30px;
+}
+.page-template-breeder-dashboard .row-tiles {
+    display: flex;
 }
 .page-template-breeder-dashboard a.tile div {
     color: #009ee2;
@@ -242,7 +248,8 @@ li.ast-masthead-custom-menu-items {padding: 0; width:200px;}*/
     margin-bottom: 15px;
     position: relative;
 }
-.page-template-breeder-dashboard .form-control {
+.page-template-breeder-dashboard .form-control,
+.page-template-breeder-dashboard select + .select2-container {
     display: block;
     width: 100%;
     height: 34px;
@@ -254,6 +261,15 @@ li.ast-masthead-custom-menu-items {padding: 0; width:200px;}*/
     box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
     -webkit-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
     transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+}
+.page-template-breeder-dashboard .select2-container--default .select2-selection--single {
+    background: none;
+    border: none;
+}
+.page-template-breeder-dashboard .select2-container .select2-selection--single .select2-selection__rendered {
+    padding: 0;
+    line-height: normal;
+    color: #666;
 }
 .page-template-breeder-dashboard textarea.form-control {
     height: auto;
@@ -310,6 +326,15 @@ li.ast-masthead-custom-menu-items {padding: 0; width:200px;}*/
     font-weight: normal;
 }
 /* views/manage */
+.page-template-breeder-dashboard .select-sort {
+    display: block;
+    margin: 0 5px 30px 0;
+    text-align: right;
+    font-size: 12px;
+}
+.page-template-breeder-dashboard .select-sort select {
+    font-size: 12px;
+}
 .page-template-breeder-dashboard .cards {
     display: flex;
     flex-wrap: wrap;
@@ -449,6 +474,7 @@ li.ast-masthead-custom-menu-items {padding: 0; width:200px;}*/
 .page-template-breeder-dashboard .media-actions button {
     border: none;
     line-height: 1;
+    margin-bottom: 5px;
 }
 .page-template-breeder-dashboard .media-previews {
     margin-bottom: 20px;
@@ -536,7 +562,7 @@ li.ast-masthead-custom-menu-items {padding: 0; width:200px;}*/
     margin-bottom: 15px;
 }
 /* Popup */
-.modal-popup {
+.page-template-breeder-dashboard .modal-popup {
     display: none;
     /*align-items: center;
     justify-content: space-around;*/
@@ -551,7 +577,7 @@ li.ast-masthead-custom-menu-items {padding: 0; width:200px;}*/
     overflow: auto;
     z-index: 99999;
 }
-.modal-popup-content {
+.page-template-breeder-dashboard .modal-popup-content {
     width: 500px;
     min-width: 320px;
     margin: 30px auto;
@@ -560,7 +586,7 @@ li.ast-masthead-custom-menu-items {padding: 0; width:200px;}*/
     background: #fff;
     position: relative;
 }
-.modal-popup-content a.close {
+.page-template-breeder-dashboard .modal-popup-content a.close {
     position: absolute;
     top: 0;
     right: 5px;
@@ -569,17 +595,17 @@ li.ast-masthead-custom-menu-items {padding: 0; width:200px;}*/
     outline: none;
     z-index: 99999;
 }
-#popup-confirm .modal-popup-content {
+.page-template-breeder-dashboard #popup-confirm .modal-popup-content {
     text-align: center;
 }
-#popup-confirm .modal-popup-footer button {
+.page-template-breeder-dashboard #popup-confirm .modal-popup-footer button {
     margin: 15px;
 }
-#popup-puppynames .modal-popup-content {
+.page-template-breeder-dashboard #popup-puppynames .modal-popup-content {
     width: 900px;
 }
 /* Tooltip */
-.tooltip-content {
+.page-template-breeder-dashboard .tooltip-content {
     display: none;
     position: absolute;
     right: -260px;
@@ -589,14 +615,14 @@ li.ast-masthead-custom-menu-items {padding: 0; width:200px;}*/
     padding: 15px;
     font-size: 13px;
 }
-.tooltip-content strong {
+.page-template-breeder-dashboard .tooltip-content strong {
     display: block;
     margin: 0 auto 12px;
     padding-bottom: 8px;
     border-bottom: 1px solid #333;
     font-size: 15px;
 }
-.tooltip-content .close {
+.page-template-breeder-dashboard .tooltip-content .close {
     position: absolute;
     top: 0;
     right: 5px;
@@ -605,8 +631,91 @@ li.ast-masthead-custom-menu-items {padding: 0; width:200px;}*/
     line-height: 1;
 }
 /* Responsive */
+.page-template-breeder-dashboard .mobile-menu,
+.page-template-breeder-dashboard .mobile-menu + .select2-container {
+    display: none;
+    width: 100% !important;
+    max-width: 500px;
+    margin-bottom: 15px;
+}
 @media (max-width: 1900px) {
     .page-template-breeder-dashboard form {
         width: calc(100% - 335px);
+    }
+}
+@media (max-width: 921px) {
+    .page-template-breeder-dashboard .mobile-menu,
+    .page-template-breeder-dashboard .mobile-menu + .select2-container {
+        display: block;
+    }
+    .page-template-breeder-dashboard #content .ast-container {
+        display: block;
+    }
+    .page-template-breeder-dashboard #primary {
+        width: 100%;
+        padding-top: 10px;
+    }
+    .page-template-breeder-dashboard #secondary {
+        width: 100%;
+        padding: 10px 0 0;
+    }
+    .page-template-breeder-dashboard #secondary .sidebar-main {
+        height: auto;
+        background: none;
+        padding: 0;
+    }
+    .page-template-breeder-dashboard #secondary .navigation ul {
+        display: none;
+    }
+    .page-template-breeder-dashboard h1,
+    .page-template-breeder-dashboard h2 {
+        margin: 0 0 15px;
+        font-size: 26px;
+    }
+    .page-template-breeder-dashboard .modal-popup-content {
+        width: 100% !important;
+    }
+    .page-template-breeder-dashboard .tooltip-content {
+        position: relative;
+        right: 0;
+        margin-top: 10px;
+    }
+    .page-template-breeder-dashboard form {
+        width: 100%;
+    }
+    .page-template-breeder-dashboard .cards {
+        justify-content: center;
+    }
+    .page-template-breeder-dashboard .row-tiles {
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+    .page-template-breeder-dashboard .col {
+        float: none;
+        padding: 0;
+    }
+    .page-template-breeder-dashboard .col-50 {
+        width: 100%;
+        float: none;
+        padding: 0;
+    }
+    .page-template-breeder-dashboard .col-20 {
+        width: calc(50% - 5px);
+        margin-bottom: 10px;
+    }
+    .page-template-breeder-dashboard .row-media {
+        flex-direction: column;
+    }
+    .page-template-breeder-dashboard .col-media {
+        width: 100%;
+    }
+    .page-template-breeder-dashboard .dropzone {
+        display: none;
+    }
+}
+@media (max-width: 380px) {
+    .page-template-breeder-dashboard .col-20 {
+        width: 100%;
+        margin-bottom: 10px;
     }
 }

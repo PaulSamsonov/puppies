@@ -40,7 +40,7 @@ echo '</pre>';*/
         <div class="col col-50">
             <div class="form-group">
                 <label>Breed*</label>
-                <select class="form-control" required name="BreedName">
+                <select class="form-control select-search" required name="BreedName">
                     <option></option>
                     <?php
                       $categories = get_categories(array(
@@ -60,7 +60,7 @@ echo '</pre>';*/
         <div class="col col-50">
             <div class="form-group">
                 <label>Puppy Color*</label>
-                <select required class="form-control" name="Coloring">
+                <select required class="form-control select-search" name="Coloring">
                     <option<?php if($data['Coloring'] == 'Agouti & White') echo ' selected'; ?>>Agouti & White</option>
                     <option<?php if($data['Coloring'] == 'Apricot') echo ' selected'; ?>>Apricot</option>
                     <option<?php if($data['Coloring'] == 'Apricot & White') echo ' selected'; ?>>Apricot & White</option>
@@ -341,7 +341,7 @@ echo '</pre>';*/
         <div class="col col-50">
             <div class="form-group">
                 <label>Markings</label>
-                <select class="form-control" <?php /*onchange="javascript:displayHearingTest();"*/?> name="marking_id" id="form_marking_id">
+                <select class="form-control select-search" <?php /*onchange="javascript:displayHearingTest();"*/?> name="marking_id" id="form_marking_id">
                     <option"></option>
                     <option<?php if($data['marking_id'] == 'Apricot Markings') echo ' selected'; ?>>Apricot Markings</option>
                     <option<?php if($data['marking_id'] == 'Badger Marking') echo ' selected'; ?>>Badger Markings</option>
@@ -449,19 +449,19 @@ echo '</pre>';*/
             <div class="form-group">
                 <label>Are you willing to discount this puppy?</label><br>
                 <label class="radio-inline">
-                    <input class="form-control" required name="puppy_discount" value="Yes" type="radio"<?php echo ($data['puppy_discount'] && $data['puppy_discount'] == 'Yes') ? ' checked' : ''; ?>> Yes
+                    <input class="form-control" required name="puppy_discount" value="Yes" type="radio"<?php echo $data['puppy_discount_amount'] ? ' checked' : ''; ?>> Yes
                 </label>
                 <label class="radio-inline">
-                    <input class="form-control" required name="puppy_discount" value="No" type="radio"<?php echo ($data['puppy_discount'] && $data['puppy_discount'] == 'Yes') ? '' : ' checked'; ?>> No
+                    <input class="form-control" required name="puppy_discount" value="No" type="radio"<?php echo $data['puppy_discount_amount'] ? '' : ' checked'; ?>> No
                 </label>
-                <div class="hidden-fields<?php echo ($data['puppy_discount'] && $data['puppy_discount'] == 'Yes') ? ' display-field' : ''; ?>">
+                <div class="hidden-fields<?php echo $data['puppy_discount_amount'] ? ' display-field' : ''; ?>">
                     <div class="form-group">
-                        <label for="form_puppy_discount_amount">How much of a discount are you willing to offer on this puppy?</label>
-                        <input class="form-control" name="puppy_discount_amount" type="text" id="form_puppy_discount_amount" value="<?php echo $data['puppy_discount_amount']; ?>">
+                        <label for="puppy_discount_amount">How much of a discount are you willing to offer on this puppy?</label>
+                        <input class="form-control" name="puppy_discount_amount" type="text" id="puppy_discount_amount" value="<?php echo $data['puppy_discount_amount']; ?>">
                     </div>
                     <div class="form-group">
-                        <label for="form_puppy_discount_reason">When are you willing to offer this discount?</label>
-                        <input class="form-control" placeholder="Ex:  ''Military discount''  or  ''If over 12 weeks''" name="puppy_discount_reason" type="text" id="form_puppy_discount_reason" value="<?php echo $data['puppy_discount_reason']; ?>">
+                        <label for="puppy_discount_reason">When are you willing to offer this discount?</label>
+                        <input class="form-control" placeholder="Ex:  ''Military discount''  or  ''If over 12 weeks''" name="puppy_discount_reason" type="text" id="puppy_discount_reason" value="<?php echo $data['puppy_discount_reason']; ?>">
                         <p class="field-info">Discounts will only be offered under the circumstances that you note, but please be aware that you will not receive a call to confirm these discounts when they are offered to potential customers.</p>
                     </div>
                 </div>
@@ -480,7 +480,7 @@ echo '</pre>';*/
         <div class="col col-50">
             <div class="form-group">
                 <label>Puppy's Current Weight*</label>
-                <select class="form-control" required name="Weight">
+                <select class="form-control select-search" required name="Weight">
                     <option></option>
                     <option value="10 - 13 ozs"<?php if($data['Weight'] == '10 - 13 ozs') echo ' selected'; ?>>10 - 13 ozs</option>
                     <option value="13 - 16 ozs"<?php if($data['Weight'] == '13 - 16 ozs') echo ' selected'; ?>>13 - 16 ozs</option>
@@ -551,7 +551,7 @@ echo '</pre>';*/
         <div class="col col-50">
             <div class="form-group">
                 <label>Registry*</label>
-                <select class="form-control" required name="RegistryName">
+                <select class="form-control select-search" required name="RegistryName">
                     <option></option>
                     <option value="ACA"<?php if($data['RegistryName'] == 'ACA') echo ' selected'; ?>>ACA</option>
                     <option value="AKC"<?php if($data['RegistryName'] == 'AKC') echo ' selected'; ?>>AKC</option>
@@ -737,12 +737,12 @@ echo '</pre>';*/
             <div class="form-group">
                 <label>Microchip?</label><br>
                 <label class="radio-inline">
-                    <input class="form-control" required name="microchip" value="Yes" type="radio"<?php echo ($data['microchip'] && $data['microchip'] == 'Yes') ? ' checked' : ''; ?>> Yes
+                    <input class="form-control" name="microchip" required value="Yes" type="radio"<?php echo $data['microchip_id'] ? ' checked' : ''; ?>> Yes
                 </label>
                 <label class="radio-inline">
-                    <input class="form-control" required name="microchip" value="no" type="radio"<?php echo ($data['microchip'] && $data['microchip'] == 'Yes') ? '' : ' checked'; ?>> No
+                    <input class="form-control" name="microchip" required value="no" type="radio"<?php echo $data['microchip_id'] ? '' : ' checked'; ?>> No
                 </label>
-                <div class="hidden-fields<?php echo ($data['microchip'] && $data['microchip'] == 'Yes') ? ' display-field' : ''; ?>">
+                <div class="hidden-fields<?php echo $data['microchip_id'] ? ' display-field' : ''; ?>">
                     <div class="form-group">
                         <label for="form_microchip_id">Microchip ID*</label>
                         <input class="form-control" name="microchip_id" type="text" id="form_microchip_id" value="<?php echo $data['microchip_id']; ?>">

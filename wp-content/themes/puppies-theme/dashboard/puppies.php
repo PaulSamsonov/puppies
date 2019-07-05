@@ -15,6 +15,7 @@
       'post_status' => $status,
       'author'      => get_current_user_id(),
       //'orderby'   => 'ID ',
+      'order' => $_GET['sort'] ? $_GET['sort'] : 'desc',
       'posts_per_page' => -1
     );
     if($vars['action'] == 'approved' || $vars['action'] == 'sold') {
@@ -28,10 +29,17 @@
     $products = new WP_Query( $args );
     if($products->found_posts && $vars['action'] != 'delivered' && $vars['action'] != 'in-transit') {
 ?>
+<div class="select-sort">
+    <label>Sort By:</label>
+    <select>
+        <option value=""<?php echo (!isset($_GET['sort']) || $_GET['sort'] == 'desc') ? ' selected' : ''; ?>>Newest to Oldest</option>
+        <option value="<?php echo add_query_arg( 'sort', 'asc' ); ?>"<?php echo (isset($_GET['sort']) && $_GET['sort'] == 'asc') ? ' selected' : ''; ?>>Oldest to Newest</option>
+    </select>
+</div>
 <div class="cards">
   <?php while ( $products->have_posts() ) { $products->the_post(); ?>
     <?php
-        $breed = get_post_meta( $post->ID, 'pd_breed', true );
+        $breed = get_post_meta( $post->ID, 'pdm_pet_breed', true );
     ?>
     <div class="card">
         <div class="card-content">
@@ -57,7 +65,7 @@
                         'author'    => get_current_user_id(),
                         'meta_query' => array(
                             array(
-                                'key' => 'pd_breed',
+                                'key' => 'pdm_pet_breed',
                                 'value' => $breed,
                             )
                         ),
@@ -91,19 +99,19 @@
                     </tr>
                     <tr>
                         <td>Gender:</td>
-                        <td><?php echo get_post_meta( $post->ID, 'pd_gender', true ); ?></td>
+                        <td><?php echo get_post_meta( $post->ID, 'pdm_pet_gender', true ); ?></td>
                     </tr>
                     <tr>
                         <td>Weight:</td>
-                        <td><?php echo get_post_meta( $post->ID, 'pd_wight', true ); ?></td>
+                        <td><?php echo get_post_meta( $post->ID, 'pdm_pet_wight', true ); ?></td>
                     </tr>
                     <tr>
                         <td>Registry:</td>
-                        <td><?php echo get_post_meta( $post->ID, 'pd_registry', true ); ?></td>
+                        <td><?php echo get_post_meta( $post->ID, 'pdm_pet_registry', true ); ?></td>
                     </tr>
                     <tr>
                         <td>Birthdate:</td>
-                        <td><?php echo get_post_meta( $post->ID, 'pd_dob', true ); ?></td>
+                        <td><?php echo get_post_meta( $post->ID, 'pdm_pet_dob', true ); ?></td>
                     </tr>
                     <tr>
                         <td>Your Asking Price:</td>

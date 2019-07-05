@@ -10,9 +10,9 @@ define( 'BREEDER_DASHBOARD_TEMPLATE', 'breeder-dashboard.php' );
 
 require_once dirname(__FILE__) . '/includes/media.php';
 
-new puppies_dashboard_main();
+new puppies_dashboard();
 
-class puppies_dashboard_main {
+class puppies_dashboard {
 
   public $plugin_cron;
   public $class_media;
@@ -135,7 +135,7 @@ class puppies_dashboard_main {
       $data['VendorId'] = WC_Product_Vendors_Utils::get_user_active_vendor();
 
       if($data['type'] == 'parents') {
-        $puppies_info = "Thank you for adding your new parents. We have received your puppy's information for review and will notify you when we have approved the puppy for sale. Please contact us with any questions.";
+        $puppies_info = "Thank you for adding your new parents. We have received your parents information for review and will notify you when we have approved the parents. Please contact us with any questions.";
       } else {
         $puppies_info = "Thank you for adding your new puppy. We have received your puppy's information for review and will notify you when we have approved the puppy for sale. Please contact us with any questions.";
       }
@@ -155,7 +155,9 @@ class puppies_dashboard_main {
   }
 
   public function output() {
-    $vars = array();
+    $vars = array(
+      'class' => ''
+    );
     $type = get_query_var('type');
     if($type) {
       $action = get_query_var('action');
@@ -180,6 +182,7 @@ class puppies_dashboard_main {
         $vars['data'] = $this->class_media->get_media_data($path_id, $type);
         $vars['template'] = 'dashboard/media.php';
       } else {
+        $vars['class'] = 'page-dashboard-list';
         $vars['template'] = 'dashboard/' . $type . '.php';
       }
     } else {
@@ -188,14 +191,17 @@ class puppies_dashboard_main {
     set_query_var( 'dashboard_variables', $vars );
 
     // Add scripts
+    // select2
+    wp_enqueue_style( 'select2css', '//cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/css/select2.min.css', '', time() );
+    wp_enqueue_script( 'select2', '//cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/js/select2.min.js', array( 'jquery' ), time(), true);
     if( $vars['action'] == 'new' || $vars['action'] == 'edit' ) {
-      wp_enqueue_script('jquery-ui-datepicker');
+      // datepicker
       wp_enqueue_style( 'jquery-ui-css', '//ajax.googleapis.com/ajax/libs/jqueryui/1.8.21/themes/base/jquery-ui.css' );
+      wp_enqueue_script('jquery-ui-datepicker');
     } elseif( $vars['action'] == 'media' ) {
-      //wp_enqueue_style( 'dropzone', plugins_url(null, __FILE__).'/dropzone.css', '', time() );
+      // dropzone (plugins_url(null, __FILE__).'/dropzone.js)
       wp_enqueue_style( 'dropzone', '//cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/min/dropzone.min.css', '', time() );
-      //wp_enqueue_script( 'dropzone-js', plugins_url(null, __FILE__).'/dropzone.js', '', '', true );
-      wp_enqueue_script( 'dropzone-js', '//cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/min/dropzone.min.js', '', '', true );
+      wp_enqueue_script( 'dropzone-js', '//cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/min/dropzone.min.js', '', time(), true );
     }
   }
 
@@ -281,16 +287,16 @@ class puppies_dashboard_main {
 
     update_post_meta($product_id, '_sold_individually', 1 );
 
-    if(isset($data['BreedName'])) update_post_meta( $product_id, 'pd_breed', $data['BreedName'] );
+    if(isset($data['BreedName'])) update_post_meta( $product_id, 'pdm_pet_breed', $data['BreedName'] );
     //if(isset($data['OrgName'])) update_post_meta($product_id, 'pd_location', $data['OrgName']);
     //if(isset($data['ReferenceNumber'])) update_post_meta($product_id, 'pd_ref_no', $data['ReferenceNumber']);
     if(isset($data['RegisterNumber'])) update_post_meta($product_id, 'pd_reg_no', $data['RegisterNumber']);
-    //if(isset($data['PetName'])) update_post_meta($product_id, 'pd_name', $data['PetName']);
+    if(isset($data['PetName'])) update_post_meta($product_id, 'pdm_pet_name', $data['PetName']);
     //if(isset($data['Age'])) update_post_meta($product_id, 'pd_age', $data['Age']);
-    if(isset($data['BirthDate'])) update_post_meta($product_id, 'pd_dob', date('m-d-Y', strtotime($data['BirthDate'])));
+    if(isset($data['BirthDate'])) update_post_meta($product_id, 'pdm_pet_dob', date('m-d-Y', strtotime($data['BirthDate'])));
     if(isset($data['Coloring'])) update_post_meta($product_id, 'pd_markings', $data['Coloring']);
-    if(isset($data['Weight'])) update_post_meta($product_id, 'pd_wight', $data['Weight']);
-    if(isset($data['Gender'])) update_post_meta($product_id, 'pd_gender', $data['Gender']);
+    if(isset($data['Weight'])) update_post_meta($product_id, 'pdm_pet_wight', $data['Weight']);
+    if(isset($data['Gender'])) update_post_meta($product_id, 'pdm_pet_gender', $data['Gender']);
     //if(isset($data['VideoUrl'])) update_post_meta($product_id, 'pd_video_url', $data['VideoUrl']);
     //if(isset($data['Microchip'])) update_post_meta($product_id, 'pd_microchip_number', $data['Microchip']);
     //update_post_meta($product_id, 'pd_id', $data['PetId'] );
@@ -305,7 +311,7 @@ class puppies_dashboard_main {
     // New fields - puppies
     if(isset($data['marking_id'])) update_post_meta($product_id, 'marking_id', $data['marking_id']);
     if(isset($data['champion'])) update_post_meta($product_id, 'champion', $data['champion']);
-    if(isset($data['puppy_discount'])) update_post_meta($product_id, 'puppy_discount', $data['puppy_discount']);
+    //if(isset($data['puppy_discount'])) update_post_meta($product_id, 'puppy_discount', $data['puppy_discount']);
     if(isset($data['puppy_discount_amount'])) update_post_meta($product_id, 'puppy_discount_amount', $data['puppy_discount_amount']);
     if(isset($data['puppy_discount_reason'])) update_post_meta($product_id, 'puppy_discount_reason', $data['puppy_discount_reason']);
     if(isset($data['special_feeding_instructions'])) update_post_meta($product_id, 'special_feeding_instructions', $data['special_feeding_instructions']);
@@ -318,13 +324,13 @@ class puppies_dashboard_main {
     if(isset($data['overbite'])) update_post_meta($product_id, 'overbite', $data['overbite']);
     if(isset($data['dewclaws'])) update_post_meta($product_id, 'dewclaws', $data['dewclaws']);
     if(isset($data['spayed_neutered'])) update_post_meta($product_id, 'spayed_neutered', $data['spayed_neutered']);
-    if(isset($data['microchip'])) update_post_meta($product_id, 'microchip', $data['microchip']);
+    //if(isset($data['microchip'])) update_post_meta($product_id, 'microchip', $data['microchip']);
     if(isset($data['microchip_id'])) update_post_meta($product_id, 'microchip_id', $data['microchip_id']);
     if(isset($data['known_health'])) update_post_meta($product_id, 'known_health', $data['known_health']);
     if(isset($data['breeder_notes'])) update_post_meta($product_id, 'breeder_notes', $data['breeder_notes']);
 
     if(isset($data['RegistryName'])) {
-      update_post_meta( $product_id, 'pd_registry', $data['RegistryName']);
+      update_post_meta( $product_id, 'pdm_pet_registry', $data['RegistryName']);
     }
 
     if(isset($data['asking_price'])) {
@@ -342,11 +348,11 @@ class puppies_dashboard_main {
     $product_data = array(
       'PetName' => $product->post_title,
       'Description' => $product->post_content,
-      'Gender' => get_post_meta($product->ID, 'pd_gender', true),
-      'BirthDate' => str_replace('-', '/', get_post_meta($product->ID, 'pd_dob', true)),
-      'BreedName' => get_post_meta($product->ID, 'pd_breed', true),
-      'Weight' => get_post_meta($product->ID, 'pd_wight', true),
-      'RegistryName' => get_post_meta($product->ID, 'pd_registry', true),
+      'Gender' => get_post_meta($product->ID, 'pdm_pet_gender', true),
+      'BirthDate' => str_replace('-', '/', get_post_meta($product->ID, 'pdm_pet_dob', true)),
+      'BreedName' => get_post_meta($product->ID, 'pdm_pet_breed', true),
+      'Weight' => get_post_meta($product->ID, 'pdm_pet_wight', true),
+      'RegistryName' => get_post_meta($product->ID, 'pdm_pet_registry', true),
       'Coloring' => get_post_meta($product->ID, 'pd_markings', true),
       'RegisterNumber' => get_post_meta($product->ID, 'pd_reg_no', true),
       //'ReferenceNumber' => get_post_meta($product->ID, 'pd_ref_no', true),
@@ -361,7 +367,7 @@ class puppies_dashboard_main {
       $arr = array(
         'asking_price' => get_post_meta($product->ID, 'asking_price', true),
         'marking_id' => get_post_meta($product->ID, 'marking_id', true),
-        'puppy_discount' => get_post_meta($product->ID, 'puppy_discount', true),
+        //'puppy_discount' => get_post_meta($product->ID, 'puppy_discount', true),
         'puppy_discount_amount' => get_post_meta($product->ID, 'puppy_discount_amount', true),
         'puppy_discount_reason' => get_post_meta($product->ID, 'puppy_discount_reason', true),
         'special_feeding_instructions' => get_post_meta($product->ID, 'special_feeding_instructions', true),
@@ -374,7 +380,7 @@ class puppies_dashboard_main {
         'overbite' => get_post_meta($product->ID, 'overbite', true),
         'dewclaws' => get_post_meta($product->ID, 'dewclaws', true),
         'spayed_neutered' => get_post_meta($product->ID, 'spayed_neutered', true),
-        'microchip' => get_post_meta($product->ID, 'microchip', true),
+        //'microchip' => get_post_meta($product->ID, 'microchip', true),
         'microchip_id' => get_post_meta($product->ID, 'microchip_id', true),
         'known_health' => get_post_meta($product->ID, 'known_health', true),
         'breeder_notes' => get_post_meta($product->ID, 'breeder_notes', true),
@@ -405,6 +411,14 @@ class puppies_dashboard_main {
       </div>
     </div>
 <?php
+  }
+
+  public static function output_info() {
+    if($_COOKIE['puppies_info']) {
+      echo '<div class="infobox">' . stripslashes($_COOKIE['puppies_info']) . '</div>';
+      unset($_COOKIE['puppies_info']);
+      setcookie('puppies_info', null, -1, '/');
+    }
   }
 
 }

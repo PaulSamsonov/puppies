@@ -18,7 +18,7 @@
         <li>
           <div class="border">Puppies</div>
           <ul>
-            <li<?php echo ( $vars['type'] == 'puppies' && $vars['action'] == 'new' ) ? ' class="active"' : ''; ?>><a href="<?php echo get_home_url(null, '/breeder-dashboard/puppies/new'); ?>">Add New</a></li>
+            <li<?php echo ( $vars['type'] == 'puppies' && ($vars['action'] == 'new' || $vars['action'] == 'media') ) ? ' class="active"' : ''; ?>><a href="<?php echo get_home_url(null, '/breeder-dashboard/puppies/new'); ?>">Add New</a></li>
             <li<?php echo ( $vars['type'] == 'puppies' && $vars['action'] == 'approved' ) ? ' class="active"' : ''; ?>><a href="<?php echo get_home_url(null, '/breeder-dashboard/puppies/approved'); ?>">Approved</a></li>
             <li<?php echo ( $vars['type'] == 'puppies' && $vars['action'] == 'pending' ) ? ' class="active"' : ''; ?>><a href="<?php echo get_home_url(null, '/breeder-dashboard/puppies/pending'); ?>">Pending</a></li>
             <li<?php echo ( $vars['type'] == 'puppies' && $vars['action'] == 'sold' ) ? ' class="active"' : ''; ?>><a href="<?php echo get_home_url(null, '/breeder-dashboard/puppies/sold'); ?>">Sold</a></li>

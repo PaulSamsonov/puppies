@@ -39,7 +39,7 @@ echo '</pre>';*/
         <div class="col col-50">
             <div class="form-group">
                 <label>Breed*</label>
-                <select class="form-control" required name="BreedName">
+                <select class="form-control select-search" required name="BreedName">
                     <option></option>
                     <?php
                       $categories = get_categories(array(
@@ -59,7 +59,7 @@ echo '</pre>';*/
         <div class="col col-50">
             <div class="form-group">
                 <label>Weight*</label>
-                <select class="form-control" required name="Weight">
+                <select class="form-control select-search" required name="Weight">
                     <option></option>
                     <option value="10 - 13 ozs"<?php if($data['Weight'] == '10 - 13 ozs') echo ' selected'; ?>>10 - 13 ozs</option>
                     <option value="13 - 16 ozs"<?php if($data['Weight'] == '13 - 16 ozs') echo ' selected'; ?>>13 - 16 ozs</option>
@@ -118,7 +118,7 @@ echo '</pre>';*/
         <div class="col col-50">
             <div class="form-group">
                 <label>Registry*</label>
-                <select class="form-control" required name="RegistryName">
+                <select class="form-control select-search" required name="RegistryName">
                     <option></option>
                     <option value="ACA"<?php if($data['RegistryName'] == 'ACA') echo ' selected'; ?>>ACA</option>
                     <option value="AKC"<?php if($data['RegistryName'] == 'AKC') echo ' selected'; ?>>AKC</option>
@@ -197,7 +197,7 @@ echo '</pre>';*/
         <div class="col col-50">
             <div class="form-group">
                 <label>Color*</label>
-                <select required class="form-control" name="Coloring">
+                <select required class="form-control select-search" name="Coloring">
                     <option<?php if($data['Coloring'] == 'Agouti & White') echo ' selected'; ?>>Agouti & White</option>
                     <option<?php if($data['Coloring'] == 'Apricot') echo ' selected'; ?>>Apricot</option>
                     <option<?php if($data['Coloring'] == 'Apricot & White') echo ' selected'; ?>>Apricot & White</option>

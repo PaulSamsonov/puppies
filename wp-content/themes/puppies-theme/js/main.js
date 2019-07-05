@@ -274,4 +274,16 @@ jQuery(function($) {
             window.location.reload(true);
         });
     });
+    // sorting
+    $('.select-sort select').on('change', function () {
+        window.location = $(this).val();
+    });
+    // mobile menu
+    $('select.mobile-menu').select2({
+        minimumResultsForSearch: -1,
+    }).on('change', function (e) {
+        window.location = $(this).val();
+    });
+    // select search
+    $('select.select-search').select2();
 });

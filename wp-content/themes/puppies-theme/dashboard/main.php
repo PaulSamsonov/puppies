@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row row-tiles">
   <div class="col col-20">
     <a class="tile" href="<?php echo get_home_url(null, '/breeder-dashboard/puppies/pending'); ?>">
       <?php
