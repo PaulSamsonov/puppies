@@ -5,7 +5,10 @@ $data = $vars['data'];
 print_r($vars);
 echo '</pre>';*/
 ?>
-<h1><?php echo $data['title']; ?></h1>
+<div class="media-head">
+    <h1><?php echo $data['title']; ?></h1>
+    <label><a href="<?php echo get_home_url(null, '/breeder-dashboard/puppies/edit/'.$vars['path_id']); ?>">Edit <?php echo $vars['type'] == 'puppies' ? 'puppy' : 'parent'; ?></a></label>
+</div>
 <div class="drop-photos">
     <h2>Photos</h2>
     <div class="dropUpload-holder">
@@ -38,7 +41,7 @@ echo '</pre>';*/
         <?php echo $data['out_media']; ?>
     </div>
 </div>
-<?php if($vars['type'] == 'puppies') { ?>
+<?php /*if($vars['type'] == 'puppies') { ?>
 <div class="drop-video" id="section-video">
     <h2>Video</h2>
     <div class="dropUpload-holder"<?php echo $data['out_media_video'] ? ' style="display:none;"' : '';  ?>>
@@ -67,5 +70,5 @@ echo '</pre>';*/
     <div class="row-media">
       <?php echo $data['out_media_video']; ?>
     </div>
-    <?php } ?>
 </div>
+<?php } */ ?>

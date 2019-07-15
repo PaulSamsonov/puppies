@@ -54,15 +54,9 @@ class puppies_dashboard {
     // Ajax
     add_action( 'wp_ajax_puppy_media', array( $this->class_media, 'ajax_media' ) );
     add_action( 'wp_ajax_puppy_sold', array( $this, 'ajax_mark_sold' ) );
-
-    // wp_footer
-    add_action('wp_footer', array( $this, 'footer' ));
   }
 
   public function rewrites() {
-    //add_rewrite_rule( '^breeder-dashboard/([^/]*)/?$', 'index.php?pagename=breeder-dashboard&type=$matches[1]', 'top' );
-    //add_rewrite_rule( '^breeder-dashboard/parents/([^/]*)[/]*([^/]*)/?$', 'index.php?pagename=breeder-dashboard&type=parents&action=$matches[1]&id=$matches[2]', 'top' );
-    //add_rewrite_rule( '^breeder-dashboard/puppies/([^/]*)[/]*([^/]*)/?$', 'index.php?pagename=breeder-dashboard&type=puppies&action=$matches[1]&id=$matches[2]', 'top' );
     add_rewrite_rule( '^breeder-dashboard/([^/]*)[/]*([^/]*)[/]*([^/]*)/?$', 'index.php?pagename=breeder-dashboard&type=$matches[1]&action=$matches[2]&id=$matches[3]', 'top' );
     add_filter( 'query_vars', function( $vars ) {
       $vars[] = 'type';
@@ -112,7 +106,8 @@ class puppies_dashboard {
     /*echo '<pre>';
     print_r($_FILES);
     print_r($_POST);
-    echo '</pre>';*/
+    echo '</pre>';
+    exit;*/
 
     $this->plugin_cron = new tsl_puppies_direct_cron();
 
@@ -123,17 +118,23 @@ class puppies_dashboard {
     } else {
       $this->output();
     }
+
+    // wp_footer
+    add_action('wp_footer', array( $this, 'output_footer' ));
   }
 
   public function submit($data) {
 
+    // check agreement
     if($data['type'] == 'puppies' && $data['action'] == 'new' && (!$data['usda_agreement'] || !$data['price_agreement'])) {
       return;
     }
 
     if($data['action'] == 'new') {
+      // get Vendor
       $data['VendorId'] = WC_Product_Vendors_Utils::get_user_active_vendor();
 
+      // cooking
       if($data['type'] == 'parents') {
         $puppies_info = "Thank you for adding your new parents. We have received your parents information for review and will notify you when we have approved the parents. Please contact us with any questions.";
       } else {
@@ -142,14 +143,15 @@ class puppies_dashboard {
       setcookie('puppies_info', $puppies_info, time()+600, '/');
     }
 
+    // saving/updating
     $this->update( $data );
 
+    // redirecting
     if($data['type'] == 'puppies') {
       $action = '/pending';
     } else {
       $action = '';
     }
-
     wp_redirect(get_home_url(null, '/breeder-dashboard/'.$data['type'] . $action));
     exit;
   }
@@ -198,7 +200,8 @@ class puppies_dashboard {
       // datepicker
       wp_enqueue_style( 'jquery-ui-css', '//ajax.googleapis.com/ajax/libs/jqueryui/1.8.21/themes/base/jquery-ui.css' );
       wp_enqueue_script('jquery-ui-datepicker');
-    } elseif( $vars['action'] == 'media' ) {
+    }
+    if( $vars['action'] == 'new' || $vars['action'] == 'edit' || $vars['action'] == 'media' ) {
       // dropzone (plugins_url(null, __FILE__).'/dropzone.js)
       wp_enqueue_style( 'dropzone', '//cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/min/dropzone.min.css', '', time() );
       wp_enqueue_script( 'dropzone-js', '//cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/min/dropzone.min.js', '', time(), true );
@@ -246,6 +249,14 @@ class puppies_dashboard {
       update_post_meta( $product_id, '_manage_stock', 'yes');
       update_post_meta( $product_id, '_stock', '1');
       //update_post_meta( $product_id, 'out_of_stock_by_pet_key', 'no' );
+
+      // Send email
+      if($data['type'] == 'parents') {
+        $to = get_option('admin_email');
+        $subject = 'New Parents';
+        $message = 'New Parent was added - ' . '<a href="'.get_edit_post_link($product_id).'">Link</a>';
+        wp_mail($to, $subject, $message );
+      }
 
     } else {
 
@@ -341,6 +352,27 @@ class puppies_dashboard {
 
     // Set vendor
     if(isset($data['VendorId'])) wp_set_object_terms( $product_id, $data['VendorId'], WC_PRODUCT_VENDORS_TAXONOMY );
+
+    // Set thumbnail on uploading through dropzone from main form
+    if(isset($data['media_file'])) {
+      $dir = wp_get_upload_dir();
+      $img = str_replace('data:'.$data['media_file']['type'].';base64,', '', $data['media_file']['dataURL']);
+      $img = str_replace(' ', '+', $img);
+      $data_img = base64_decode($img);
+      $file = $dir['basedir'] .'/'. uniqid() .'_'. $data['media_file']['name'];
+      $success = file_put_contents($file, $data_img);
+      $attach_id = $this->class_media->download_image_to_wp_media_library(
+        array(
+          'name' => $data['media_file']['name'],
+          'type' => $data['media_file']['type'],
+          'size' => $data['media_file']['size'],
+          'tmp_name' => $file,
+          'error' => 0
+        ),
+        $product_id
+      );
+      set_post_thumbnail( $product_id, $attach_id );
+    }
   }
 
   public function get_product_data($id, $type) {
@@ -399,26 +431,26 @@ class puppies_dashboard {
     wp_die();
   }
 
-  public function footer() {
-?>
-    <div class="modal-popup" id="popup-confirm">
-      <div class="modal-popup-content">
-        <h4 class="modal-popup-title">Are you sure?</h4>
-        <div class="modal-popup-footer">
-          <button class="accept">Yes</button>
-          <button class="close">No</button>
-        </div>
-      </div>
-    </div>
-<?php
-  }
-
   public static function output_info() {
     if($_COOKIE['puppies_info']) {
       echo '<div class="infobox">' . stripslashes($_COOKIE['puppies_info']) . '</div>';
       unset($_COOKIE['puppies_info']);
       setcookie('puppies_info', null, -1, '/');
     }
+  }
+
+  public function output_footer() {
+    ?>
+      <div class="modal-popup" id="popup-confirm">
+          <div class="modal-popup-content">
+              <h4 class="modal-popup-title">Are you sure?</h4>
+              <div class="modal-popup-footer">
+                  <button class="accept">Yes</button>
+                  <button class="close">No</button>
+              </div>
+          </div>
+      </div>
+    <?php
   }
 
 }

@@ -5,7 +5,7 @@ print_r($vars['data']);
 echo '</pre>';*/
 ?>
 <h1><?php echo ($vars['action'] == 'edit') ? 'Edit' : 'Create'; ?> Puppy</h1>
-<form enctype="multipart/form-data" action="" accept-charset="utf-8" method="post">
+<form class="pd-form" enctype="multipart/form-data" action="" accept-charset="utf-8" method="post">
     <div class="row">
         <div class="col col-50">
             <div class="form-group">
@@ -783,7 +783,7 @@ echo '</pre>';*/
     <div class="row">
         <div class="col">
             <div class="form-group">
-                <label for="form_breeder_notes">Notes to PuppySpot</label>
+                <label for="form_breeder_notes">Notes to Puppies Today</label>
                 <p class="label-info">Is there other information we should know about this puppy? Add your notes or comments here.</p>
                 <textarea rows="5" maxlength="500" data-max-length="500" class="form-control" name="breeder_notes" id="form_breeder_notes"><?php echo $data['breeder_notes']; ?></textarea>
                 <!--div class="field-explanation">0 / 500 characters.</div-->
@@ -792,6 +792,32 @@ echo '</pre>';*/
         </div>
     </div>
     <?php if($vars['action'] == 'new') { ?>
+        <div class="drop-photos">
+            <label>Add main Photo</label>
+            <div class="dropUpload-holder">
+                <button type="button" class="dropSelect dropSelectImage">Select image</button>
+            </div>
+            <div class="dropzone" id="frmDropzone"></div>
+            <div id="previews_photo" class="media-previews">
+                <div id="template_photo">
+                    <div class="preview">
+                        <img data-dz-thumbnail>
+                    </div>
+                    <div>
+                        <p>Name: <span data-dz-name></span></p>
+                        <strong class="error" data-dz-errormessage></strong>
+                        <p>Size: <span data-dz-size></span></p>
+                        <div class="actions">
+                            <button data-dz-remove class="dropCancel btn-delete">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <input type="hidden" name="media_file[name]">
+        <input type="hidden" name="media_file[size]">
+        <input type="hidden" name="media_file[type]">
+        <input type="hidden" name="media_file[dataURL]">
         <div class="row">
             <div class="col">
                 <div class="agreement">
@@ -806,6 +832,12 @@ echo '</pre>';*/
                         <span>Yes, all of my puppy’s costs are accounted for in the asking price field.</span>
                     </label>
                 </div>
+            </div>
+        </div>
+    <?php } else { ?>
+        <div class="row">
+            <div class="col">
+                <label><a href="<?php echo get_home_url(null, '/breeder-dashboard/puppies/media/'.$vars['path_id']); ?>">Edit photos</a></label>
             </div>
         </div>
     <?php } ?>

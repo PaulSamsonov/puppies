@@ -561,6 +561,14 @@ li.ast-masthead-custom-menu-items {padding: 0; width:200px;}*/
 .page-template-breeder-dashboard .media-video {
     margin-bottom: 15px;
 }
+.page-template-breeder-dashboard .media-head {
+    display: flex;
+    align-items: center;
+}
+.page-template-breeder-dashboard .media-head label {
+    font-weight: 400;
+    margin: 0 0 25px 25px;
+}
 /* Popup */
 .page-template-breeder-dashboard .modal-popup {
     display: none;

@@ -8,8 +8,13 @@ class puppies_dashboard_media {
     /*echo '<pre>';
     print_r($_FILES);
     print_r($_POST);
-    echo '</pre>';*/
+    echo '</pre>';
+    exit;*/
 
+    /*if($_FILES['puppy_media'] && $_POST['type'] == 'add_media') {
+      $attach_id = $this->download_image_to_wp_media_library( $_FILES['puppy_media'], 0, 'puppy_media' );
+      echo json_encode(array('attach_id' => $attach_id));
+    } else*/
     if($_FILES['puppy_media'] && $_POST['pid']) {
       if( is_numeric($_POST['aid']) ) {
         $new_attach_id = $this->download_image_to_wp_media_library( $_FILES['puppy_media'], $_POST['pid'] );
@@ -82,20 +87,22 @@ class puppies_dashboard_media {
     return $data;
   }
 
-  public function download_image_to_wp_media_library($file_array, $post_id) {
+  public function download_image_to_wp_media_library($file_array, $post_id, $desc = false) {
 
     require_once ABSPATH . 'wp-admin/includes/image.php';
     require_once ABSPATH . 'wp-admin/includes/file.php';
     require_once ABSPATH . 'wp-admin/includes/media.php';
 
-    $desc = get_the_title($post_id);
+    if( !$desc ) {
+      $desc = get_the_title($post_id);
+    }
 
     $attachment_id = media_handle_sideload( $file_array, $post_id, $desc );
 
     if ( is_wp_error($attachment_id) ) {
       @unlink($file_array['tmp_name']);
       return false;
-    }else {
+    } else {
       return $attachment_id;
     }
 

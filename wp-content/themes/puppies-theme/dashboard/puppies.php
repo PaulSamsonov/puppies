@@ -132,7 +132,7 @@
                     <?php } ?>
                 </div>
                 <div class="right">
-                    <a href="<?php echo get_home_url(null, '/breeder-dashboard/puppies/media/'.$post->ID); ?>#section-video" class="btn-videos"><span class="icon videos"></span>Videos</a>
+                    <?php /* ?><a href="<?php echo get_home_url(null, '/breeder-dashboard/puppies/media/'.$post->ID); ?>#section-video" class="btn-videos"><span class="icon videos"></span>Videos</a><?php */ ?>
                     <a class="modal-popup-link btn-delete" href="#popup-confirm" data-url="<?php echo get_home_url(null, '/breeder-dashboard/puppies/delete/'.$post->ID.'?redirect='.$vars['action']); ?>">Delete</a>
                 </div>
                 <a class="view-link" href="<?php echo get_permalink($post->ID); ?>" target="_blank">View on site</a>
